@@ -18,8 +18,8 @@ class LoginViewModel(
 
     val uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
 
-    fun doLogin(username: String, password: String) {
-        loginUseCase.invoke(username, password)
+    fun doLogin() {
+        loginUseCase.invoke("username", "password")
             .map {
                 println("Mapping login result to uiState: $it")
                 UiState.Success(it)

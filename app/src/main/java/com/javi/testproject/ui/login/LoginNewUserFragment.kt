@@ -37,7 +37,7 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogin.setOnClickListener {
-            loginViewModel.doLogin("", "")
+            loginViewModel.doLogin()
         }
 
         loginViewModel.uiState

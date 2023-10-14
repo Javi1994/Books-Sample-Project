@@ -1,10 +1,10 @@
-package com.javi.testproject.ui.user_detail
+package com.javi.testproject.ui.book_detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.javi.testproject.R
 
-class UserDetailActivity : AppCompatActivity() {
+class BookDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

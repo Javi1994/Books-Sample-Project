@@ -25,7 +25,7 @@
             android:name=".ui.home.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.user_detail.UserDetailActivity"
+            android:name=".ui.book_detail.BookDetailActivity"
             android:exported="true" />
     </application>
 
