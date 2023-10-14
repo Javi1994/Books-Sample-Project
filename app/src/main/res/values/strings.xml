@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TestProject</string>
+
+    <string name="login_user_hint">Username</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_do_login_btn">Login</string>
+</resources>
