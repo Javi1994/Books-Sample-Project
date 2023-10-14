@@ -1,13 +1,14 @@
 package com.javi.testproject.domain.use_case
 
-import com.javi.testproject.data.LoginRepository
+import com.javi.testproject.data.remote.dto.UserDto
+import com.javi.testproject.domain.LoginRepository
 import kotlinx.coroutines.flow.Flow
 
 class LoginUseCase(
     private val loginRepository: LoginRepository
 ): BaseUseCase() {
 
-    operator fun invoke(username: String, password: String): Flow<Unit> {
+    operator fun invoke(username: String, password: String): Flow<UserDto> {
         return loginRepository.login(username, password)
     }
 }
