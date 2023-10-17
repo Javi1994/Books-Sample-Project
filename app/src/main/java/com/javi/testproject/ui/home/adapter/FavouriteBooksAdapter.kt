@@ -3,7 +3,6 @@ package com.javi.testproject.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.javi.testproject.data.dto.BookDto
 import com.javi.testproject.databinding.BookItemBinding
 import com.javi.testproject.domain.model.Book
 

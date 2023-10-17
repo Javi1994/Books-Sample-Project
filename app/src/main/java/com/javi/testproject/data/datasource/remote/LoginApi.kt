@@ -1,4 +1,4 @@
-package com.javi.testproject.data.remote
+package com.javi.testproject.data.datasource.remote
 
 import com.javi.testproject.data.dto.UserDto
 import kotlinx.coroutines.flow.Flow

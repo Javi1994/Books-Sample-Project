@@ -1,6 +1,6 @@
 package com.javi.testproject.data
 
-import com.javi.testproject.data.remote.BookApi
+import com.javi.testproject.data.datasource.remote.BookApi
 import com.javi.testproject.data.dto.BookDetailDto
 import com.javi.testproject.data.dto.BookDto
 import com.javi.testproject.data.repository.BookRepository
@@ -11,14 +11,16 @@ class BookRepositoryImpl(
     private val bookApi: BookApi
 ) : BookRepository {
     override fun getFavouriteBooks(username: String): Flow<List<BookDto>> {
-        return bookApi.getFavouriteBooks(username).onEach {
-            println("Favourite books result: $it")
-        }
+        return bookApi.getFavouriteBooks(username)
+            .onEach {
+                println("Favourite books result: $it")
+            }
     }
 
     override fun getBookDetail(id: String): Flow<BookDetailDto> {
-        return bookApi.getBookDetail(id).onEach {
-            println("Book detail result: $it")
-        }
+        return bookApi.getBookDetail(id)
+            .onEach {
+                println("Book detail result: $it")
+            }
     }
 }

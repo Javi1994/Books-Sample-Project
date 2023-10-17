@@ -3,9 +3,9 @@ package com.javi.testproject.di
 import com.javi.testproject.data.BookRepositoryImpl
 import com.javi.testproject.data.LoginRepositoryImpl
 import com.javi.testproject.data.UserRepositoryImpl
-import com.javi.testproject.data.mock.BookApiMock
-import com.javi.testproject.data.mock.LoginApiMock
-import com.javi.testproject.data.mock.UserApiMock
+import com.javi.testproject.data.datasource.mock.BookApiMock
+import com.javi.testproject.data.datasource.mock.LoginApiMock
+import com.javi.testproject.data.datasource.mock.UserApiMock
 import com.javi.testproject.domain.use_case.GetBookDetailUseCase
 import com.javi.testproject.domain.use_case.GetFavouriteBooksUseCase
 import com.javi.testproject.domain.use_case.LoginUseCase

@@ -1,6 +1,6 @@
 package com.javi.testproject.data
 
-import com.javi.testproject.data.remote.LoginApi
+import com.javi.testproject.data.datasource.remote.LoginApi
 import com.javi.testproject.data.dto.UserDto
 import com.javi.testproject.data.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow

@@ -1,6 +1,6 @@
-package com.javi.testproject.data.mock
+package com.javi.testproject.data.datasource.mock
 
-import com.javi.testproject.data.remote.BookApi
+import com.javi.testproject.data.datasource.remote.BookApi
 import com.javi.testproject.data.dto.BookDetailDto
 import com.javi.testproject.data.dto.BookDto
 import kotlinx.coroutines.delay

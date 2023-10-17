@@ -4,20 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.javi.testproject.R
 import com.javi.testproject.common.UiState
-import com.javi.testproject.data.dto.BookDetailDto
 import com.javi.testproject.databinding.ActivityBookDetailBinding
-import com.javi.testproject.databinding.ActivityHomeBinding
 import com.javi.testproject.domain.model.BookDetail
 import com.javi.testproject.ui.book_detail.viewmodel.BookDetailViewModel
-import com.javi.testproject.ui.login.viewmodel.LoginViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class BookDetailActivity : AppCompatActivity() {

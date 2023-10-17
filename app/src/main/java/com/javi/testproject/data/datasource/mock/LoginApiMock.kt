@@ -1,6 +1,6 @@
-package com.javi.testproject.data.mock
+package com.javi.testproject.data.datasource.mock
 
-import com.javi.testproject.data.remote.LoginApi
+import com.javi.testproject.data.datasource.remote.LoginApi
 import com.javi.testproject.data.dto.UserDto
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
