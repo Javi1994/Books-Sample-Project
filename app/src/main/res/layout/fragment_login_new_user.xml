@@ -24,7 +24,8 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_marginTop="40dp"
         android:layout_height="wrap_content"
-        android:text="@string/login_do_login_btn"/>
+        android:layout_marginTop="40dp"
+        android:enabled="false"
+        android:text="@string/login_do_login_btn" />
 </LinearLayout>

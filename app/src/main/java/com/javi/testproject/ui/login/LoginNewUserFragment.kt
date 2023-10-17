@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -39,7 +40,21 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogin.setOnClickListener {
+            //TODO: improve btn activation
+            it.isEnabled = false
             loginViewModel.doLogin()
+        }
+
+        //TODO: improve btn activation
+        binding.inputUsername.addTextChangedListener {
+            binding.btnLogin.isEnabled =
+                !it.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty()
+        }
+
+        //TODO: improve btn activation
+        binding.inputPassword.addTextChangedListener {
+            binding.btnLogin.isEnabled =
+                !it.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty()
         }
 
         loginViewModel.uiState
@@ -48,6 +63,8 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
 
                 when (it) {
                     is UiState.Success<*> -> {
+                        //TODO: improve btn activation
+                        binding.btnLogin.isEnabled = true
                         requireContext().startActivity(HomeActivity::class.java)
                     }
 
@@ -56,7 +73,8 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
                     }
 
                     is UiState.Error -> {
-
+                        //TODO: improve btn activation
+                        binding.btnLogin.isEnabled = true
                     }
                 }
             }.launchIn(lifecycleScope)
