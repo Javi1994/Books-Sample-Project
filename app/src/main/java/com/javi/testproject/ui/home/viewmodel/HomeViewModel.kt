@@ -22,8 +22,9 @@ class HomeViewModel(
     fun getFavouriteBooks() {
         getFavouriteBooksUseCase.invoke("username")
             .map {
-                println("Mapping favourite books result to uiState: $it")
-                UiState.Success(it)
+                val uiState = UiState.Success(it)
+                println("Mapping favourite books result to uiState: $uiState")
+                uiState
             }
             .onEach {
                 println("Emitting uiState: $it")

@@ -1,12 +1,9 @@
 package com.javi.testproject.data
 
 import com.javi.testproject.data.remote.BookApi
-import com.javi.testproject.data.remote.LoginApi
 import com.javi.testproject.data.dto.BookDetailDto
 import com.javi.testproject.data.dto.BookDto
-import com.javi.testproject.data.dto.UserDto
-import com.javi.testproject.domain.BookRepository
-import com.javi.testproject.domain.LoginRepository
+import com.javi.testproject.data.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 
@@ -21,7 +18,7 @@ class BookRepositoryImpl(
 
     override fun getBookDetail(id: String): Flow<BookDetailDto> {
         return bookApi.getBookDetail(id).onEach {
-            println("Favourite books result: $it")
+            println("Book detail result: $it")
         }
     }
 }

@@ -21,8 +21,9 @@ class BookDetailViewModel(
     fun getBookDetail() {
         getBookDetail.invoke("book_id")
             .map {
-                println("Mapping book detail result to uiState: $it")
-                UiState.Success(it)
+                val uiState = UiState.Success(it)
+                println("Mapping book detail result to uiState: $uiState")
+                uiState
             }
             .onEach {
                 println("Emitting uiState: $it")

@@ -1,4 +1,4 @@
-package com.javi.testproject.domain
+package com.javi.testproject.data.repository
 
 import com.javi.testproject.data.dto.BookDetailDto
 import com.javi.testproject.data.dto.BookDto

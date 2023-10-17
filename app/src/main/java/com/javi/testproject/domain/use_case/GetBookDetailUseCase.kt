@@ -1,8 +1,6 @@
 package com.javi.testproject.domain.use_case
 
-import com.javi.testproject.data.dto.BookDetailDto
-import com.javi.testproject.domain.BookRepository
-import com.javi.testproject.domain.mapping.toBook
+import com.javi.testproject.data.repository.BookRepository
 import com.javi.testproject.domain.mapping.toBookDetail
 import com.javi.testproject.domain.model.BookDetail
 import com.javi.testproject.domain.use_case.base.BaseUseCase

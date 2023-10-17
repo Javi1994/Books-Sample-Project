@@ -1,8 +1,6 @@
 package com.javi.testproject.domain.use_case
 
-import com.javi.testproject.data.dto.UserDto
-import com.javi.testproject.domain.LoginRepository
-import com.javi.testproject.domain.UserRepository
+import com.javi.testproject.data.repository.UserRepository
 import com.javi.testproject.domain.use_case.base.BaseUseCase
 import kotlinx.coroutines.flow.Flow
 

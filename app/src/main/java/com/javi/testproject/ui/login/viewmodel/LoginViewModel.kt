@@ -21,8 +21,9 @@ class LoginViewModel(
     fun doLogin() {
         loginUseCase.invoke("username", "password")
             .map {
-                println("Mapping login result to uiState: $it")
-                UiState.Success(it)
+                val uiState = UiState.Success(it)
+                println("Mapping login result to uiState: $uiState")
+                uiState
             }
             .onEach {
                 println("Emitting uiState: $it")
