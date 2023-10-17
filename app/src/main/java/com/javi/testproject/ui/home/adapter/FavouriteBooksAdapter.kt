@@ -3,12 +3,13 @@ package com.javi.testproject.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.javi.testproject.data.remote.dto.BookDto
+import com.javi.testproject.data.dto.BookDto
 import com.javi.testproject.databinding.BookItemBinding
+import com.javi.testproject.domain.model.Book
 
 class FavouriteBooksAdapter(
-    private var books: List<BookDto> = emptyList(),
-    private var onClick: (BookDto) -> Unit
+    private var books: List<Book> = emptyList(),
+    private var onClick: (Book) -> Unit
 ) : RecyclerView.Adapter<FavouriteBooksAdapter.BookViewHolder>() {
 
     private lateinit var binding: BookItemBinding
@@ -29,17 +30,17 @@ class FavouriteBooksAdapter(
         return books.size
     }
 
-    fun setData(books: List<BookDto>) {
+    fun setData(books: List<Book>) {
         this.books = books
         notifyDataSetChanged()
     }
 
     inner class BookViewHolder(
         private val binding: BookItemBinding,
-        private val onClick: (BookDto) -> Unit
+        private val onClick: (Book) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(book: BookDto) {
+        fun bind(book: Book) {
             binding.bookTitle.text = book.title
             binding.bookAuthor.text = book.author
 

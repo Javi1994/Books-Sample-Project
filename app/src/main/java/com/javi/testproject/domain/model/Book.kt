@@ -1,7 +1,6 @@
-package com.javi.testproject.data.remote.dto
+package com.javi.testproject.domain.model
 
-data class BookDto(
-    val id: String = "Default Id",
+data class Book(
     val title: String = "Default Name",
     val description: String = "Default Description",
     val author: String = "Default Author"

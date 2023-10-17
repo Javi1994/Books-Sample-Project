@@ -10,9 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.javi.testproject.R
 import com.javi.testproject.common.UiState
-import com.javi.testproject.data.remote.dto.BookDetailDto
+import com.javi.testproject.data.dto.BookDetailDto
 import com.javi.testproject.databinding.ActivityBookDetailBinding
 import com.javi.testproject.databinding.ActivityHomeBinding
+import com.javi.testproject.domain.model.BookDetail
 import com.javi.testproject.ui.book_detail.viewmodel.BookDetailViewModel
 import com.javi.testproject.ui.login.viewmodel.LoginViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -50,7 +51,7 @@ class BookDetailActivity : AppCompatActivity() {
             }
 
             is UiState.Success<*> -> {
-                setBookDetailData(uiState.data as BookDetailDto)
+                setBookDetailData(uiState.data as BookDetail)
                 binding.progressLoader.visibility = View.GONE
             }
 
@@ -60,7 +61,7 @@ class BookDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBookDetailData(bookDetail: BookDetailDto) {
+    private fun setBookDetailData(bookDetail: BookDetail) {
         with(binding) {
             this.bookDetailTitle.text = bookDetail.title
             this.bookDetailAuthor.text = bookDetail.author

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.javi.testproject.R
 import com.javi.testproject.common.UiState
-import com.javi.testproject.data.remote.dto.BookDetailDto
+import com.javi.testproject.data.dto.BookDetailDto
 import com.javi.testproject.databinding.ActivityBookDetailBinding
 import com.javi.testproject.databinding.ActivityLoginBinding
 import com.javi.testproject.ui.book_detail.viewmodel.BookDetailViewModel

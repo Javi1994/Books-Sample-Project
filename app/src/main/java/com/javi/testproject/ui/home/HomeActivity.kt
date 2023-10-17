@@ -15,10 +15,11 @@ import com.javi.testproject.common.UiState
 import com.javi.testproject.common.Util
 import com.javi.testproject.common.Util.startActivity
 import com.javi.testproject.common.Util.startActivityWithDelay
-import com.javi.testproject.data.remote.dto.BookDetailDto
-import com.javi.testproject.data.remote.dto.BookDto
+import com.javi.testproject.data.dto.BookDetailDto
+import com.javi.testproject.data.dto.BookDto
 import com.javi.testproject.databinding.ActivityHomeBinding
 import com.javi.testproject.databinding.FragmentLoginNewUserBinding
+import com.javi.testproject.domain.model.Book
 import com.javi.testproject.ui.book_detail.BookDetailActivity
 import com.javi.testproject.ui.book_detail.viewmodel.BookDetailViewModel
 import com.javi.testproject.ui.home.adapter.FavouriteBooksAdapter
@@ -67,7 +68,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
             is UiState.Success<*> -> {
-                setBooksData(uiState.data as List<BookDto>)
+                setBooksData(uiState.data as List<Book>)
                 binding.progressLoader.visibility = View.GONE
             }
 
@@ -77,7 +78,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBooksData(books: List<BookDto>) {
+    private fun setBooksData(books: List<Book>) {
         bookAdapter.setData(books)
     }
 }

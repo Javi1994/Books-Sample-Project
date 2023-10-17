@@ -1,13 +1,13 @@
 package com.javi.testproject.data.mock
 
 import com.javi.testproject.data.remote.BookApi
-import com.javi.testproject.data.remote.dto.BookDetailDto
-import com.javi.testproject.data.remote.dto.BookDto
+import com.javi.testproject.data.dto.BookDetailDto
+import com.javi.testproject.data.dto.BookDto
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class BookMock : BookApi {
+class BookApiMock : BookApi {
 
     override fun getFavouriteBooks(username: String): Flow<List<BookDto>> {
         return flow {
