@@ -39,22 +39,19 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLogin.setOnClickListener {
-            //TODO: improve btn activation
-            it.isEnabled = false
+        binding.btnLogin.onClickListener {
+            binding.btnLogin.isLoading(true)
             loginViewModel.doLogin()
         }
 
         //TODO: improve btn activation
         binding.inputUsername.addTextChangedListener {
-            binding.btnLogin.isEnabled =
-                !it.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty()
+            binding.btnLogin.isEnabled(!it.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty())
         }
 
         //TODO: improve btn activation
         binding.inputPassword.addTextChangedListener {
-            binding.btnLogin.isEnabled =
-                !it.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty()
+            binding.btnLogin.isEnabled(!it.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty())
         }
 
         loginViewModel.uiState
@@ -63,18 +60,16 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
 
                 when (it) {
                     is UiState.Success<*> -> {
-                        //TODO: improve btn activation
-                        binding.btnLogin.isEnabled = true
+                        binding.btnLogin.isLoading(false)
                         requireContext().startActivity(HomeActivity::class.java)
                     }
 
                     is UiState.Loading -> {
-
+                        //binding.btnLogin.isLoading(true)
                     }
 
                     is UiState.Error -> {
-                        //TODO: improve btn activation
-                        binding.btnLogin.isEnabled = true
+
                     }
                 }
             }.launchIn(lifecycleScope)

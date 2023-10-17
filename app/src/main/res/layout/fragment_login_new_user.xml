@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,11 +22,13 @@
         android:layout_height="wrap_content"
         android:hint="@string/login_password_hint" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.javi.testproject.ui.components.LoadingButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:enabled="false"
-        android:text="@string/login_do_login_btn" />
+        android:enabled="true"
+        app:btn_value="@string/login_do_login_btn"
+        app:set_loading="false" />
 </LinearLayout>

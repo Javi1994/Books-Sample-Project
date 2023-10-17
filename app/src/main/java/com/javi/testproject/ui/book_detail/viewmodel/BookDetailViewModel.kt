@@ -1,6 +1,7 @@
 package com.javi.testproject.ui.book_detail.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.javi.testproject.common.UiState
 import com.javi.testproject.di.AppModule
 import com.javi.testproject.domain.use_case.GetBookDetailUseCase
@@ -18,6 +19,15 @@ class BookDetailViewModel(
     val uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
 
     fun getBookDetail() {
-
+        getBookDetail.invoke("book_id")
+            .map {
+                println("Mapping login result to uiState: $it")
+                UiState.Success(it)
+            }
+            .onEach {
+                println("Emitting uiState: $it")
+                uiState.emit(it)
+            }
+            .launchIn(viewModelScope)
     }
 }

@@ -1,10 +1,10 @@
 package com.javi.testproject.data.remote.dto
 
 data class BookDetailDto(
-    private val id: String,
-    private val name: String,
-    private val description: String,
-    private val pages: Int,
-    private val readTime: Int,
-    private val author: String
+    val id: String,
+    val title: String,
+    val description: String,
+    val pages: Int,
+    val readTime: Int,
+    val author: String
 )
