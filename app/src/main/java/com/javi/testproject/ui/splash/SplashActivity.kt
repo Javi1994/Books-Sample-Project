@@ -7,6 +7,7 @@ import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.javi.testproject.R
+import com.javi.testproject.common.Util.startActivityWithDelay
 import com.javi.testproject.ui.login.LoginActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,12 +20,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         lifecycleScope.launch {
-            startActivityWithDelay(1000, LoginActivity::class.java)
+            startActivityWithDelay(this@SplashActivity, 1000, LoginActivity::class.java)
         }
-    }
-
-    private suspend fun startActivityWithDelay(delayTime: Long, activity: Class<*>) {
-        delay(delayTime)
-        startActivity(Intent(this@SplashActivity, activity))
     }
 }

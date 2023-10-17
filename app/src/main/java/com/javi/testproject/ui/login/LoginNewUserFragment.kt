@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.javi.testproject.R
 import com.javi.testproject.common.UiState
+import com.javi.testproject.common.Util.startActivity
+import com.javi.testproject.common.Util.startActivityWithDelay
 import com.javi.testproject.databinding.FragmentLoginNewUserBinding
 import com.javi.testproject.ui.home.HomeActivity
 import com.javi.testproject.ui.login.viewmodel.LoginViewModel
@@ -46,7 +48,7 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
 
                 when (it) {
                     is UiState.Success<*> -> {
-                        startActivityWithDelay(1000, HomeActivity::class.java)
+                        requireContext().startActivity(HomeActivity::class.java)
                     }
 
                     is UiState.Loading -> {
@@ -63,10 +65,5 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private suspend fun startActivityWithDelay(delayTime: Long, activity: Class<*>) {
-        delay(delayTime)
-        startActivity(Intent(requireContext(), activity))
     }
 }
