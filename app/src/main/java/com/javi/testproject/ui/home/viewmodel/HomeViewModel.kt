@@ -20,6 +20,15 @@ class HomeViewModel(
     val uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
 
     fun getFavouriteBooks() {
-
+        getFavouriteBooksUseCase.invoke("username")
+            .map {
+                println("Mapping favourite books result to uiState: $it")
+                UiState.Success(it)
+            }
+            .onEach {
+                println("Emitting uiState: $it")
+                uiState.emit(it)
+            }
+            .launchIn(viewModelScope)
     }
 }

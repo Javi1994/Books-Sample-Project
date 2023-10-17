@@ -21,7 +21,7 @@ class BookDetailViewModel(
     fun getBookDetail() {
         getBookDetail.invoke("book_id")
             .map {
-                println("Mapping login result to uiState: $it")
+                println("Mapping book detail result to uiState: $it")
                 UiState.Success(it)
             }
             .onEach {

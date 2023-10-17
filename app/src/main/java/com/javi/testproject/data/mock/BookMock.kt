@@ -14,12 +14,12 @@ class BookMock : BookApi {
             delay(1000)
             emit(
                 listOf(
-                    BookDto(),
-                    BookDto(),
-                    BookDto(),
-                    BookDto(),
-                    BookDto(),
-                    BookDto()
+                    BookDto(title = "The Ruby Torch", author = "Hadia Hauzini"),
+                    BookDto(title = "The Shadow Wolf", author = "Darren Ljubica"),
+                    BookDto(title = "City of Grace", author = "Indrajit Valentinus"),
+                    BookDto(title = "Grace and the Gate", author = "Shamsuddin Iakob"),
+                    BookDto(title = "Scar and the Lily", author = "Jameson Vohu Manah"),
+                    BookDto(title = "The crystal in the North", author = "Tanvi Juuso")
                 )
             )
         }

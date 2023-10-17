@@ -5,7 +5,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.javi.testproject.R
 import com.javi.testproject.common.UiState
 import com.javi.testproject.data.remote.dto.BookDetailDto
@@ -15,6 +17,7 @@ import com.javi.testproject.ui.book_detail.viewmodel.BookDetailViewModel
 import com.javi.testproject.ui.login.viewmodel.LoginViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class BookDetailActivity : AppCompatActivity() {
 
@@ -28,11 +31,16 @@ class BookDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         bookDetailViewModel.getBookDetail()
-        bookDetailViewModel.uiState
-            .onEach {
-                render(it)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                bookDetailViewModel
+                    .uiState
+                    .collect {
+                        render(it)
+                    }
             }
-            .launchIn(lifecycleScope)
+        }
     }
 
     private fun render(uiState: UiState) {
@@ -58,9 +66,9 @@ class BookDetailActivity : AppCompatActivity() {
             this.bookDetailAuthor.text = bookDetail.author
             this.bookDetailDescription.text = bookDetail.description
             this.bookDetailReadTime.text =
-                resources.getText(R.string.book_read_time, bookDetail.readTime.toString())
+                resources.getString(R.string.book_read_time, bookDetail.readTime.toString())
             this.bookDetailPages.text =
-                resources.getText(R.string.book_pages, bookDetail.pages.toString())
+                resources.getString(R.string.book_pages, bookDetail.pages.toString())
         }
     }
 }
