@@ -1,4 +1,4 @@
-package com.javi.testproject.ui.book_detail
+package com.javi.testproject.presentation.book_detail
 
 import android.os.Bundle
 import android.view.View
@@ -11,7 +11,7 @@ import com.javi.testproject.R
 import com.javi.testproject.common.UiState
 import com.javi.testproject.databinding.ActivityBookDetailBinding
 import com.javi.testproject.domain.model.BookDetail
-import com.javi.testproject.ui.book_detail.viewmodel.BookDetailViewModel
+import com.javi.testproject.presentation.book_detail.viewmodel.BookDetailViewModel
 import kotlinx.coroutines.launch
 
 class BookDetailActivity : AppCompatActivity() {

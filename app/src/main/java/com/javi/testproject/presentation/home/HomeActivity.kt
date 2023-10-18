@@ -1,4 +1,4 @@
-package com.javi.testproject.ui.home
+package com.javi.testproject.presentation.home
 
 import android.os.Bundle
 import android.view.View
@@ -12,9 +12,9 @@ import com.javi.testproject.common.UiState
 import com.javi.testproject.common.Util.startActivity
 import com.javi.testproject.databinding.ActivityHomeBinding
 import com.javi.testproject.domain.model.Book
-import com.javi.testproject.ui.book_detail.BookDetailActivity
-import com.javi.testproject.ui.home.adapter.FavouriteBooksAdapter
-import com.javi.testproject.ui.home.viewmodel.HomeViewModel
+import com.javi.testproject.presentation.book_detail.BookDetailActivity
+import com.javi.testproject.presentation.home.adapter.FavouriteBooksAdapter
+import com.javi.testproject.presentation.home.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {

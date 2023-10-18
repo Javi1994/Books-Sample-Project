@@ -1,7 +1,7 @@
-package com.javi.testproject.data
+package com.javi.testproject.data.repository
 
 import com.javi.testproject.data.datasource.remote.UserApi
-import com.javi.testproject.data.repository.UserRepository
+import com.javi.testproject.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 

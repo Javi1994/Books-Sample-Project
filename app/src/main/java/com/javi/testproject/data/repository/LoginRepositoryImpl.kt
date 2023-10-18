@@ -1,8 +1,8 @@
-package com.javi.testproject.data
+package com.javi.testproject.data.repository
 
 import com.javi.testproject.data.datasource.remote.LoginApi
 import com.javi.testproject.data.dto.UserDto
-import com.javi.testproject.data.repository.LoginRepository
+import com.javi.testproject.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 

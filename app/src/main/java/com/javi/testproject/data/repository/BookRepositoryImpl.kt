@@ -1,9 +1,9 @@
-package com.javi.testproject.data
+package com.javi.testproject.data.repository
 
 import com.javi.testproject.data.datasource.remote.BookApi
 import com.javi.testproject.data.dto.BookDetailDto
 import com.javi.testproject.data.dto.BookDto
-import com.javi.testproject.data.repository.BookRepository
+import com.javi.testproject.domain.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".presentation.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +19,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".presentation.login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".presentation.home.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.book_detail.BookDetailActivity"
+            android:name=".presentation.book_detail.BookDetailActivity"
             android:exported="true" />
     </application>
 

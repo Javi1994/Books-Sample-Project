@@ -1,8 +1,8 @@
 package com.javi.testproject.di
 
-import com.javi.testproject.data.BookRepositoryImpl
-import com.javi.testproject.data.LoginRepositoryImpl
-import com.javi.testproject.data.UserRepositoryImpl
+import com.javi.testproject.data.repository.BookRepositoryImpl
+import com.javi.testproject.data.repository.LoginRepositoryImpl
+import com.javi.testproject.data.repository.UserRepositoryImpl
 import com.javi.testproject.data.datasource.mock.BookApiMock
 import com.javi.testproject.data.datasource.mock.LoginApiMock
 import com.javi.testproject.data.datasource.mock.UserApiMock

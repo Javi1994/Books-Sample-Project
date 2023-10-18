@@ -1,10 +1,10 @@
-package com.javi.testproject.ui.login
+package com.javi.testproject.presentation.login
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.javi.testproject.databinding.ActivityLoginBinding
-import com.javi.testproject.ui.login.viewmodel.LoginViewModel
+import com.javi.testproject.presentation.login.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
 

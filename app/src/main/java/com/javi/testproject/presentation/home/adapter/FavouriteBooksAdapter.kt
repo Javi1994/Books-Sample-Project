@@ -1,4 +1,4 @@
-package com.javi.testproject.ui.home.adapter
+package com.javi.testproject.presentation.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

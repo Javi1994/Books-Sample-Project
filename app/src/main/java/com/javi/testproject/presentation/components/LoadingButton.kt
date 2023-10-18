@@ -1,4 +1,4 @@
-package com.javi.testproject.ui.components
+package com.javi.testproject.presentation.components
 
 import android.content.Context
 import android.util.AttributeSet

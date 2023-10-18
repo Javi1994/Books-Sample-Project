@@ -1,6 +1,5 @@
-package com.javi.testproject.ui.login
+package com.javi.testproject.presentation.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import com.javi.testproject.R
 import com.javi.testproject.common.UiState
 import com.javi.testproject.common.Util.startActivity
-import com.javi.testproject.common.Util.startActivityWithDelay
 import com.javi.testproject.databinding.FragmentLoginNewUserBinding
-import com.javi.testproject.ui.home.HomeActivity
-import com.javi.testproject.ui.login.viewmodel.LoginViewModel
-import kotlinx.coroutines.delay
+import com.javi.testproject.presentation.home.HomeActivity
+import com.javi.testproject.presentation.login.viewmodel.LoginViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 

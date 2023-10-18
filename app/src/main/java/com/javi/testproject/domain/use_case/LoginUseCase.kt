@@ -1,6 +1,6 @@
 package com.javi.testproject.domain.use_case
 
-import com.javi.testproject.data.repository.LoginRepository
+import com.javi.testproject.domain.repository.LoginRepository
 import com.javi.testproject.domain.mapping.toUser
 import com.javi.testproject.domain.model.User
 import com.javi.testproject.domain.use_case.base.BaseUseCase

@@ -1,4 +1,4 @@
-package com.javi.testproject.data.repository
+package com.javi.testproject.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 

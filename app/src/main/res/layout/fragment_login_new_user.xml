@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="80dp"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".presentation.login.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/input_username"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/login_password_hint" />
 
-    <com.javi.testproject.ui.components.LoadingButton
+    <com.javi.testproject.presentation.components.LoadingButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
