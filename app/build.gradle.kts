@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.javi.testproject"
+    namespace = "com.javi.booksampleproject"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.javi.testproject"
+        applicationId = "com.javi.booksampleproject"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

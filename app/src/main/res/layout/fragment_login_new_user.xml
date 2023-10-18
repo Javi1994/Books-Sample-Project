@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/login_password_hint" />
 
-    <com.javi.testproject.presentation.components.LoadingButton
+    <com.javi.booksampleproject.presentation.components.LoadingButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

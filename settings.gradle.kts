@@ -18,6 +18,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TestProject"
+rootProject.name = "BookSampleProject"
 include(":app")
  
