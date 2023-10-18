@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.presentation.login
+package com.javi.booksampleproject.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater

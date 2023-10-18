@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.presentation.home
+package com.javi.booksampleproject.ui.home
 
 import android.os.Bundle
 import android.view.View
@@ -10,11 +10,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.javi.booksampleproject.Util.startActivity
 import com.javi.booksampleproject.databinding.ActivityHomeBinding
-import com.javi.booksampleproject.presentation.book_detail.BookDetailActivity
-import com.javi.booksampleproject.presentation.home.adapter.FavouriteBooksAdapter
-import com.javi.presentation.common.UiState
-import com.javi.presentation.home.viewmodel.HomeViewModel
+import com.javi.booksampleproject.ui.book_detail.BookDetailActivity
+import com.javi.booksampleproject.ui.home.adapter.FavouriteBooksAdapter
 import com.javi.domain.model.Book
+import com.javi.presentation.model.UiState
+import com.javi.presentation.home.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

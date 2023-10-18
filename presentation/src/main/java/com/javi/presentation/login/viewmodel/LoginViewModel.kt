@@ -2,7 +2,7 @@ package com.javi.presentation.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.javi.presentation.common.UiState
+import com.javi.presentation.model.UiState
 import com.javi.domain.use_case.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

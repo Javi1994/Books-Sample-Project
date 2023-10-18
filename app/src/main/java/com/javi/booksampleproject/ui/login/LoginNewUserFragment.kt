@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.presentation.login
+package com.javi.booksampleproject.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import com.javi.booksampleproject.R
 import com.javi.booksampleproject.Util.startActivity
 import com.javi.booksampleproject.databinding.FragmentLoginNewUserBinding
-import com.javi.booksampleproject.presentation.home.HomeActivity
-import com.javi.presentation.common.UiState
+import com.javi.booksampleproject.ui.home.HomeActivity
+import com.javi.presentation.model.UiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn

@@ -1,4 +1,4 @@
-package com.javi.presentation.common
+package com.javi.presentation.model
 
 sealed class UiState {
     object Loading: UiState()

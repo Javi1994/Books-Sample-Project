@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.presentation.home.adapter
+package com.javi.booksampleproject.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

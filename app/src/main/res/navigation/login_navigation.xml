@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/login_new_user_fragment"
-        android:name="com.javi.booksampleproject.presentation.login.LoginNewUserFragment"
+        android:name="com.javi.booksampleproject.ui.login.LoginNewUserFragment"
         android:label="Login New User Fragment" />
 </navigation>

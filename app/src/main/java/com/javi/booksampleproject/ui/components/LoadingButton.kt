@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.presentation.components
+package com.javi.booksampleproject.ui.components
 
 import android.content.Context
 import android.util.AttributeSet

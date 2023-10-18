@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.presentation.book_detail
+package com.javi.booksampleproject.ui.book_detail
 
 import android.os.Bundle
 import android.view.View
@@ -11,7 +11,7 @@ import com.javi.booksampleproject.R
 import com.javi.booksampleproject.databinding.ActivityBookDetailBinding
 import com.javi.domain.model.BookDetail
 import com.javi.presentation.book_detail.viewmodel.BookDetailViewModel
-import com.javi.presentation.common.UiState
+import com.javi.presentation.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
