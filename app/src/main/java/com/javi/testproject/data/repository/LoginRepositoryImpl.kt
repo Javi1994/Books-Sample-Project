@@ -5,8 +5,11 @@ import com.javi.testproject.data.dto.UserDto
 import com.javi.testproject.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LoginRepositoryImpl(
+@Singleton
+class LoginRepositoryImpl @Inject constructor(
     private val loginApi: LoginApi
 ) : LoginRepository {
 

@@ -6,8 +6,9 @@ import com.javi.testproject.domain.model.User
 import com.javi.testproject.domain.use_case.base.BaseUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class LoginUseCase(
+class LoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository
 ): BaseUseCase() {
 

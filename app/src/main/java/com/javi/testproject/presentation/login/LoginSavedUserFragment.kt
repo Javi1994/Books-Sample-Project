@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.javi.testproject.R
 import com.javi.testproject.databinding.FragmentLoginSavedUserBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user) {
 
     private var _binding: FragmentLoginSavedUserBinding? = null

@@ -14,9 +14,11 @@ import com.javi.testproject.common.Util.startActivity
 import com.javi.testproject.databinding.FragmentLoginNewUserBinding
 import com.javi.testproject.presentation.home.HomeActivity
 import com.javi.testproject.presentation.login.viewmodel.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+@AndroidEntryPoint
 class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
 
     private var _binding: FragmentLoginNewUserBinding? = null

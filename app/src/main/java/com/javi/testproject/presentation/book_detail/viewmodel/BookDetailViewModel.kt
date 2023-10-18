@@ -3,15 +3,18 @@ package com.javi.testproject.presentation.book_detail.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.testproject.common.UiState
-import com.javi.testproject.di.AppModule
+import com.javi.testproject.di.MockModule
 import com.javi.testproject.domain.use_case.GetBookDetailUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class BookDetailViewModel(
-    private val getBookDetail: GetBookDetailUseCase = AppModule.provideGetBookDetailUseCase()
+@HiltViewModel
+class BookDetailViewModel @Inject constructor(
+    private val getBookDetail: GetBookDetailUseCase
 ) : ViewModel() {
 
     val uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)

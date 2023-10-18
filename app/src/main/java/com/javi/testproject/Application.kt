@@ -1,6 +1,7 @@
 package com.javi.testproject
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class Application: Application() {
-}
+@HiltAndroidApp
+class Application: Application()

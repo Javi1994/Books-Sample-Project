@@ -15,8 +15,10 @@ import com.javi.testproject.domain.model.Book
 import com.javi.testproject.presentation.book_detail.BookDetailActivity
 import com.javi.testproject.presentation.home.adapter.FavouriteBooksAdapter
 import com.javi.testproject.presentation.home.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding

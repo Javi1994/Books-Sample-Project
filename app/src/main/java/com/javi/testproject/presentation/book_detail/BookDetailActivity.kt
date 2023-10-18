@@ -12,8 +12,10 @@ import com.javi.testproject.common.UiState
 import com.javi.testproject.databinding.ActivityBookDetailBinding
 import com.javi.testproject.domain.model.BookDetail
 import com.javi.testproject.presentation.book_detail.viewmodel.BookDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class BookDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBookDetailBinding

@@ -6,8 +6,11 @@ import com.javi.testproject.data.dto.BookDto
 import com.javi.testproject.domain.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BookRepositoryImpl(
+@Singleton
+class BookRepositoryImpl @Inject constructor(
     private val bookApi: BookApi
 ) : BookRepository {
     override fun getFavouriteBooks(username: String): Flow<List<BookDto>> {
