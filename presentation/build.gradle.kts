@@ -39,6 +39,5 @@ kapt {
 }
 
 dependencies {
-    core()
     hilt()
 }
