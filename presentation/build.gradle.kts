@@ -1,25 +1,19 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")
     kotlin("kapt")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = "com.javi.booksampleproject"
-    compileSdk = 34
+    namespace = "com.javi.presentation"
+    compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.javi.booksampleproject"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -31,24 +25,12 @@ android {
             )
         }
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
     kotlinOptions {
         jvmTarget = "17"
-    }
-
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 }
 
@@ -59,11 +41,4 @@ kapt {
 dependencies {
     core()
     hilt()
-    navigation()
-    coroutines()
-    test()
-
-    dataModule()
-    domainModule()
-    presentationModule()
 }
