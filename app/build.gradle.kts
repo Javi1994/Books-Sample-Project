@@ -66,5 +66,5 @@ dependencies {
 
     test()
 
-    dataModule()
+    domainModule()
 }

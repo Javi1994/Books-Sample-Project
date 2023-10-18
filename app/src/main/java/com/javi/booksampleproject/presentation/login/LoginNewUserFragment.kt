@@ -9,14 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.javi.booksampleproject.R
-import com.javi.booksampleproject.common.UiState
+import com.javi.booksampleproject.presentation.common.UiState
 import com.javi.booksampleproject.databinding.FragmentLoginNewUserBinding
 import com.javi.booksampleproject.presentation.home.HomeActivity
 import com.javi.booksampleproject.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import com.javi.booksampleproject.common.Util.startActivity
+import com.javi.booksampleproject.presentation.common.Util.startActivity
 
 @AndroidEntryPoint
 class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {

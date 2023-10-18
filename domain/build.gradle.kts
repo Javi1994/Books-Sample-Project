@@ -40,4 +40,6 @@ kapt {
 
 dependencies {
     hilt()
+
+    dataModule()
 }

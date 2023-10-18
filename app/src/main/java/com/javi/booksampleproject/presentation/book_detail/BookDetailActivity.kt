@@ -8,9 +8,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.javi.booksampleproject.R
-import com.javi.booksampleproject.common.UiState
+import com.javi.booksampleproject.presentation.common.UiState
 import com.javi.booksampleproject.databinding.ActivityBookDetailBinding
-import com.javi.booksampleproject.domain.model.BookDetail
 import com.javi.booksampleproject.presentation.book_detail.viewmodel.BookDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -47,7 +46,7 @@ class BookDetailActivity : AppCompatActivity() {
             }
 
             is UiState.Success<*> -> {
-                setBookDetailData(uiState.data as BookDetail)
+                setBookDetailData(uiState.data as com.javi.model.BookDetail)
                 binding.progressLoader.visibility = View.GONE
             }
 
@@ -57,7 +56,7 @@ class BookDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBookDetailData(bookDetail: BookDetail) {
+    private fun setBookDetailData(bookDetail: com.javi.model.BookDetail) {
         with(binding) {
             this.bookDetailTitle.text = bookDetail.title
             this.bookDetailAuthor.text = bookDetail.author

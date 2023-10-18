@@ -1,14 +1,14 @@
 package com.javi.di
 
-import com.javi.data.datasource.mock.BookApiMock
-import com.javi.data.datasource.mock.LoginApiMock
-import com.javi.data.datasource.mock.UserApiMock
-import com.javi.data.repository.BookRepository
-import com.javi.data.repository.LoginRepository
-import com.javi.data.repository.UserRepository
-import com.javi.data.repository.impl.BookRepositoryImpl
-import com.javi.data.repository.impl.LoginRepositoryImpl
-import com.javi.data.repository.impl.UserRepositoryImpl
+import com.javi.datasource.mock.BookApiMock
+import com.javi.datasource.mock.LoginApiMock
+import com.javi.datasource.mock.UserApiMock
+import com.javi.repository.BookRepository
+import com.javi.repository.LoginRepository
+import com.javi.repository.UserRepository
+import com.javi.repository.impl.BookRepositoryImpl
+import com.javi.repository.impl.LoginRepositoryImpl
+import com.javi.repository.impl.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

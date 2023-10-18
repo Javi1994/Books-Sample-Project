@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.javi.booksampleproject.R
-import com.javi.booksampleproject.common.Util.startActivityWithDelay
+import com.javi.booksampleproject.presentation.common.Util.startActivityWithDelay
 import com.javi.booksampleproject.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

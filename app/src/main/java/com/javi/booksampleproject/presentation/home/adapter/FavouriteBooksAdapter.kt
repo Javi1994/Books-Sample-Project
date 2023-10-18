@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.javi.booksampleproject.databinding.BookItemBinding
-import com.javi.booksampleproject.domain.model.Book
+import com.javi.model.Book
 
 class FavouriteBooksAdapter(
-    private var books: List<Book> = emptyList(),
-    private var onClick: (Book) -> Unit
+    private var books: List<com.javi.model.Book> = emptyList(),
+    private var onClick: (com.javi.model.Book) -> Unit
 ) : RecyclerView.Adapter<FavouriteBooksAdapter.BookViewHolder>() {
 
     private lateinit var binding: BookItemBinding
@@ -29,17 +29,17 @@ class FavouriteBooksAdapter(
         return books.size
     }
 
-    fun setData(books: List<Book>) {
+    fun setData(books: List<com.javi.model.Book>) {
         this.books = books
         notifyDataSetChanged()
     }
 
     inner class BookViewHolder(
         private val binding: BookItemBinding,
-        private val onClick: (Book) -> Unit
+        private val onClick: (com.javi.model.Book) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(book: Book) {
+        fun bind(book: com.javi.model.Book) {
             binding.bookTitle.text = book.title
             binding.bookAuthor.text = book.author
 

@@ -8,14 +8,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.javi.booksampleproject.common.UiState
+import com.javi.booksampleproject.presentation.common.UiState
 import com.javi.booksampleproject.databinding.ActivityHomeBinding
-import com.javi.booksampleproject.domain.model.Book
 import com.javi.booksampleproject.presentation.book_detail.BookDetailActivity
 import com.javi.booksampleproject.presentation.home.adapter.FavouriteBooksAdapter
 import com.javi.booksampleproject.presentation.home.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import com.javi.booksampleproject.common.Util.startActivity
+import com.javi.booksampleproject.presentation.common.Util.startActivity
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -58,7 +57,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
             is UiState.Success<*> -> {
-                setBooksData(uiState.data as List<Book>)
+                setBooksData(uiState.data as List<com.javi.model.Book>)
                 binding.progressLoader.visibility = View.GONE
             }
 
@@ -68,7 +67,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBooksData(books: List<Book>) {
+    private fun setBooksData(books: List<com.javi.model.Book>) {
         bookAdapter.setData(books)
     }
 }

@@ -2,8 +2,7 @@ package com.javi.booksampleproject.presentation.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.javi.booksampleproject.common.UiState
-import com.javi.booksampleproject.domain.use_case.LoginUseCase
+import com.javi.booksampleproject.presentation.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -13,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: com.javi.use_case.LoginUseCase
 ) : ViewModel() {
 
     val uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
