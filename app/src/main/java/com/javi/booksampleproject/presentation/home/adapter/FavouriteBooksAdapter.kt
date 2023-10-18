@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.javi.booksampleproject.databinding.BookItemBinding
-import com.javi.model.Book
+import com.javi.domain.model.Book
 
 class FavouriteBooksAdapter(
     private var books: List<Book> = emptyList(),

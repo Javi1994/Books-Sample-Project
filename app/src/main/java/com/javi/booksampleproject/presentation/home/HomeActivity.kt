@@ -12,9 +12,9 @@ import com.javi.booksampleproject.Util.startActivity
 import com.javi.booksampleproject.databinding.ActivityHomeBinding
 import com.javi.booksampleproject.presentation.book_detail.BookDetailActivity
 import com.javi.booksampleproject.presentation.home.adapter.FavouriteBooksAdapter
-import com.javi.common.UiState
-import com.javi.home.viewmodel.HomeViewModel
-import com.javi.model.Book
+import com.javi.presentation.common.UiState
+import com.javi.presentation.home.viewmodel.HomeViewModel
+import com.javi.domain.model.Book
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

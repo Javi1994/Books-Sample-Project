@@ -12,8 +12,8 @@ import com.javi.booksampleproject.R
 import com.javi.booksampleproject.Util.startActivity
 import com.javi.booksampleproject.databinding.FragmentLoginNewUserBinding
 import com.javi.booksampleproject.presentation.home.HomeActivity
-import com.javi.common.UiState
-import com.javi.login.viewmodel.LoginViewModel
+import com.javi.presentation.common.UiState
+import com.javi.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

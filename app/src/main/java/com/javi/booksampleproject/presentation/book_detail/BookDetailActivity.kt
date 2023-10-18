@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.javi.book_detail.viewmodel.BookDetailViewModel
 import com.javi.booksampleproject.R
 import com.javi.booksampleproject.databinding.ActivityBookDetailBinding
-import com.javi.common.UiState
-import com.javi.model.BookDetail
+import com.javi.domain.model.BookDetail
+import com.javi.presentation.book_detail.viewmodel.BookDetailViewModel
+import com.javi.presentation.common.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -47,7 +47,7 @@ class BookDetailActivity : AppCompatActivity() {
             }
 
             is UiState.Success<*> -> {
-                setBookDetailData(uiState.data as com.javi.model.BookDetail)
+                setBookDetailData(uiState.data as BookDetail)
                 binding.progressLoader.visibility = View.GONE
             }
 
