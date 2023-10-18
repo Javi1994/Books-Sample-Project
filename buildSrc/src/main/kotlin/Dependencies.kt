@@ -24,6 +24,18 @@ object Dependencies {
     const val junit = "junit:junit:4.13.2"
     const val androidJUnit = "androidx.test.ext:junit:1.1.5"
     const val espresso = "androidx.test.espresso:espresso-core:3.5.1"
+
+    object BuildScriptPlugin {
+        val gradlePlugin = "com.android.tools.build:gradle:${Versions.gradlePlugin}"
+        val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinGradlePlugin}"
+        val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
+    }
+}
+
+fun DependencyHandler.gradlePlugins() {
+    classpath(Dependencies.BuildScriptPlugin.kotlinGradlePlugin)
+    classpath(Dependencies.BuildScriptPlugin.gradlePlugin)
+    classpath(Dependencies.BuildScriptPlugin.hilt)
 }
 
 fun DependencyHandler.core() {

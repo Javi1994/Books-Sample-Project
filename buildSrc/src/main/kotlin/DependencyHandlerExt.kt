@@ -9,6 +9,10 @@ fun DependencyHandler.implementation(dependency: Dependency) {
     add("implementation", dependency)
 }
 
+fun DependencyHandler.classpath(dependency: String) {
+    add("classpath", dependency)
+}
+
 fun DependencyHandler.test(dependency: String) {
     add("test", dependency)
 }
