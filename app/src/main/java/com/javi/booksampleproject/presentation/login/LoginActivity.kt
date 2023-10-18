@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.javi.booksampleproject.databinding.ActivityLoginBinding
-import com.javi.booksampleproject.presentation.login.viewmodel.LoginViewModel
+import com.javi.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

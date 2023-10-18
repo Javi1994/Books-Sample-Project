@@ -1,8 +1,8 @@
-package com.javi.booksampleproject.presentation.login.viewmodel
+package com.javi.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.javi.booksampleproject.presentation.common.UiState
+import com.javi.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -11,17 +11,17 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val loginUseCase: com.javi.use_case.LoginUseCase
+class HomeViewModel @Inject constructor(
+    private val getFavouriteBooksUseCase: com.javi.use_case.GetFavouriteBooksUseCase
 ) : ViewModel() {
 
     val uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
 
-    fun doLogin() {
-        loginUseCase.invoke("username", "password")
+    fun getFavouriteBooks() {
+        getFavouriteBooksUseCase.invoke("username")
             .map {
                 val uiState = UiState.Success(it)
-                println("Mapping login result to uiState: $uiState")
+                println("Mapping favourite books result to uiState: $uiState")
                 uiState
             }
             .onEach {

@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.javi.book_detail.viewmodel.BookDetailViewModel
 import com.javi.booksampleproject.R
-import com.javi.booksampleproject.presentation.common.UiState
 import com.javi.booksampleproject.databinding.ActivityBookDetailBinding
-import com.javi.booksampleproject.presentation.book_detail.viewmodel.BookDetailViewModel
+import com.javi.common.UiState
+import com.javi.model.BookDetail
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -56,7 +57,7 @@ class BookDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBookDetailData(bookDetail: com.javi.model.BookDetail) {
+    private fun setBookDetailData(bookDetail: BookDetail) {
         with(binding) {
             this.bookDetailTitle.text = bookDetail.title
             this.bookDetailAuthor.text = bookDetail.author

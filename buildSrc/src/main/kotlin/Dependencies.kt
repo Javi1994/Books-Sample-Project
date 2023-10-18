@@ -16,6 +16,7 @@ private object Dependencies {
 
     object LifecycleDependencies {
         const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
+        const val viewModelLifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     }
 
     object CoreAndroidUiDependencies {
@@ -67,6 +68,7 @@ fun DependencyHandler.coreUi() {
 
 fun DependencyHandler.lifecycle() {
     implementation(Dependencies.LifecycleDependencies.lifecycleRuntime)
+    implementation(Dependencies.LifecycleDependencies.viewModelLifecycle)
 }
 
 

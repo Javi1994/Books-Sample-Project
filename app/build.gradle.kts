@@ -67,4 +67,5 @@ dependencies {
     test()
 
     domainModule()
+    presentationModule()
 }

@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.presentation.common
+package com.javi.common
 
 sealed class UiState {
     object Loading: UiState()

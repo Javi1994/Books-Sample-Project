@@ -1,8 +1,8 @@
-package com.javi.booksampleproject.presentation.book_detail.viewmodel
+package com.javi.book_detail.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.javi.booksampleproject.presentation.common.UiState
+import com.javi.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn

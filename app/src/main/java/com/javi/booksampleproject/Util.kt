@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.presentation.common
+package com.javi.booksampleproject
 
 import android.content.Context
 import android.content.Intent

@@ -39,5 +39,10 @@ kapt {
 }
 
 dependencies {
+    coreKtx()
+    lifecycle()
+
     hilt()
+
+    domainModule()
 }

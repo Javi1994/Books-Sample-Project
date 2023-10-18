@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.javi.booksampleproject.R
-import com.javi.booksampleproject.presentation.common.Util.setVisible
+import com.javi.booksampleproject.Util.setVisible
 import com.javi.booksampleproject.databinding.LoadingButtonBinding
 
 class LoadingButton(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
