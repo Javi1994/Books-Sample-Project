@@ -1,6 +1,6 @@
-package com.javi.booksampleproject.data.datasource.remote
+package com.javi.data.datasource.remote
 
-import com.javi.booksampleproject.data.dto.UserDto
+import com.javi.data.dto.UserDto
 import kotlinx.coroutines.flow.Flow
 
 interface LoginApi {

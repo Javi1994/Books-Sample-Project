@@ -1,8 +1,8 @@
-package com.javi.booksampleproject.di
+package com.javi.di
 
-import com.javi.booksampleproject.data.datasource.mock.BookApiMock
-import com.javi.booksampleproject.data.datasource.mock.LoginApiMock
-import com.javi.booksampleproject.data.datasource.mock.UserApiMock
+import com.javi.data.datasource.mock.BookApiMock
+import com.javi.data.datasource.mock.LoginApiMock
+import com.javi.data.datasource.mock.UserApiMock
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

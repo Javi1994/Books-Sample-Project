@@ -1,8 +1,8 @@
 package com.javi.booksampleproject.domain.mapping
 
-import com.javi.booksampleproject.data.dto.BookDetailDto
-import com.javi.booksampleproject.data.dto.BookDto
-import com.javi.booksampleproject.data.dto.UserDto
+import com.javi.data.dto.BookDetailDto
+import com.javi.data.dto.BookDto
+import com.javi.data.dto.UserDto
 import com.javi.booksampleproject.domain.model.Book
 import com.javi.booksampleproject.domain.model.BookDetail
 import com.javi.booksampleproject.domain.model.User

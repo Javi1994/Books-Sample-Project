@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.domain.repository
+package com.javi.data.repository
 
 import kotlinx.coroutines.flow.Flow
 

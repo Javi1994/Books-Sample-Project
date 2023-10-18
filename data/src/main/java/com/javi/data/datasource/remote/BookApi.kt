@@ -1,7 +1,7 @@
-package com.javi.booksampleproject.data.datasource.remote
+package com.javi.data.datasource.remote
 
-import com.javi.booksampleproject.data.dto.BookDetailDto
-import com.javi.booksampleproject.data.dto.BookDto
+import com.javi.data.dto.BookDetailDto
+import com.javi.data.dto.BookDto
 import kotlinx.coroutines.flow.Flow
 
 interface BookApi {

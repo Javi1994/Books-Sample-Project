@@ -60,7 +60,6 @@ dependencies {
     coreKtx()
     coreUi()
     lifecycle()
-    coroutines()
 
     hilt()
     navigation()
@@ -68,6 +67,4 @@ dependencies {
     test()
 
     dataModule()
-    domainModule()
-    presentationModule()
 }

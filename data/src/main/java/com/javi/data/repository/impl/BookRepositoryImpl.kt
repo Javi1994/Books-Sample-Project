@@ -1,9 +1,9 @@
-package com.javi.booksampleproject.data.repository
+package com.javi.data.repository.impl
 
-import com.javi.booksampleproject.data.datasource.remote.BookApi
-import com.javi.booksampleproject.data.dto.BookDetailDto
-import com.javi.booksampleproject.data.dto.BookDto
-import com.javi.booksampleproject.domain.repository.BookRepository
+import com.javi.data.datasource.remote.BookApi
+import com.javi.data.dto.BookDetailDto
+import com.javi.data.dto.BookDto
+import com.javi.data.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject

@@ -1,19 +1,18 @@
-package com.javi.booksampleproject.di
+package com.javi.di
 
-import com.javi.booksampleproject.data.datasource.mock.BookApiMock
-import com.javi.booksampleproject.data.datasource.mock.LoginApiMock
-import com.javi.booksampleproject.data.datasource.mock.UserApiMock
-import com.javi.booksampleproject.data.repository.BookRepositoryImpl
-import com.javi.booksampleproject.data.repository.LoginRepositoryImpl
-import com.javi.booksampleproject.data.repository.UserRepositoryImpl
-import com.javi.booksampleproject.domain.repository.BookRepository
-import com.javi.booksampleproject.domain.repository.LoginRepository
-import com.javi.booksampleproject.domain.repository.UserRepository
+import com.javi.data.datasource.mock.BookApiMock
+import com.javi.data.datasource.mock.LoginApiMock
+import com.javi.data.datasource.mock.UserApiMock
+import com.javi.data.repository.BookRepository
+import com.javi.data.repository.LoginRepository
+import com.javi.data.repository.UserRepository
+import com.javi.data.repository.impl.BookRepositoryImpl
+import com.javi.data.repository.impl.LoginRepositoryImpl
+import com.javi.data.repository.impl.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module

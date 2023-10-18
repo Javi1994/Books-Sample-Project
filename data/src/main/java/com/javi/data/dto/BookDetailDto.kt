@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.data.dto
+package com.javi.data.dto
 
 data class BookDetailDto(
     val id: String,

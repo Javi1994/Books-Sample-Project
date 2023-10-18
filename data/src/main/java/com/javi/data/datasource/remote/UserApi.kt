@@ -1,4 +1,4 @@
-package com.javi.booksampleproject.data.datasource.remote
+package com.javi.data.datasource.remote
 
 import kotlinx.coroutines.flow.Flow
 

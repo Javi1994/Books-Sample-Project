@@ -1,7 +1,7 @@
-package com.javi.booksampleproject.data.repository
+package com.javi.data.repository.impl
 
-import com.javi.booksampleproject.data.datasource.remote.UserApi
-import com.javi.booksampleproject.domain.repository.UserRepository
+import com.javi.data.datasource.remote.UserApi
+import com.javi.data.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject

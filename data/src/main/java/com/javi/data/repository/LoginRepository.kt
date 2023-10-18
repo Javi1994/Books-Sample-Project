@@ -1,6 +1,6 @@
-package com.javi.booksampleproject.domain.repository
+package com.javi.data.repository
 
-import com.javi.booksampleproject.data.dto.UserDto
+import com.javi.data.dto.UserDto
 import kotlinx.coroutines.flow.Flow
 
 interface LoginRepository {

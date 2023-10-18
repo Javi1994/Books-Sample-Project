@@ -1,7 +1,7 @@
-package com.javi.booksampleproject.domain.repository
+package com.javi.data.repository
 
-import com.javi.booksampleproject.data.dto.BookDetailDto
-import com.javi.booksampleproject.data.dto.BookDto
+import com.javi.data.dto.BookDetailDto
+import com.javi.data.dto.BookDto
 import kotlinx.coroutines.flow.Flow
 
 interface BookRepository {
