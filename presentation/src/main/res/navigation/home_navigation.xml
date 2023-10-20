@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_navigation"
+    app:startDestination="@id/home_all_books">
+
+    <fragment
+        android:id="@+id/home_favourite_books"
+        android:name="com.javi.presentation.home.HomeFavouriteBooks"
+        android:label="Home Favourite Books" />
+
+    <fragment
+        android:id="@+id/home_all_books"
+        android:name="com.javi.presentation.home.HomeAllBooks"
+        android:label="Home All Books" />
+
+    <fragment
+        android:id="@+id/home_all_users"
+        android:name="com.javi.presentation.home.HomeAllUsers"
+        android:label="Home All Users" />
+</navigation>
