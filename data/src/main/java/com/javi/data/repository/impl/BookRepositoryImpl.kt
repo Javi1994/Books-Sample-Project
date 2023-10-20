@@ -1,6 +1,6 @@
 package com.javi.data.repository.impl
 
-import com.javi.data.datasource.remote.BookApi
+import com.javi.data.datasource.BookDataSource
 import com.javi.data.dto.BookDetailDto
 import com.javi.data.dto.BookDto
 import com.javi.data.repository.BookRepository
@@ -11,17 +11,25 @@ import javax.inject.Singleton
 
 @Singleton
 class BookRepositoryImpl @Inject constructor(
-    private val bookApi: BookApi
+    private val bookDataSource: BookDataSource
 ) : BookRepository {
+
     override fun getFavouriteBooks(username: String): Flow<List<BookDto>> {
-        return bookApi.getFavouriteBooks(username)
+        return bookDataSource.getFavouriteBooks(username)
             .onEach {
                 println("Favourite books result: $it")
             }
     }
 
+    override fun getAllBooks(): Flow<List<BookDto>> {
+        return bookDataSource.getAllBooks()
+            .onEach {
+                println("All books result: $it")
+            }
+    }
+
     override fun getBookDetail(id: String): Flow<BookDetailDto> {
-        return bookApi.getBookDetail(id)
+        return bookDataSource.getBookDetail(id)
             .onEach {
                 println("Book detail result: $it")
             }

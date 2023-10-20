@@ -1,8 +1,8 @@
 package com.javi.data.di
 
-import com.javi.data.datasource.mock.BookApiMock
+import com.javi.data.datasource.BookDataSource
+import com.javi.data.datasource.UserDataSource
 import com.javi.data.datasource.mock.LoginApiMock
-import com.javi.data.datasource.mock.UserApiMock
 import com.javi.data.repository.BookRepository
 import com.javi.data.repository.LoginRepository
 import com.javi.data.repository.UserRepository
@@ -22,17 +22,17 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideBookRepository(
-        bookApiMock: BookApiMock
+        bookDataSource: BookDataSource
     ): BookRepository {
-        return BookRepositoryImpl(bookApiMock)
+        return BookRepositoryImpl(bookDataSource)
     }
 
     @Provides
     @Singleton
     fun provideUserRepository(
-        userApiMock: UserApiMock
+        userDataSource: UserDataSource
     ): UserRepository {
-        return UserRepositoryImpl(userApiMock)
+        return UserRepositoryImpl(userDataSource)
     }
 
     @Provides

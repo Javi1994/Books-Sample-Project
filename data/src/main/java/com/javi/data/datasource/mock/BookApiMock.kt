@@ -9,17 +9,41 @@ import kotlinx.coroutines.flow.flow
 
 class BookApiMock : BookApi {
 
+    private val book1 = BookDto(title = "The Ruby Torch", author = "Hadia Hauzini")
+    private val book2 = BookDto(title = "The Shadow Wolf", author = "Darren Ljubica")
+    private val book3 = BookDto(title = "City of Grace", author = "Indrajit Valentinus")
+    private val book4 = BookDto(title = "Grace and the Gate", author = "Shamsuddin Iakob")
+    private val book5 = BookDto(title = "Scar and the Lily", author = "Jameson Vohu Manah")
+    private val book6 = BookDto(title = "The crystal in the North", author = "Tanvi Juuso")
+
     override fun getFavouriteBooks(username: String): Flow<List<BookDto>> {
         return flow {
             delay(1000)
             emit(
+                listOf(book1, book2, book3, book4, book5, book6)
+            )
+        }
+    }
+
+    override fun getAllBooks(): Flow<List<BookDto>> {
+        return flow {
+            delay(1000)
+            emit(
                 listOf(
-                    BookDto(title = "The Ruby Torch", author = "Hadia Hauzini"),
-                    BookDto(title = "The Shadow Wolf", author = "Darren Ljubica"),
-                    BookDto(title = "City of Grace", author = "Indrajit Valentinus"),
-                    BookDto(title = "Grace and the Gate", author = "Shamsuddin Iakob"),
-                    BookDto(title = "Scar and the Lily", author = "Jameson Vohu Manah"),
-                    BookDto(title = "The crystal in the North", author = "Tanvi Juuso")
+                    book1,
+                    book4,
+                    book5,
+                    book6,
+                    book2,
+                    book3,
+                    book1,
+                    book2,
+                    book1,
+                    book4,
+                    book3,
+                    book4,
+                    book5,
+                    book6
                 )
             )
         }
