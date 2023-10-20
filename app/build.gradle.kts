@@ -57,16 +57,8 @@ kapt {
 }
 
 dependencies {
-    coreKtx()
-    coreUi()
-    lifecycle()
-
     hilt()
-    navigation()
 
-    test()
-
-    domainModule()
     presentationModule()
     commonModule()
 }
