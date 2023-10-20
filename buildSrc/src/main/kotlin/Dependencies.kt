@@ -103,3 +103,7 @@ fun DependencyHandler.domainModule() {
 fun DependencyHandler.presentationModule() {
     implementation(project(":presentation"))
 }
+
+fun DependencyHandler.commonModule() {
+    implementation(project(":common"))
+}

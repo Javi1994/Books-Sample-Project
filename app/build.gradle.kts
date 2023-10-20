@@ -68,4 +68,5 @@ dependencies {
 
     domainModule()
     presentationModule()
+    commonModule()
 }

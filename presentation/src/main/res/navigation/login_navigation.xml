@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_navigation"
+    app:startDestination="@id/login_new_user_fragment">
+
+    <fragment
+        android:id="@+id/login_new_user_fragment"
+        android:name="com.javi.presentation.login.LoginNewUserFragment"
+        android:label="Login New User Fragment" />
+</navigation>

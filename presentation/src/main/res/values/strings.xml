@@ -1,0 +1,8 @@
+<resources>
+    <string name="login_user_hint">Username</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_do_login_btn">Login</string>
+
+    <string name="book_read_time">Estimated lecture time of %s minutes</string>
+    <string name="book_pages">%s pages</string>
+</resources>
