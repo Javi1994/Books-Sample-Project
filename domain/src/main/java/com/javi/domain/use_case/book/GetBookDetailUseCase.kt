@@ -1,9 +1,9 @@
-package com.javi.domain.use_case
+package com.javi.domain.use_case.book
 
 import com.javi.domain.mapping.toBookDetail
 import com.javi.domain.model.BookDetail
 import com.javi.data.repository.BookRepository
-import com.javi.domain.use_case.base.BaseUseCase
+import com.javi.domain.use_case.BaseUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

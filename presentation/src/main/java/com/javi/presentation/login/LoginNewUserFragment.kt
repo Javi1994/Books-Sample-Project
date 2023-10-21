@@ -7,16 +7,20 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.javi.presentation.Util.startActivity
 import com.javi.presentation.R
 import com.javi.presentation.databinding.FragmentLoginNewUserBinding
 import com.javi.presentation.home.HomeActivity
-import com.javi.presentation.model.UiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
+import com.javi.presentation.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import com.javi.common.Util.startActivity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
@@ -38,9 +42,33 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                loginViewModel.uiState
+                    .onEach {
+                        when (it) {
+                            is UiState.Success<*> -> {
+                                requireContext().startActivity(HomeActivity::class.java)
+                                requireActivity().finish()
+                            }
+
+                            is UiState.Loading -> {}
+                            is UiState.Error -> {}
+                        }
+                    }
+                    .onCompletion {
+                        binding.btnLogin.isLoading(false)
+                    }
+                    .collect()
+            }
+        }
+
         binding.btnLogin.onClickListener {
             binding.btnLogin.isLoading(true)
-            loginViewModel.doLogin()
+            loginViewModel.doLogin(
+                binding.inputUsername.text.toString(),
+                binding.inputPassword.text.toString()
+            )
         }
 
         //TODO: improve btn activation
@@ -52,26 +80,6 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
         binding.inputPassword.addTextChangedListener {
             binding.btnLogin.isEnabled(!it.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty())
         }
-
-        loginViewModel.uiState
-            .onEach {
-                println("UiState reached loginNewUserFragment: $it")
-
-                when (it) {
-                    is UiState.Success<*> -> {
-                        binding.btnLogin.isLoading(false)
-                        requireContext().startActivity(HomeActivity::class.java)
-                    }
-
-                    is UiState.Loading -> {
-                        //binding.btnLogin.isLoading(true)
-                    }
-
-                    is UiState.Error -> {
-
-                    }
-                }
-            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroyView() {

@@ -1,11 +1,15 @@
 package com.javi.data.di
 
 import com.javi.data.datasource.BookDataSource
+import com.javi.data.datasource.LoginDataSource
 import com.javi.data.datasource.UserDataSource
+import com.javi.data.datasource.database.BookDao
 import com.javi.data.datasource.impl.BookDataSourceImpl
+import com.javi.data.datasource.impl.LoginDataSourceImpl
 import com.javi.data.datasource.impl.UserDataSourceImpl
 import com.javi.data.datasource.local.UserPreferences
 import com.javi.data.datasource.mock.BookApiMock
+import com.javi.data.datasource.mock.LoginApiMock
 import com.javi.data.datasource.mock.UserApiMock
 import dagger.Module
 import dagger.Provides
@@ -21,16 +25,27 @@ object DataSourceModule {
     @Singleton
     fun provideUserDataSource(
         mockUserApiMock: UserApiMock,
-        preferences: UserPreferences
+        userPreferences: UserPreferences
     ): UserDataSource {
-        return UserDataSourceImpl(mockUserApiMock, preferences)
+        return UserDataSourceImpl(mockUserApiMock, userPreferences)
     }
 
     @Provides
     @Singleton
     fun provideBooksDataSource(
         mockBookApiMock: BookApiMock,
+        booksDao: BookDao
     ): BookDataSource {
-        return BookDataSourceImpl(mockBookApiMock)
+        return BookDataSourceImpl(mockBookApiMock, booksDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoginDataSource(
+        mockLoginApiMock: LoginApiMock,
+        userPreferences: UserPreferences,
+        booksDao: BookDao
+    ): LoginDataSource {
+        return LoginDataSourceImpl(mockLoginApiMock, userPreferences, booksDao)
     }
 }

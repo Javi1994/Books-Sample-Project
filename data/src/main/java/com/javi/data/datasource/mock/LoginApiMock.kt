@@ -30,4 +30,11 @@ class LoginApiMock : LoginApi {
             )
         }
     }
+
+    override fun doLogout(): Flow<Unit> {
+        return flow {
+            delay(2000)
+            emit(Unit)
+        }
+    }
 }

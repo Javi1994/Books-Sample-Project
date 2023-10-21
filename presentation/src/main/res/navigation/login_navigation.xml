@@ -8,4 +8,9 @@
         android:id="@+id/login_new_user_fragment"
         android:name="com.javi.presentation.login.LoginNewUserFragment"
         android:label="Login New User Fragment" />
+
+    <fragment
+        android:id="@+id/login_saved_user_fragment"
+        android:name="com.javi.presentation.login.LoginSavedUserFragment"
+        android:label="Login Saved User Fragment" />
 </navigation>

@@ -15,15 +15,18 @@ private object Dependencies {
     }
 
     object LifecycleDependencies {
-        const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
-        const val viewModelLifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+        const val lifecycleRuntime =
+            "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
+        const val viewModelLifecycle =
+            "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     }
 
     object CoreAndroidUiDependencies {
         const val appCompat = "androidx.appcompat:appcompat:${Versions.android}"
         const val fragment = "androidx.fragment:fragment-ktx:${Versions.android}"
         const val material = "com.google.android.material:material:${Versions.material}"
-        const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+        const val constraintLayout =
+            "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     }
 
     object HiltDependencies {
@@ -40,6 +43,16 @@ private object Dependencies {
     object CoroutinesDependencies {
         const val coroutines =
             "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    }
+
+    object DataStoreDependencies {
+        const val dataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
+    }
+
+    object RoomDependencies {
+        const val room = "androidx.room:room-runtime:${Versions.room}"
+        const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+        const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     }
 
     object TestDependencies {
@@ -84,6 +97,16 @@ fun DependencyHandler.navigation() {
 
 fun DependencyHandler.coroutines() {
     implementation(Dependencies.CoroutinesDependencies.coroutines)
+}
+
+fun DependencyHandler.dataStore() {
+    implementation(Dependencies.DataStoreDependencies.dataStore)
+}
+
+fun DependencyHandler.room() {
+    implementation(Dependencies.RoomDependencies.room)
+    kapt(Dependencies.RoomDependencies.roomCompiler)
+    implementation(Dependencies.RoomDependencies.roomKtx)
 }
 
 fun DependencyHandler.test() {

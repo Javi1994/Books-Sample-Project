@@ -1,6 +1,8 @@
 package com.javi.domain.model
 
 data class User(
-    private val username: String,
-    private val token: String
+    val username: String,
+    val name: String,
+    val lastName: String,
+    val email: String
 )

@@ -3,9 +3,17 @@ package com.javi.presentation.login
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
+import com.javi.presentation.R
 import com.javi.presentation.databinding.ActivityLoginBinding
 import com.javi.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -19,5 +27,20 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                loginViewModel.user
+                    .onEach {
+                        if (it == null) {
+                            binding.navHostFragment.findNavController()
+                                .navigate(R.id.login_new_user_fragment)
+                        } else {
+                            binding.navHostFragment.findNavController()
+                                .navigate(R.id.login_saved_user_fragment)
+                        }
+                    }.collect()
+            }
+        }
     }
 }

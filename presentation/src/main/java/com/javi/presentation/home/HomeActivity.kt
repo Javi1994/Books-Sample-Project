@@ -1,74 +1,35 @@
 package com.javi.presentation.home
 
 import android.os.Bundle
-import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.javi.domain.model.Book
-import com.javi.presentation.book_detail.BookDetailActivity
+import androidx.navigation.findNavController
+import com.javi.presentation.R
+import com.javi.presentation.components.HomeBottomNavigation
 import com.javi.presentation.databinding.ActivityHomeBinding
-import com.javi.presentation.home.adapter.FavouriteBooksAdapter
-import com.javi.presentation.model.UiState
-import com.javi.presentation.home.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import com.javi.common.Util.startActivity
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), HomeBottomNavigation {
 
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var bookAdapter: FavouriteBooksAdapter
-
-    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        homeViewModel.getFavouriteBooks()
-        binding.homeBooksList.apply {
-            this.layoutManager = LinearLayoutManager(context)
-            bookAdapter = FavouriteBooksAdapter { book ->
-                this@HomeActivity.startActivity(BookDetailActivity::class.java)
-            }
-            this.adapter = bookAdapter
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel
-                    .uiState
-                    .collect {
-                        render(it)
-                    }
-            }
-        }
+        binding.homeBottomNav.setListeners(this)
     }
 
-    private fun render(uiState: UiState) {
-        when (uiState) {
-            is UiState.Loading -> {
-                binding.progressLoader.visibility = View.VISIBLE
-            }
-
-            is UiState.Success<*> -> {
-                setBooksData(uiState.data as List<Book>)
-                binding.progressLoader.visibility = View.GONE
-            }
-
-            is UiState.Error -> {
-                binding.progressLoader.visibility = View.GONE
-            }
-        }
+    override fun onFavouritesClick() {
+        binding.navHostFragment.findNavController().navigate(R.id.home_favourite_books)
     }
 
-    private fun setBooksData(books: List<Book>) {
-        bookAdapter.setData(books)
+    override fun onAllBooksClick() {
+        binding.navHostFragment.findNavController().navigate(R.id.home_all_books)
+    }
+
+    override fun onAllUsersClick() {
+        binding.navHostFragment.findNavController().navigate(R.id.home_all_users)
     }
 }

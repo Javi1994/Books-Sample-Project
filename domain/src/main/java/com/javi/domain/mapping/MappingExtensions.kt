@@ -11,7 +11,9 @@ import com.javi.domain.model.User
 fun UserDto.toUser(): User {
     return User(
         username = this.username,
-        token = this.token
+        name = this.name,
+        lastName = this.lastName,
+        email = this.email
     )
 }
 

@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.javi.common.Util.setVisible
+import com.javi.presentation.Util.setVisible
 import com.javi.presentation.R
 import com.javi.presentation.databinding.LoadingButtonBinding
 
@@ -34,7 +34,6 @@ class LoadingButton(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
     fun isLoading(loading: Boolean) {
         binding.btnLoader.setVisible(loading)
-        isEnabled(!loading)
     }
 
     fun onClickListener(onClick: () -> Unit) {
