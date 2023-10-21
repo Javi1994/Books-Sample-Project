@@ -27,9 +27,37 @@ class BookApiMock : BookApi {
 
     override fun getAllBooks(): Flow<List<BookDto>> {
         return flow {
-            delay(1000)
+            delay(10000)
             emit(
                 listOf(
+                    book1,
+                    book4,
+                    book5,
+                    book6,
+                    book2,
+                    book3,
+                    book1,
+                    book2,
+                    book1,
+                    book4,
+                    book3,
+                    book4,
+                    book5,
+                    book6,
+                    book1,
+                    book4,
+                    book5,
+                    book6,
+                    book2,
+                    book3,
+                    book1,
+                    book2,
+                    book1,
+                    book4,
+                    book3,
+                    book4,
+                    book5,
+                    book6,
                     book1,
                     book4,
                     book5,

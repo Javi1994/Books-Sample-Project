@@ -49,6 +49,12 @@ private object Dependencies {
         const val dataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
     }
 
+    object RoomDependencies {
+        const val room = "androidx.room:room-runtime:${Versions.room}"
+        const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+        const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    }
+
     object TestDependencies {
         const val junit = "junit:junit:${Versions.junit}"
         const val androidJUnit = "androidx.test.ext:junit:${Versions.androidJUnit}"
@@ -95,6 +101,12 @@ fun DependencyHandler.coroutines() {
 
 fun DependencyHandler.dataStore() {
     implementation(Dependencies.DataStoreDependencies.dataStore)
+}
+
+fun DependencyHandler.room() {
+    implementation(Dependencies.RoomDependencies.room)
+    kapt(Dependencies.RoomDependencies.roomCompiler)
+    implementation(Dependencies.RoomDependencies.roomKtx)
 }
 
 fun DependencyHandler.test() {

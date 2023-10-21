@@ -3,6 +3,7 @@ package com.javi.data.di
 import com.javi.data.datasource.BookDataSource
 import com.javi.data.datasource.LoginDataSource
 import com.javi.data.datasource.UserDataSource
+import com.javi.data.datasource.database.BookDao
 import com.javi.data.datasource.impl.BookDataSourceImpl
 import com.javi.data.datasource.impl.LoginDataSourceImpl
 import com.javi.data.datasource.impl.UserDataSourceImpl
@@ -33,16 +34,18 @@ object DataSourceModule {
     @Singleton
     fun provideBooksDataSource(
         mockBookApiMock: BookApiMock,
+        booksDao: BookDao
     ): BookDataSource {
-        return BookDataSourceImpl(mockBookApiMock)
+        return BookDataSourceImpl(mockBookApiMock, booksDao)
     }
 
     @Provides
     @Singleton
     fun provideLoginDataSource(
         mockLoginApiMock: LoginApiMock,
-        userPreferences: UserPreferences
+        userPreferences: UserPreferences,
+        booksDao: BookDao
     ): LoginDataSource {
-        return LoginDataSourceImpl(mockLoginApiMock, userPreferences)
+        return LoginDataSourceImpl(mockLoginApiMock, userPreferences, booksDao)
     }
 }

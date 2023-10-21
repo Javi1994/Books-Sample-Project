@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.javi.common.Util.setVisible
-import com.javi.common.Util.startActivity
+import com.javi.presentation.Util.setVisible
+import com.javi.presentation.Util.startActivity
 import com.javi.domain.model.User
 import com.javi.presentation.R
 import com.javi.presentation.databinding.FragmentHomeUserSettingsBinding
