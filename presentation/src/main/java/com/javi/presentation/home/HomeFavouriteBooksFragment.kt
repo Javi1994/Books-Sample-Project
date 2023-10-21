@@ -10,12 +10,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.javi.presentation.Util.startActivity
 import com.javi.domain.model.Book
 import com.javi.presentation.R
+import com.javi.presentation.Util.startActivity
 import com.javi.presentation.book_detail.BookDetailActivity
 import com.javi.presentation.databinding.FragmentHomeFavouriteBooksBinding
-import com.javi.presentation.home.adapter.FavouriteBooksAdapter
+import com.javi.presentation.home.adapter.BooksAdapter
 import com.javi.presentation.home.viewmodel.HomeViewModel
 import com.javi.presentation.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +27,7 @@ class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_boo
     private var _binding: FragmentHomeFavouriteBooksBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var bookAdapter: FavouriteBooksAdapter
+    private lateinit var bookAdapter: BooksAdapter
 
     private val homeViewModel: HomeViewModel by viewModels()
 
@@ -46,7 +46,7 @@ class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_boo
         homeViewModel.getFavouriteBooks()
         binding.homeBooksList.apply {
             this.layoutManager = LinearLayoutManager(context)
-            bookAdapter = FavouriteBooksAdapter { book ->
+            bookAdapter = BooksAdapter { book ->
                 requireContext().startActivity(BookDetailActivity::class.java)
             }
             this.adapter = bookAdapter

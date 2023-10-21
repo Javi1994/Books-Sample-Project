@@ -18,4 +18,7 @@ interface BookDao {
 
     @Delete
     fun delete(book: BookDto)
+
+    @Query("DELETE FROM bookdto")
+    fun deleteAll()
 }

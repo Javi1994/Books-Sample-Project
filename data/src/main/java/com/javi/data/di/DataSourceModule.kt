@@ -43,8 +43,9 @@ object DataSourceModule {
     @Singleton
     fun provideLoginDataSource(
         mockLoginApiMock: LoginApiMock,
-        userPreferences: UserPreferences
+        userPreferences: UserPreferences,
+        booksDao: BookDao
     ): LoginDataSource {
-        return LoginDataSourceImpl(mockLoginApiMock, userPreferences)
+        return LoginDataSourceImpl(mockLoginApiMock, userPreferences, booksDao)
     }
 }

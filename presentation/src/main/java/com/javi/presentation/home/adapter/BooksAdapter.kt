@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.javi.domain.model.Book
 import com.javi.presentation.databinding.BookItemBinding
 
-class FavouriteBooksAdapter(
+class BooksAdapter(
     private var books: List<Book> = emptyList(),
     private var onClick: (Book) -> Unit
-) : RecyclerView.Adapter<FavouriteBooksAdapter.BookViewHolder>() {
+) : RecyclerView.Adapter<BooksAdapter.BookViewHolder>() {
 
     private lateinit var binding: BookItemBinding
 

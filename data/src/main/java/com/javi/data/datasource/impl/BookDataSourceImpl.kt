@@ -5,9 +5,11 @@ import com.javi.data.datasource.database.BookDao
 import com.javi.data.datasource.remote.BookApi
 import com.javi.data.dto.BookDetailDto
 import com.javi.data.dto.BookDto
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class BookDataSourceImpl @Inject constructor(
@@ -23,28 +25,15 @@ class BookDataSourceImpl @Inject constructor(
             .map { list ->
                 list.ifEmpty {
                     val books = bookApi.getAllBooks().first()
-                    bookDao.insertAll(books)
+
+                    withContext(Dispatchers.IO) {
+                        bookDao.insertAll(books)
+                    }
+
                     books
                 }
             }
     }
-
-    /**
-     * return dataStore.data.map { preferences ->
-     *             val hasData = hasData().firstOrNull()
-     *             if (hasData == true) {
-     *                 val username = preferences[USER_USERNAME_KEY]
-     *                 val token = preferences[USER_TOKEN_KEY]
-     *
-     *                 UserDto(
-     *                     username = username!!,
-     *                     token = token!!
-     *                 )
-     *             } else {
-     *                 null
-     *             }
-     *         }
-     */
 
     override fun getBookDetail(id: String): Flow<BookDetailDto> {
         return bookApi.getBookDetail(id)

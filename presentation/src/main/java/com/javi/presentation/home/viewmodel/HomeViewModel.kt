@@ -2,6 +2,7 @@ package com.javi.presentation.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.javi.domain.use_case.book.GetAllBooksUseCase
 import com.javi.domain.use_case.book.GetFavouriteBooksUseCase
 import com.javi.domain.use_case.login.LogoutUseCase
 import com.javi.domain.use_case.user.GetUserUseCase
@@ -16,11 +17,13 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getFavouriteBooksUseCase: GetFavouriteBooksUseCase,
+    private val getAllBooksUseCase: GetAllBooksUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
     val uiStateFavouriteBooks: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+    val uiStateAllBooks: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiStateUser: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
 
     val logoutSuccess: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -32,6 +35,17 @@ class HomeViewModel @Inject constructor(
             }
             .onEach {
                 uiStateFavouriteBooks.emit(it)
+            }
+            .launchIn(viewModelScope)
+    }
+
+    fun getAllBooks() {
+        getAllBooksUseCase.invoke()
+            .map {
+                UiState.Success(it)
+            }
+            .onEach {
+                uiStateAllBooks.emit(it)
             }
             .launchIn(viewModelScope)
     }
