@@ -20,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -46,15 +45,12 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel.uiState
-                    .onStart {
-                        binding.btnLogin.isLoading(true)
-                    }
                     .onEach {
                         when (it) {
                             is UiState.Success<*> -> {
                                 requireContext().startActivity(HomeActivity::class.java)
+                                requireActivity().finish()
                             }
-
                             is UiState.Loading -> {}
                             is UiState.Error -> {}
                         }
@@ -67,6 +63,7 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
         }
 
         binding.btnLogin.onClickListener {
+            binding.btnLogin.isLoading(true)
             loginViewModel.doLogin()
         }
 

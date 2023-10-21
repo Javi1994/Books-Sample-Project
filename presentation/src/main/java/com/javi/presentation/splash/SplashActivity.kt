@@ -18,6 +18,7 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             startActivityWithDelay(this@SplashActivity, 1000, LoginActivity::class.java)
+            finish()
         }
     }
 }

@@ -10,14 +10,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.javi.common.Util.setVisible
+import com.javi.common.Util.startActivity
 import com.javi.domain.model.User
 import com.javi.presentation.R
 import com.javi.presentation.databinding.FragmentHomeUserSettingsBinding
 import com.javi.presentation.home.viewmodel.HomeViewModel
+import com.javi.presentation.login.LoginActivity
 import com.javi.presentation.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -54,15 +55,13 @@ class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings) 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel
                     .logoutSuccess
-                    .onStart {
-                        binding.btnLogout.isLoading(true)
-                    }
                     .onCompletion {
                         binding.btnLogout.isLoading(false)
                     }
                     .collect {
                         if (it) {
-                            (activity as HomeActivity).finish()
+                            requireContext().startActivity(LoginActivity::class.java)
+                            requireActivity().finish()
                         }
                     }
             }
@@ -95,6 +94,7 @@ class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings) 
 
             btnLogout.setVisible(true)
             btnLogout.onClickListener {
+                binding.btnLogout.isLoading(true)
                 homeViewModel.logout()
             }
         }
