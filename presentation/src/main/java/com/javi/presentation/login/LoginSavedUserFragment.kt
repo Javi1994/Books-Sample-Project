@@ -19,7 +19,9 @@ import com.javi.presentation.login.viewmodel.LoginViewModel
 import com.javi.presentation.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -54,22 +56,27 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel.uiState
+                    .onStart {
+                        binding.btnLogin.isLoading(true)
+                    }
                     .onEach {
                         when (it) {
                             is UiState.Success<*> -> {
-                                binding.btnLogin.isLoading(false)
                                 requireContext().startActivity(HomeActivity::class.java)
                             }
 
                             is UiState.Loading -> {}
                             is UiState.Error -> {}
                         }
-                    }.collect()
+                    }
+                    .onCompletion {
+                        binding.btnLogin.isLoading(false)
+                    }
+                    .collect()
             }
         }
 
         binding.btnLogin.onClickListener {
-            binding.btnLogin.isLoading(true)
             loginViewModel.doLogin()
         }
 

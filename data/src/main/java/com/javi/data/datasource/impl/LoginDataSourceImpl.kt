@@ -25,5 +25,8 @@ class LoginDataSourceImpl @Inject constructor(
 
     override fun logout(): Flow<Unit> {
         return loginApi.doLogout()
+            .onEach {
+                userPreferences.clearPreferences()
+            }
     }
 }

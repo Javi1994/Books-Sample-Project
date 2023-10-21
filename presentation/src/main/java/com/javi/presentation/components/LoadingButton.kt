@@ -34,7 +34,6 @@ class LoadingButton(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
     fun isLoading(loading: Boolean) {
         binding.btnLoader.setVisible(loading)
-        isEnabled(!loading)
     }
 
     fun onClickListener(onClick: () -> Unit) {

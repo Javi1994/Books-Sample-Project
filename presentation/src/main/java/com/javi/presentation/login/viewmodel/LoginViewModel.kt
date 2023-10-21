@@ -33,12 +33,9 @@ class LoginViewModel @Inject constructor(
     fun doLogin() {
         loginUseCase.invoke("username", "password")
             .map {
-                val uiState = UiState.Success(it)
-                println("Mapping login result to uiState: $uiState")
-                uiState
+                UiState.Success(it)
             }
             .onEach {
-                println("Emitting uiState: $it")
                 uiState.emit(it)
             }
             .launchIn(viewModelScope)

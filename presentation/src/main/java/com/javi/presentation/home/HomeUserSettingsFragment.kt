@@ -9,25 +9,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.javi.common.Util.startActivity
-import com.javi.domain.model.Book
+import com.javi.common.Util.setVisible
+import com.javi.domain.model.User
 import com.javi.presentation.R
-import com.javi.presentation.book_detail.BookDetailActivity
-import com.javi.presentation.databinding.FragmentHomeFavouriteBooksBinding
-import com.javi.presentation.home.adapter.FavouriteBooksAdapter
+import com.javi.presentation.databinding.FragmentHomeUserSettingsBinding
 import com.javi.presentation.home.viewmodel.HomeViewModel
 import com.javi.presentation.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFavouriteBooks : Fragment(R.layout.fragment_home_favourite_books) {
+class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings) {
 
-    private var _binding: FragmentHomeFavouriteBooksBinding? = null
+    private var _binding: FragmentHomeUserSettingsBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var bookAdapter: FavouriteBooksAdapter
 
     private val homeViewModel: HomeViewModel by viewModels()
 
@@ -36,37 +33,41 @@ class HomeFavouriteBooks : Fragment(R.layout.fragment_home_favourite_books) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeFavouriteBooksBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeUserSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.getFavouriteBooks()
-        binding.homeBooksList.apply {
-            this.layoutManager = LinearLayoutManager(context)
-            bookAdapter = FavouriteBooksAdapter { book ->
-                requireContext().startActivity(BookDetailActivity::class.java)
-            }
-            this.adapter = bookAdapter
-        }
-
-
+        homeViewModel.getUser()
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel
-                    .uiState
+                    .uiStateUser
                     .collect {
                         render(it)
                     }
             }
         }
-    }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeViewModel
+                    .logoutSuccess
+                    .onStart {
+                        binding.btnLogout.isLoading(true)
+                    }
+                    .onCompletion {
+                        binding.btnLogout.isLoading(false)
+                    }
+                    .collect {
+                        if (it) {
+                            (activity as HomeActivity).finish()
+                        }
+                    }
+            }
+        }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun render(uiState: UiState) {
@@ -76,7 +77,7 @@ class HomeFavouriteBooks : Fragment(R.layout.fragment_home_favourite_books) {
             }
 
             is UiState.Success<*> -> {
-                setBooksData(uiState.data as List<Book>)
+                setUserData(uiState.data as User)
                 binding.progressLoader.visibility = View.GONE
             }
 
@@ -86,7 +87,21 @@ class HomeFavouriteBooks : Fragment(R.layout.fragment_home_favourite_books) {
         }
     }
 
-    private fun setBooksData(books: List<Book>) {
-        bookAdapter.setData(books)
+    private fun setUserData(user: User) {
+        with(binding) {
+            txtUserUsername.text = user.username
+            txtUserFullname.text = user.name + " " + user.lastName
+            txtUserEmail.text = user.email
+
+            btnLogout.setVisible(true)
+            btnLogout.onClickListener {
+                homeViewModel.logout()
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

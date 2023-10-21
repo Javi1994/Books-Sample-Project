@@ -12,30 +12,11 @@ class UserApiMock : UserApi {
             delay(2000)
             emit(
                 UserDto(
-                    "Javi",
-                    "sflkADlaÑGgre"
-                )
-            )
-        }
-    }
-
-    override fun getAllUsers(): Flow<List<UserDto>> {
-        return flow {
-            delay(2000)
-            emit(
-                listOf(
-                    UserDto(
-                        "Javi",
-                        "sflkADlaÑGgre"
-                    ),
-                    UserDto(
-                        "Caselles",
-                        "sfDasdalagre"
-                    ),
-                    UserDto(
-                        "Uriel",
-                        "asffsf2hae"
-                    )
+                    "Javi1994",
+                    "sflkADlaÑGgre",
+                    "Javier",
+                    "Caselles",
+                    "javi@email.com"
                 )
             )
         }

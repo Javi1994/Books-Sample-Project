@@ -12,8 +12,4 @@ class UserDataSourceImpl @Inject constructor(
     override fun getUser(): Flow<UserDto> {
         return userApi.getUser()
     }
-
-    override fun getAllUsers(): Flow<List<UserDto>> {
-        return userApi.getAllUsers()
-    }
 }

@@ -6,16 +6,16 @@
 
     <fragment
         android:id="@+id/home_favourite_books"
-        android:name="com.javi.presentation.home.HomeFavouriteBooks"
+        android:name="com.javi.presentation.home.HomeFavouriteBooksFragment"
         android:label="Home Favourite Books" />
 
     <fragment
         android:id="@+id/home_all_books"
-        android:name="com.javi.presentation.home.HomeAllBooks"
+        android:name="com.javi.presentation.home.HomeAllBooksFragment"
         android:label="Home All Books" />
 
     <fragment
         android:id="@+id/home_all_users"
-        android:name="com.javi.presentation.home.HomeAllUsers"
+        android:name="com.javi.presentation.home.HomeUserSettingsFragment"
         android:label="Home All Users" />
 </navigation>

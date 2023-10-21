@@ -10,7 +10,7 @@ import com.javi.presentation.databinding.FragmentHomeAllBooksBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeAllBooks : Fragment(R.layout.fragment_home_all_books) {
+class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books) {
 
     private var _binding: FragmentHomeAllBooksBinding? = null
     private val binding get() = _binding!!

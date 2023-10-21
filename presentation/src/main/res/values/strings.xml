@@ -10,4 +10,6 @@
     <string name="bottom_nav_favourites">Favourites</string>
     <string name="bottom_nav_all_users">Users</string>
     <string name="bottom_nav_all_books">Books</string>
+
+    <string name="home_user_detail_logout">Logout</string>
 </resources>
