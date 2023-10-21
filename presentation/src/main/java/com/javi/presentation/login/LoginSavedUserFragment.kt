@@ -73,7 +73,7 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user) {
 
         binding.btnLogin.onClickListener {
             binding.btnLogin.isLoading(true)
-            loginViewModel.doLogin()
+            loginViewModel.doLogin(binding.inputPassword.text.toString())
         }
 
         binding.inputPassword.addTextChangedListener {

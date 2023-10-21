@@ -51,6 +51,7 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
                                 requireContext().startActivity(HomeActivity::class.java)
                                 requireActivity().finish()
                             }
+
                             is UiState.Loading -> {}
                             is UiState.Error -> {}
                         }
@@ -64,7 +65,10 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
 
         binding.btnLogin.onClickListener {
             binding.btnLogin.isLoading(true)
-            loginViewModel.doLogin()
+            loginViewModel.doLogin(
+                binding.inputUsername.text.toString(),
+                binding.inputPassword.text.toString()
+            )
         }
 
         //TODO: improve btn activation

@@ -23,9 +23,10 @@ object DataSourceModule {
     @Provides
     @Singleton
     fun provideUserDataSource(
-        mockUserApiMock: UserApiMock
+        mockUserApiMock: UserApiMock,
+        userPreferences: UserPreferences
     ): UserDataSource {
-        return UserDataSourceImpl(mockUserApiMock)
+        return UserDataSourceImpl(mockUserApiMock, userPreferences)
     }
 
     @Provides

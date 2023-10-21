@@ -22,16 +22,30 @@ class LoginViewModel @Inject constructor(
     val uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     var user: MutableStateFlow<User?> = MutableStateFlow(null)
 
+    private var _user: User? = null
+
     init {
         getUserFromPreferencesUseCase.invoke()
             .onEach {
+                _user = it
                 user.emit(it)
             }
             .launchIn(viewModelScope)
     }
 
-    fun doLogin() {
-        loginUseCase.invoke("username", "password")
+    fun doLogin(username: String, password: String) {
+        loginUseCase.invoke(username, password)
+            .map {
+                UiState.Success(it)
+            }
+            .onEach {
+                uiState.emit(it)
+            }
+            .launchIn(viewModelScope)
+    }
+
+    fun doLogin(password: String) {
+        loginUseCase.invoke(_user?.username!!, password)
             .map {
                 UiState.Success(it)
             }

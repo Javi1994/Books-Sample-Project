@@ -15,7 +15,9 @@ class LoginDataSourceImpl @Inject constructor(
     override fun login(username: String, password: String): Flow<UserDto> {
         return loginApi.doLogin(username, password)
             .onEach {
-                userPreferences.saveUser(it)
+                userPreferences.saveUser(
+                    it.copy(username = username)
+                )
             }
     }
 
