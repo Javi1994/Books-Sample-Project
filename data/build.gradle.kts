@@ -40,4 +40,5 @@ kapt {
 
 dependencies {
     hilt()
+    dataStore()
 }

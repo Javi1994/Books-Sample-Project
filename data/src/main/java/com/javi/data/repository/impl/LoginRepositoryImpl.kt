@@ -1,5 +1,6 @@
 package com.javi.data.repository.impl
 
+import com.javi.data.datasource.local.UserPreferences
 import com.javi.data.datasource.remote.LoginApi
 import com.javi.data.dto.UserDto
 import com.javi.data.repository.LoginRepository
@@ -10,12 +11,14 @@ import javax.inject.Singleton
 
 @Singleton
 class LoginRepositoryImpl @Inject constructor(
-    private val loginApi: LoginApi
+    private val loginApi: LoginApi,
+    private val userPreferences: UserPreferences
 ) : LoginRepository {
 
     override fun login(username: String, password: String): Flow<UserDto> {
         return loginApi.doLogin(username, password)
             .onEach {
+                userPreferences.saveUser(it)
                 println("Login result: $it")
             }
     }

@@ -2,6 +2,7 @@ package com.javi.data.di
 
 import com.javi.data.datasource.BookDataSource
 import com.javi.data.datasource.UserDataSource
+import com.javi.data.datasource.local.UserPreferences
 import com.javi.data.datasource.mock.LoginApiMock
 import com.javi.data.repository.BookRepository
 import com.javi.data.repository.LoginRepository
@@ -38,8 +39,9 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideLoginRepository(
-        loginApiMock: LoginApiMock
+        loginApiMock: LoginApiMock,
+        userPreferences: UserPreferences
     ): LoginRepository {
-        return LoginRepositoryImpl(loginApiMock)
+        return LoginRepositoryImpl(loginApiMock, userPreferences)
     }
 }

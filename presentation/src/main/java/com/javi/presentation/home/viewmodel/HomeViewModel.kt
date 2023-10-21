@@ -2,7 +2,7 @@ package com.javi.presentation.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.javi.domain.use_case.GetFavouriteBooksUseCase
+import com.javi.domain.use_case.book.GetFavouriteBooksUseCase
 import com.javi.presentation.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
