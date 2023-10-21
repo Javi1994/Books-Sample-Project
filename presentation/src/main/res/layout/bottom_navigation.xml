@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_favourite_books"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/bottom_nav_favourites"
+            android:textSize="18sp"
+            tools:text="Favourites" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_all_books"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/bottom_nav_all_books"
+            android:textSize="18sp"
+            tools:text="Books" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_all_users"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/bottom_nav_all_users"
+            android:textSize="18sp"
+            tools:text="Users" />
+    </LinearLayout>
+</LinearLayout>

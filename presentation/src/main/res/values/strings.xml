@@ -5,4 +5,8 @@
 
     <string name="book_read_time">Estimated lecture time of %s minutes</string>
     <string name="book_pages">%s pages</string>
+
+    <string name="bottom_nav_favourites">Favourites</string>
+    <string name="bottom_nav_all_users">Users</string>
+    <string name="bottom_nav_all_books">Books</string>
 </resources>
