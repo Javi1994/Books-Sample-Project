@@ -3,7 +3,7 @@ package com.javi.presentation.splash
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.javi.common.Util.startActivityWithDelay
+import com.javi.presentation.Util.startActivityWithDelay
 import com.javi.presentation.R
 import com.javi.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
