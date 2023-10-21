@@ -6,5 +6,4 @@ import kotlinx.coroutines.flow.Flow
 interface UserApi {
     fun getUser(): Flow<UserDto>
     fun getAllUsers(): Flow<List<UserDto>>
-    fun logout(): Flow<Unit>
 }

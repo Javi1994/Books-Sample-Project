@@ -40,11 +40,4 @@ class UserApiMock : UserApi {
             )
         }
     }
-
-    override fun logout(): Flow<Unit> {
-        return flow {
-            delay(100)
-            emit(Unit)
-        }
-    }
 }

@@ -16,8 +16,4 @@ class UserDataSourceImpl @Inject constructor(
     override fun getAllUsers(): Flow<List<UserDto>> {
         return userApi.getAllUsers()
     }
-
-    override fun logout(): Flow<Unit> {
-        return userApi.logout()
-    }
 }
