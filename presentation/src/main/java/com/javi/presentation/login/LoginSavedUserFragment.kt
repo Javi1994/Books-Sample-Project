@@ -42,7 +42,8 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.uiState
+                loginViewModel
+                    .uiState
                     .collect {
                         renderUi(it)
                     }

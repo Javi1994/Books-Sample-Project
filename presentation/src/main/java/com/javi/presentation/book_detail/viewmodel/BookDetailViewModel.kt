@@ -2,13 +2,15 @@ package com.javi.presentation.book_detail.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.javi.presentation.model.UiState
+import com.javi.common.Resource
+import com.javi.common.hasError
 import com.javi.domain.use_case.book.GetBookDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,19 +18,54 @@ class BookDetailViewModel @Inject constructor(
     private val getBookDetail: GetBookDetailUseCase
 ) : ViewModel() {
 
-    val uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+    private val _uiState = MutableStateFlow(BookDetailUiState())
+    val uiState: StateFlow<BookDetailUiState> =
+        _uiState.asStateFlow()
 
-    fun getBookDetail() {
-        getBookDetail.invoke("book_id")
-            .map {
-                val uiState = UiState.Success(it)
-                println("Mapping book detail result to uiState: $uiState")
-                uiState
+    fun onEvent(event: BookDetailUiEvents) {
+        when (event) {
+            is BookDetailUiEvents.GetBookDetail -> {
+                getBookDetail()
             }
-            .onEach {
-                println("Emitting uiState: $it")
-                uiState.emit(it)
-            }
-            .launchIn(viewModelScope)
+        }
+    }
+
+    private fun getBookDetail() {
+        viewModelScope.launch {
+            getBookDetail.invoke(uiState.value.bookDetailId ?: "")
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            result.data?.let { books ->
+                                _uiState.update {
+                                    it.copy(
+                                        bookDetail = books,
+                                        isLoading = result.isLoading,
+                                        error = result.hasError
+                                    )
+                                }
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            _uiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+
+                        is Resource.Error -> {
+                            _uiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+                    }
+                }
+        }
     }
 }

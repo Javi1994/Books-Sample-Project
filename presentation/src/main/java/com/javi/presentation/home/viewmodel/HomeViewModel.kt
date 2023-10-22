@@ -41,6 +41,15 @@ class HomeViewModel @Inject constructor(
     val userSettingsUiState: StateFlow<UserSettingsUiState> =
         _userSettingsUiState.asStateFlow()
 
+    init {
+        viewModelScope.launch {
+            getUserFromPreferencesUseCase.invoke()
+                .collect { user ->
+                    _user = user
+                }
+        }
+    }
+
     fun onEvent(event: HomeUiEvents) {
         when (event) {
             is HomeUiEvents.GetFavouriteBooks -> {
@@ -60,15 +69,6 @@ class HomeViewModel @Inject constructor(
             is HomeUiEvents.Logout -> {
                 logout()
             }
-        }
-    }
-
-    init {
-        viewModelScope.launch {
-            getUserFromPreferencesUseCase.invoke()
-                .collect { user ->
-                    _user = user
-                }
         }
     }
 

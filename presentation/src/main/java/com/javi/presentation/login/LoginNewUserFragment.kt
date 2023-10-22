@@ -42,7 +42,8 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.uiState
+                loginViewModel
+                    .uiState
                     .collect {
                         renderUi(it)
                     }

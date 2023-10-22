@@ -28,7 +28,8 @@ class LoginActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.uiState
+                loginViewModel
+                    .uiState
                     .collect {
                         if (it.hasUserDataFromPreferences) {
                             binding.navHostFragment.findNavController()

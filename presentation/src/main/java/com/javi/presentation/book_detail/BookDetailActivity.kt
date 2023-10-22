@@ -1,7 +1,6 @@
 package com.javi.presentation.book_detail
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -9,9 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.javi.domain.model.BookDetail
 import com.javi.presentation.R
+import com.javi.presentation.Util.setVisible
+import com.javi.presentation.book_detail.viewmodel.BookDetailUiEvents
+import com.javi.presentation.book_detail.viewmodel.BookDetailUiState
 import com.javi.presentation.book_detail.viewmodel.BookDetailViewModel
 import com.javi.presentation.databinding.ActivityBookDetailBinding
-import com.javi.presentation.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -27,33 +28,24 @@ class BookDetailActivity : AppCompatActivity() {
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        bookDetailViewModel.getBookDetail()
+        bookDetailViewModel.onEvent(BookDetailUiEvents.GetBookDetail)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 bookDetailViewModel
                     .uiState
                     .collect {
-                        render(it)
+                        renderUi(it)
                     }
             }
         }
     }
 
-    private fun render(uiState: UiState) {
-        when (uiState) {
-            is UiState.Loading -> {
-                binding.progressLoader.visibility = View.VISIBLE
-            }
+    private fun renderUi(uiState: BookDetailUiState) {
+        binding.progressLoader.setVisible(uiState.isLoading)
 
-            is UiState.Success<*> -> {
-                setBookDetailData(uiState.data as BookDetail)
-                binding.progressLoader.visibility = View.GONE
-            }
-
-            is UiState.Error -> {
-                binding.progressLoader.visibility = View.GONE
-            }
+        uiState.bookDetail?.let {
+            setBookDetailData(it)
         }
     }
 
