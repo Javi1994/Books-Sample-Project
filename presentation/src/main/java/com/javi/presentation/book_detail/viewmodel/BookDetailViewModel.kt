@@ -3,7 +3,6 @@ package com.javi.presentation.book_detail.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
-import com.javi.common.hasError
 import com.javi.domain.use_case.book.GetBookDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

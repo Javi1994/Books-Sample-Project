@@ -8,6 +8,7 @@ sealed class Resource<T>(
     class Success<T>(data: T?) : Resource<T>(data = data)
     class Error<T>(message: String) : Resource<T>(message = message)
     class Loading<T>(isLoading: Boolean = true) : Resource<T>(isLoading = isLoading)
+
+    val hasError: Boolean get() = message != null
 }
 
-val Resource<*>.hasError: Boolean get() = message != null

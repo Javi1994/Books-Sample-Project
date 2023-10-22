@@ -3,7 +3,6 @@ package com.javi.presentation.login.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
-import com.javi.common.hasError
 import com.javi.domain.model.User
 import com.javi.domain.use_case.login.LoginUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
