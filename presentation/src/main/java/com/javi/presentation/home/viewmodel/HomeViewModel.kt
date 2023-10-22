@@ -2,69 +2,245 @@ package com.javi.presentation.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.javi.common.Resource
+import com.javi.domain.model.Book
+import com.javi.domain.model.User
 import com.javi.domain.use_case.book.GetAllBooksUseCase
 import com.javi.domain.use_case.book.GetFavouriteBooksUseCase
 import com.javi.domain.use_case.login.LogoutUseCase
+import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
 import com.javi.domain.use_case.user.GetUserUseCase
-import com.javi.presentation.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val getUserFromPreferencesUseCase: GetUserFromPreferencesUseCase,
     private val getFavouriteBooksUseCase: GetFavouriteBooksUseCase,
     private val getAllBooksUseCase: GetAllBooksUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
-    val uiStateFavouriteBooks: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-    val uiStateAllBooks: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-    val uiStateUser: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
+    private var _user: User? = null
 
-    val logoutSuccess: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val _favouriteBooksUiState = MutableStateFlow(FavouriteBooksUiState())
+    val favouriteBooksUiState: StateFlow<FavouriteBooksUiState> =
+        _favouriteBooksUiState.asStateFlow()
 
-    fun getFavouriteBooks() {
-        getFavouriteBooksUseCase.invoke("username")
-            .map {
-                UiState.Success(it)
-            }
-            .onEach {
-                uiStateFavouriteBooks.emit(it)
-            }
-            .launchIn(viewModelScope)
+    private val _allBooksUiState = MutableStateFlow(AllBooksUiState())
+    val allBooksUiState: StateFlow<AllBooksUiState> =
+        _allBooksUiState.asStateFlow()
+
+    private val _userSettingsUiState = MutableStateFlow(UserSettingsUiState())
+    val userSettingsUiState: StateFlow<UserSettingsUiState> =
+        _userSettingsUiState.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            getUserFromPreferencesUseCase.invoke()
+                .collect { user ->
+                    _user = user
+                }
+        }
     }
 
-    fun getAllBooks() {
-        getAllBooksUseCase.invoke()
-            .map {
-                UiState.Success(it)
+    fun onEvent(event: HomeUiEvents) {
+        when (event) {
+            is HomeUiEvents.GetFavouriteBooks -> {
+                getFavouriteBooks()
             }
-            .onEach {
-                uiStateAllBooks.emit(it)
+
+            is HomeUiEvents.OnBookClicked -> {
+                selectBook(event.book)
             }
-            .launchIn(viewModelScope)
+
+            is HomeUiEvents.GetAllBooks -> {
+                getAllBooks()
+            }
+
+            is HomeUiEvents.GetUserSettings -> {
+                getUserSettings()
+            }
+
+            is HomeUiEvents.Logout -> {
+                logout()
+            }
+        }
     }
 
-    fun getUser() {
-        getUserUseCase.invoke()
-            .map {
-                UiState.Success(it)
-            }
-            .onEach {
-                uiStateUser.emit(it)
-            }
-            .launchIn(viewModelScope)
+    private fun getFavouriteBooks() {
+        viewModelScope.launch {
+            getFavouriteBooksUseCase.invoke(_user?.username ?: "")
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            result.data?.let { books ->
+                                _favouriteBooksUiState.update {
+                                    it.copy(
+                                        books = books,
+                                        isLoading = result.isLoading,
+                                        error = result.hasError
+                                    )
+                                }
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            _favouriteBooksUiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+
+                        is Resource.Error -> {
+                            _favouriteBooksUiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+                    }
+                }
+        }
     }
 
-    fun logout() {
-        logoutUseCase.invoke()
-            .onEach {
-                logoutSuccess.emit(true)
-            }.launchIn(viewModelScope)
+    private fun getAllBooks() {
+        viewModelScope.launch {
+            getAllBooksUseCase.invoke()
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            result.data?.let { books ->
+                                _allBooksUiState.update {
+                                    it.copy(
+                                        books = books,
+                                        isLoading = result.isLoading,
+                                        error = result.hasError
+                                    )
+                                }
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            _allBooksUiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+
+                        is Resource.Error -> {
+                            _allBooksUiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun getUserSettings() {
+        viewModelScope.launch {
+            getUserUseCase.invoke()
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            result.data?.let { user ->
+                                _userSettingsUiState.update {
+                                    it.copy(
+                                        user = user,
+                                        isLoading = result.isLoading,
+                                        error = result.hasError
+                                    )
+                                }
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            _userSettingsUiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+
+                        is Resource.Error -> {
+                            _userSettingsUiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun logout() {
+        viewModelScope.launch {
+            logoutUseCase.invoke()
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _userSettingsUiState.update {
+                                it.copy(
+                                    logoutSuccess = true,
+                                    isLogoutLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            _userSettingsUiState.update {
+                                it.copy(
+                                    isLogoutLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+
+                        is Resource.Error -> {
+                            _userSettingsUiState.update {
+                                it.copy(
+                                    isLogoutLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun selectBook(book: Book) {
+        _favouriteBooksUiState.update {
+            it.copy(
+                selectedBook = book
+            )
+        }
+    }
+
+    fun bookWasSelected() {
+        _favouriteBooksUiState.update {
+            it.copy(
+                selectedBook = null
+            )
+        }
     }
 }

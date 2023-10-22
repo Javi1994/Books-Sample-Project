@@ -10,14 +10,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.javi.domain.model.Book
 import com.javi.presentation.R
+import com.javi.presentation.Util.setVisible
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.book_detail.BookDetailActivity
 import com.javi.presentation.databinding.FragmentHomeFavouriteBooksBinding
 import com.javi.presentation.home.adapter.BooksAdapter
+import com.javi.presentation.home.viewmodel.FavouriteBooksUiState
+import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
-import com.javi.presentation.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -43,50 +44,44 @@ class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_boo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.getFavouriteBooks()
-        binding.homeBooksList.apply {
-            this.layoutManager = LinearLayoutManager(context)
-            bookAdapter = BooksAdapter { book ->
-                requireContext().startActivity(BookDetailActivity::class.java)
-            }
-            this.adapter = bookAdapter
-        }
+        setupAdapter()
 
-
+        homeViewModel.onEvent(HomeUiEvents.GetFavouriteBooks)
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel
-                    .uiStateFavouriteBooks
+                    .favouriteBooksUiState
                     .collect {
-                        render(it)
+                        renderUi(it)
                     }
             }
+        }
+    }
+
+    private fun renderUi(uiState: FavouriteBooksUiState) {
+        binding.progressLoader.setVisible(uiState.isLoading)
+
+        if (uiState.selectedBook != null) {
+            requireContext().startActivity(BookDetailActivity::class.java)
+        }
+
+        if (uiState.hasBooks) {
+            bookAdapter.setData(uiState.books)
+        }
+    }
+
+    private fun setupAdapter() {
+        binding.homeBooksList.apply {
+            this.layoutManager = LinearLayoutManager(context)
+            bookAdapter = BooksAdapter { book ->
+                homeViewModel.onEvent(HomeUiEvents.OnBookClicked(book))
+            }
+            this.adapter = bookAdapter
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun render(uiState: UiState) {
-        when (uiState) {
-            is UiState.Loading -> {
-                binding.progressLoader.visibility = View.VISIBLE
-            }
-
-            is UiState.Success<*> -> {
-                setBooksData(uiState.data as List<Book>)
-                binding.progressLoader.visibility = View.GONE
-            }
-
-            is UiState.Error -> {
-                binding.progressLoader.visibility = View.GONE
-            }
-        }
-    }
-
-    private fun setBooksData(books: List<Book>) {
-        bookAdapter.setData(books)
     }
 }

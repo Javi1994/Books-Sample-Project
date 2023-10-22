@@ -1,5 +1,6 @@
 package com.javi.domain.use_case.book
 
+import com.javi.common.Resource
 import com.javi.data.repository.BookRepository
 import com.javi.domain.mapping.toBook
 import com.javi.domain.model.Book
@@ -12,12 +13,17 @@ class GetAllBooksUseCase @Inject constructor(
     private val bookRepository: BookRepository
 ) : BaseUseCase() {
 
-    operator fun invoke(): Flow<List<Book>> {
-        return bookRepository.getAllBooks()
-            .map { list ->
-                list.map {
-                    it.toBook()
+    operator fun invoke(): Flow<Resource<List<Book>>> {
+        return bookRepository.getAllBooks().map {
+            when(it) {
+                is Resource.Success -> {
+                    Resource.Success(data = it.data?.map { bookDto ->
+                        bookDto.toBook()
+                    })
                 }
+                is Resource.Loading -> { Resource.Loading(isLoading = it.isLoading)}
+                is Resource.Error -> { Resource.Error(message = it.message?: "")}
             }
+        }
     }
 }
