@@ -6,9 +6,11 @@ import com.javi.data.datasource.database.BookDao
 import com.javi.data.datasource.remote.BookApi
 import com.javi.data.dto.BookDetailDto
 import com.javi.data.dto.BookDto
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import javax.inject.Inject
 
@@ -39,9 +41,23 @@ class BookDataSourceImpl @Inject constructor(
         return flow {
             emit(Resource.Loading(true))
             try {
-                val allBooksResult = bookApi.getAllBooks()
-                delay(2000)
-                emit(Resource.Success(allBooksResult))
+                var bookFromDatabase: List<BookDto>
+                withContext(Dispatchers.IO) {
+                    bookFromDatabase = bookDao.getAllBooks()
+                }
+
+                if (bookFromDatabase.isEmpty()) {
+                    val allBooksResult = bookApi.getAllBooks()
+                    delay(15000)
+                    emit(Resource.Success(allBooksResult))
+
+                    withContext(Dispatchers.IO) {
+                        bookDao.insertAll(allBooksResult)
+                    }
+
+                } else {
+                    emit(Resource.Success(bookFromDatabase))
+                }
 
             } catch (e: IOException) {
                 e.printStackTrace()
