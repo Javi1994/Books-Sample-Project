@@ -12,10 +12,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.javi.domain.model.User
 import com.javi.presentation.R
 import com.javi.presentation.Util.setVisible
+import com.javi.presentation.Util.startActivity
 import com.javi.presentation.databinding.FragmentHomeUserSettingsBinding
 import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
 import com.javi.presentation.home.viewmodel.UserSettingsUiState
+import com.javi.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -53,6 +55,12 @@ class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings) 
 
     private fun renderUi(uiState: UserSettingsUiState) {
         binding.progressLoader.setVisible(uiState.isLoading)
+        binding.btnLogout.isLoading(uiState.isLogoutLoading)
+
+        if (uiState.logoutSuccess) {
+            requireContext().startActivity(LoginActivity::class.java)
+            requireActivity().finish()
+        }
 
         uiState.user?.let {
             setUserData(it)

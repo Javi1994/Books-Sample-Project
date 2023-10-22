@@ -43,11 +43,23 @@ class HomeViewModel @Inject constructor(
 
     fun onEvent(event: HomeUiEvents) {
         when (event) {
-            is HomeUiEvents.GetFavouriteBooks -> { getFavouriteBooks() }
-            is HomeUiEvents.OnBookClicked -> { }
-            is HomeUiEvents.GetAllBooks -> { getAllBooks() }
-            is HomeUiEvents.GetUserSettings -> { getUserSettings() }
-            is HomeUiEvents.Logout -> { }
+            is HomeUiEvents.GetFavouriteBooks -> {
+                getFavouriteBooks()
+            }
+
+            is HomeUiEvents.OnBookClicked -> {}
+
+            is HomeUiEvents.GetAllBooks -> {
+                getAllBooks()
+            }
+
+            is HomeUiEvents.GetUserSettings -> {
+                getUserSettings()
+            }
+
+            is HomeUiEvents.Logout -> {
+                logout()
+            }
         }
     }
 
@@ -178,6 +190,39 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun logout() {
+        viewModelScope.launch {
+            logoutUseCase.invoke()
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _userSettingsUiState.update {
+                                it.copy(
+                                    logoutSuccess = true,
+                                    isLogoutLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
 
+                        is Resource.Loading -> {
+                            _userSettingsUiState.update {
+                                it.copy(
+                                    isLogoutLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+
+                        is Resource.Error -> {
+                            _userSettingsUiState.update {
+                                it.copy(
+                                    isLogoutLoading = result.isLoading,
+                                    error = result.hasError
+                                )
+                            }
+                        }
+                    }
+                }
+        }
     }
 }

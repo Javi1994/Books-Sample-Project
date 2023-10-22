@@ -24,7 +24,9 @@ data class AllBooksUiState(
 data class UserSettingsUiState(
     val user: User? = null,
     val isLoading: Boolean = false,
-    val error: Boolean = false
+    val error: Boolean = false,
+    val logoutSuccess: Boolean = false,
+    val isLogoutLoading: Boolean = false
 )
 
 sealed class HomeUiEvents {
