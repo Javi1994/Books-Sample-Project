@@ -10,16 +10,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.javi.presentation.Util.startActivity
 import com.javi.presentation.R
+import com.javi.presentation.Util.startActivity
 import com.javi.presentation.databinding.FragmentLoginNewUserBinding
 import com.javi.presentation.home.HomeActivity
+import com.javi.presentation.login.viewmodel.LoginEvent
+import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
-import com.javi.presentation.model.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -45,41 +43,33 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel.uiState
-                    .onEach {
-                        when (it) {
-                            is UiState.Success<*> -> {
-                                requireContext().startActivity(HomeActivity::class.java)
-                                requireActivity().finish()
-                            }
-
-                            is UiState.Loading -> {}
-                            is UiState.Error -> {}
-                        }
+                    .collect {
+                        renderUi(it)
                     }
-                    .onCompletion {
-                        binding.btnLogin.isLoading(false)
-                    }
-                    .collect()
             }
         }
 
         binding.btnLogin.onClickListener {
-            binding.btnLogin.isLoading(true)
-            loginViewModel.doLogin(
-                binding.inputUsername.text.toString(),
-                binding.inputPassword.text.toString()
-            )
+            loginViewModel.onEvent(LoginEvent.LoginWithUsername)
         }
 
-        //TODO: improve btn activation
         binding.inputUsername.addTextChangedListener {
-            binding.btnLogin.isEnabled(!it.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty())
+            loginViewModel.onEvent(LoginEvent.UpdateUsername(it.toString()))
         }
 
-        //TODO: improve btn activation
         binding.inputPassword.addTextChangedListener {
-            binding.btnLogin.isEnabled(!it.isNullOrEmpty() && !binding.inputPassword.text.isNullOrEmpty())
+            loginViewModel.onEvent(LoginEvent.UpdatePassword(it.toString()))
         }
+    }
+
+    private fun renderUi(uiState: LoginUiState) {
+        if (uiState.loginSuccess) {
+            requireContext().startActivity(HomeActivity::class.java)
+            requireActivity().finish()
+        }
+
+        binding.btnLogin.isEnabled(uiState.canEnableLoginButton)
+        binding.btnLogin.isLoading(uiState.isLoading)
     }
 
     override fun onDestroyView() {

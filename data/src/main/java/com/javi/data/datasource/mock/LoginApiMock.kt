@@ -7,34 +7,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class LoginApiMock : LoginApi {
-    override fun doLogin(username: String, password: String): Flow<UserDto> {
-        return flow {
-            delay(2000)
-            emit(
-                UserDto(
-                    "Javi",
-                    "sflkADlaÑGgre"
-                )
-            )
-        }
+    override fun doLogin(username: String, password: String): UserDto {
+        return UserDto("Javi", "sflkADlaÑGgre")
     }
 
-    override fun doLoginWithToken(token: String): Flow<UserDto> {
-        return flow {
-            delay(2000)
-            emit(
-                UserDto(
-                    "Javi",
-                    "sflkADlaÑGgre"
-                )
-            )
-        }
+    override fun doLoginWithToken(token: String): UserDto {
+        return UserDto("Javi", "sflkADlaÑGgre")
     }
 
-    override fun doLogout(): Flow<Unit> {
-        return flow {
-            delay(2000)
-            emit(Unit)
-        }
+    override fun doLogout() {
+
     }
 }

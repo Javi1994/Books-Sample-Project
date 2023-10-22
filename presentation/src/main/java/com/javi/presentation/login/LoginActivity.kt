@@ -11,8 +11,6 @@ import com.javi.presentation.R
 import com.javi.presentation.databinding.ActivityLoginBinding
 import com.javi.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -30,16 +28,16 @@ class LoginActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.user
-                    .onEach {
-                        if (it == null) {
-                            binding.navHostFragment.findNavController()
-                                .navigate(R.id.login_new_user_fragment)
-                        } else {
+                loginViewModel.uiState
+                    .collect {
+                        if (it.hasUserDataFromPreferences) {
                             binding.navHostFragment.findNavController()
                                 .navigate(R.id.login_saved_user_fragment)
+                        } else {
+                            binding.navHostFragment.findNavController()
+                                .navigate(R.id.login_new_user_fragment)
                         }
-                    }.collect()
+                    }
             }
         }
     }

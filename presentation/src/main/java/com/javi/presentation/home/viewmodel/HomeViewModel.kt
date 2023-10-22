@@ -64,7 +64,7 @@ class HomeViewModel @Inject constructor(
     fun logout() {
         logoutUseCase.invoke()
             .onEach {
-                logoutSuccess.emit(true)
+
             }.launchIn(viewModelScope)
     }
 }

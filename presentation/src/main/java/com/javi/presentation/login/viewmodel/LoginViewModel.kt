@@ -2,15 +2,17 @@ package com.javi.presentation.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.javi.common.Resource
+import com.javi.common.hasError
 import com.javi.domain.model.User
 import com.javi.domain.use_case.login.LoginUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
-import com.javi.presentation.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,39 +21,108 @@ class LoginViewModel @Inject constructor(
     private val getUserFromPreferencesUseCase: GetUserFromPreferencesUseCase
 ) : ViewModel() {
 
-    val uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
-    var user: MutableStateFlow<User?> = MutableStateFlow(null)
-
-    private var _user: User? = null
+    private val _uiState = MutableStateFlow(LoginUiState())
+    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
     init {
-        getUserFromPreferencesUseCase.invoke()
-            .onEach {
-                _user = it
-                user.emit(it)
-            }
-            .launchIn(viewModelScope)
+        viewModelScope.launch {
+            getUserFromPreferencesUseCase.invoke()
+                .collect { user ->
+                    _uiState.update {
+                        it.copy(userFromPreferences = user)
+                    }
+                }
+        }
     }
 
-    fun doLogin(username: String, password: String) {
-        loginUseCase.invoke(username, password)
-            .map {
-                UiState.Success(it)
+    fun onEvent(event: LoginEvent) {
+        when (event) {
+            is LoginEvent.LoginWithUsername -> {
+                login()
             }
-            .onEach {
-                uiState.emit(it)
+
+            is LoginEvent.LoginWithPassword -> {
+                loginWithPassword()
             }
-            .launchIn(viewModelScope)
+
+            is LoginEvent.UpdateUsername -> {
+                _uiState.update {
+                    it.copy(username = event.username)
+                }
+            }
+
+            is LoginEvent.UpdatePassword -> {
+                _uiState.update {
+                    it.copy(password = event.password)
+                }
+            }
+
+            is LoginEvent.Logout -> {
+
+            }
+        }
     }
 
-    fun doLogin(password: String) {
-        loginUseCase.invoke(_user?.username!!, password)
-            .map {
-                UiState.Success(it)
+    private fun login() {
+        viewModelScope.launch {
+            loginUseCase
+                .invoke(
+                    username = uiState.value.username,
+                    password = uiState.value.password
+                )
+                .collect { result ->
+                    updateUiState(result)
+                }
+        }
+    }
+
+    private fun loginWithPassword() {
+        viewModelScope.launch {
+            loginUseCase
+                .invoke(
+                    username = uiState.value.userFromPreferences?.username ?: "",
+                    password = uiState.value.password
+                ).collect { result ->
+                    updateUiState(result)
+                }
+        }
+    }
+
+    private fun logout() {
+
+    }
+
+    private fun updateUiState(result: Resource<User>) {
+        when (result) {
+            is Resource.Success -> {
+                result.data?.let { user ->
+                    _uiState.update {
+                        it.copy(
+                            userFromLogin = user,
+                            isLoading = result.isLoading,
+                            error = result.hasError
+                        )
+                    }
+                }
             }
-            .onEach {
-                uiState.emit(it)
+
+            is Resource.Loading -> {
+                _uiState.update {
+                    it.copy(
+                        isLoading = result.isLoading,
+                        error = result.hasError
+                    )
+                }
             }
-            .launchIn(viewModelScope)
+
+            is Resource.Error -> {
+                _uiState.update {
+                    it.copy(
+                        isLoading = result.isLoading,
+                        error = result.hasError
+                    )
+                }
+            }
+        }
     }
 }

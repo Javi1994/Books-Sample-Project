@@ -42,4 +42,6 @@ dependencies {
     hilt()
     dataStore()
     room()
+
+    commonModule()
 }
