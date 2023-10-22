@@ -21,10 +21,10 @@ data class LoginUiState(
         get() = userFromLogin != null && !isLoading && !error
 }
 
-sealed class LoginEvent {
-    object Logout : LoginEvent()
-    object LoginWithUsername : LoginEvent()
-    object LoginWithPassword : LoginEvent()
-    data class UpdateUsername(val username: String) : LoginEvent()
-    data class UpdatePassword(val password: String) : LoginEvent()
+sealed class LoginUiEvent {
+    object Logout : LoginUiEvent()
+    object LoginWithUsername : LoginUiEvent()
+    object LoginWithPassword : LoginUiEvent()
+    data class UpdateUsername(val username: String) : LoginUiEvent()
+    data class UpdatePassword(val password: String) : LoginUiEvent()
 }

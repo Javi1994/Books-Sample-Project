@@ -3,9 +3,6 @@ package com.javi.data.datasource.mock
 import com.javi.data.datasource.remote.BookApi
 import com.javi.data.dto.BookDetailDto
 import com.javi.data.dto.BookDto
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class BookApiMock : BookApi {
 
@@ -16,72 +13,59 @@ class BookApiMock : BookApi {
     private val book5 = BookDto(title = "Scar and the Lily", author = "Jameson Vohu Manah")
     private val book6 = BookDto(title = "The crystal in the North", author = "Tanvi Juuso")
 
-    override fun getFavouriteBooks(username: String): Flow<List<BookDto>> {
-        return flow {
-            delay(1000)
-            emit(
-                listOf(book1, book2, book3, book4, book5, book6)
-            )
-        }
+    override fun getFavouriteBooks(username: String): List<BookDto> {
+        return listOf(book1, book2, book3, book4, book5, book6)
     }
 
-    override fun getAllBooks(): Flow<List<BookDto>> {
-        return flow {
-            delay(10000)
-            emit(
-                listOf(
-                    book1,
-                    book4,
-                    book5,
-                    book6,
-                    book2,
-                    book3,
-                    book1,
-                    book2,
-                    book1,
-                    book4,
-                    book3,
-                    book4,
-                    book5,
-                    book6,
-                    book1,
-                    book4,
-                    book5,
-                    book6,
-                    book2,
-                    book3,
-                    book1,
-                    book2,
-                    book1,
-                    book4,
-                    book3,
-                    book4,
-                    book5,
-                    book6,
-                    book1,
-                    book4,
-                    book5,
-                    book6,
-                    book2,
-                    book3,
-                    book1,
-                    book2,
-                    book1,
-                    book4,
-                    book3,
-                    book4,
-                    book5,
-                    book6
-                )
-            )
-        }
+    override fun getAllBooks(): List<BookDto> {
+        return listOf(
+            book1,
+            book4,
+            book5,
+            book6,
+            book2,
+            book3,
+            book1,
+            book2,
+            book1,
+            book4,
+            book3,
+            book4,
+            book5,
+            book6,
+            book1,
+            book4,
+            book5,
+            book6,
+            book2,
+            book3,
+            book1,
+            book2,
+            book1,
+            book4,
+            book3,
+            book4,
+            book5,
+            book6,
+            book1,
+            book4,
+            book5,
+            book6,
+            book2,
+            book3,
+            book1,
+            book2,
+            book1,
+            book4,
+            book3,
+            book4,
+            book5,
+            book6
+        )
     }
 
-    override fun getBookDetail(id: String): Flow<BookDetailDto> {
-        return flow {
-            delay(1000)
-            emit(
-                BookDetailDto(
+    override fun getBookDetail(id: String): BookDetailDto {
+        return BookDetailDto(
                     "1",
                     "Mocked Book",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare porta nisl non euismod. In hac habitasse platea dictumst. Sed tincidunt tempus sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac nisi vitae sapien malesuada tincidunt. Quisque vel tortor at dolor scelerisque vulputate. Ut finibus posuere felis ac commodo. Etiam interdum condimentum diam quis lacinia. Phasellus vulputate dui tortor, id hendrerit velit lobortis nec. Sed facilisis scelerisque sapien in ornare. Phasellus dui arcu, tempus nec orci eget, blandit rhoncus lacus. Nam eu lacus ut lorem laoreet posuere sit amet at eros. Donec sed feugiat orci.\n" +
@@ -97,7 +81,5 @@ class BookApiMock : BookApi {
                     2629,
                     "Me"
                 )
-            )
-        }
     }
 }

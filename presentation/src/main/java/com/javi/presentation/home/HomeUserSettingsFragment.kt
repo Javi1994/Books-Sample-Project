@@ -9,16 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.javi.presentation.Util.setVisible
-import com.javi.presentation.Util.startActivity
 import com.javi.domain.model.User
 import com.javi.presentation.R
+import com.javi.presentation.Util.setVisible
 import com.javi.presentation.databinding.FragmentHomeUserSettingsBinding
+import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
-import com.javi.presentation.login.LoginActivity
-import com.javi.presentation.model.UiState
+import com.javi.presentation.home.viewmodel.UserSettingsUiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -41,48 +39,23 @@ class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings) 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.getUser()
+        homeViewModel.onEvent(HomeUiEvents.GetUserSettings)
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel
-                    .uiStateUser
+                    .userSettingsUiState
                     .collect {
-                        render(it)
+                        renderUi(it)
                     }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel
-                    .logoutSuccess
-                    .onCompletion {
-                        binding.btnLogout.isLoading(false)
-                    }
-                    .collect {
-                        if (it) {
-                            requireContext().startActivity(LoginActivity::class.java)
-                            requireActivity().finish()
-                        }
-                    }
-            }
-        }
-
     }
 
-    private fun render(uiState: UiState) {
-        when (uiState) {
-            is UiState.Loading -> {
-                binding.progressLoader.visibility = View.VISIBLE
-            }
+    private fun renderUi(uiState: UserSettingsUiState) {
+        binding.progressLoader.setVisible(uiState.isLoading)
 
-            is UiState.Success<*> -> {
-                setUserData(uiState.data as User)
-                binding.progressLoader.visibility = View.GONE
-            }
-
-            is UiState.Error -> {
-                binding.progressLoader.visibility = View.GONE
-            }
+        uiState.user?.let {
+            setUserData(it)
         }
     }
 
@@ -94,8 +67,7 @@ class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings) 
 
             btnLogout.setVisible(true)
             btnLogout.onClickListener {
-                binding.btnLogout.isLoading(true)
-                homeViewModel.logout()
+                homeViewModel.onEvent(HomeUiEvents.Logout)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.javi.data.repository.impl
 
+import com.javi.common.Resource
 import com.javi.data.datasource.UserDataSource
 import com.javi.data.dto.UserDto
 import com.javi.data.repository.UserRepository
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 class UserRepositoryImpl @Inject constructor(
     private val userDataSource: UserDataSource,
 ) : UserRepository {
-    override fun getUser(): Flow<UserDto> {
+    override fun getUser(): Flow<Resource<UserDto>> {
         return userDataSource.getUser()
     }
 }

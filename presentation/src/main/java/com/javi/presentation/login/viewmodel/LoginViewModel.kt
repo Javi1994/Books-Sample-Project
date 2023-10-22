@@ -35,29 +35,29 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: LoginEvent) {
+    fun onEvent(event: LoginUiEvent) {
         when (event) {
-            is LoginEvent.LoginWithUsername -> {
+            is LoginUiEvent.LoginWithUsername -> {
                 login()
             }
 
-            is LoginEvent.LoginWithPassword -> {
+            is LoginUiEvent.LoginWithPassword -> {
                 loginWithPassword()
             }
 
-            is LoginEvent.UpdateUsername -> {
+            is LoginUiEvent.UpdateUsername -> {
                 _uiState.update {
                     it.copy(username = event.username)
                 }
             }
 
-            is LoginEvent.UpdatePassword -> {
+            is LoginUiEvent.UpdatePassword -> {
                 _uiState.update {
                     it.copy(password = event.password)
                 }
             }
 
-            is LoginEvent.Logout -> {
+            is LoginUiEvent.Logout -> {
 
             }
         }

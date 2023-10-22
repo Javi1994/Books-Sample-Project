@@ -14,7 +14,7 @@ import com.javi.presentation.R
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.databinding.FragmentLoginNewUserBinding
 import com.javi.presentation.home.HomeActivity
-import com.javi.presentation.login.viewmodel.LoginEvent
+import com.javi.presentation.login.viewmodel.LoginUiEvent
 import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,15 +50,15 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
         }
 
         binding.btnLogin.onClickListener {
-            loginViewModel.onEvent(LoginEvent.LoginWithUsername)
+            loginViewModel.onEvent(LoginUiEvent.LoginWithUsername)
         }
 
         binding.inputUsername.addTextChangedListener {
-            loginViewModel.onEvent(LoginEvent.UpdateUsername(it.toString()))
+            loginViewModel.onEvent(LoginUiEvent.UpdateUsername(it.toString()))
         }
 
         binding.inputPassword.addTextChangedListener {
-            loginViewModel.onEvent(LoginEvent.UpdatePassword(it.toString()))
+            loginViewModel.onEvent(LoginUiEvent.UpdatePassword(it.toString()))
         }
     }
 

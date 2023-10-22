@@ -14,7 +14,7 @@ import com.javi.presentation.R
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.databinding.FragmentLoginSavedUserBinding
 import com.javi.presentation.home.HomeActivity
-import com.javi.presentation.login.viewmodel.LoginEvent
+import com.javi.presentation.login.viewmodel.LoginUiEvent
 import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,11 +50,11 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user) {
         }
 
         binding.btnLogin.onClickListener {
-            loginViewModel.onEvent(LoginEvent.LoginWithPassword)
+            loginViewModel.onEvent(LoginUiEvent.LoginWithPassword)
         }
 
         binding.inputPassword.addTextChangedListener {
-            loginViewModel.onEvent(LoginEvent.UpdatePassword(it.toString()))
+            loginViewModel.onEvent(LoginUiEvent.UpdatePassword(it.toString()))
         }
     }
 

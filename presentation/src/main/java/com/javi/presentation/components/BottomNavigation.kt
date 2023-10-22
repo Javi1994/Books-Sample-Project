@@ -36,7 +36,7 @@ class BottomNavigation(context: Context, attrs: AttributeSet) : LinearLayout(con
             btnAllUsers.setOnClickListener {
                 if (!btnAllUsers.isSelected) {
                     btnAllUsers.setSelected()
-                    homeBottomNavigation.onAllUsersClick()
+                    homeBottomNavigation.OnUserSettingsClick()
                 }
             }
         }
@@ -55,5 +55,5 @@ class BottomNavigation(context: Context, attrs: AttributeSet) : LinearLayout(con
 interface HomeBottomNavigation {
     fun onFavouritesClick()
     fun onAllBooksClick()
-    fun onAllUsersClick()
+    fun OnUserSettingsClick()
 }
