@@ -5,6 +5,7 @@ import com.javi.domain.model.User
 
 data class FavouriteBooksUiState(
     val books: List<Book> = listOf(),
+    val selectedBook: Book? = null,
     val isLoading: Boolean = false,
     val error: Boolean = false
 ) {
@@ -14,6 +15,7 @@ data class FavouriteBooksUiState(
 
 data class AllBooksUiState(
     val books: List<Book> = listOf(),
+    val selectedBook: Book? = null,
     val isLoading: Boolean = false,
     val error: Boolean = false
 ) {

@@ -64,13 +64,17 @@ class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books) {
         if (uiState.hasBooks) {
             bookAdapter.setData(uiState.books)
         }
+
+        if (uiState.selectedBook != null) {
+            requireContext().startActivity(BookDetailActivity::class.java)
+        }
     }
 
     private fun setupAdapter() {
         binding.homeBooksList.apply {
             this.layoutManager = LinearLayoutManager(context)
             bookAdapter = BooksAdapter { book ->
-                requireContext().startActivity(BookDetailActivity::class.java)
+                homeViewModel.onEvent(HomeUiEvents.OnBookClicked(book))
             }
             this.adapter = bookAdapter
         }

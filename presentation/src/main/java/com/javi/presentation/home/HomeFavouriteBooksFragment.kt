@@ -61,6 +61,10 @@ class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_boo
     private fun renderUi(uiState: FavouriteBooksUiState) {
         binding.progressLoader.setVisible(uiState.isLoading)
 
+        if (uiState.selectedBook != null) {
+            requireContext().startActivity(BookDetailActivity::class.java)
+        }
+
         if (uiState.hasBooks) {
             bookAdapter.setData(uiState.books)
         }
@@ -70,7 +74,7 @@ class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_boo
         binding.homeBooksList.apply {
             this.layoutManager = LinearLayoutManager(context)
             bookAdapter = BooksAdapter { book ->
-                requireContext().startActivity(BookDetailActivity::class.java)
+                homeViewModel.onEvent(HomeUiEvents.OnBookClicked(book))
             }
             this.adapter = bookAdapter
         }

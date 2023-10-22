@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
 import com.javi.common.hasError
+import com.javi.domain.model.Book
 import com.javi.domain.model.User
 import com.javi.domain.use_case.book.GetAllBooksUseCase
 import com.javi.domain.use_case.book.GetFavouriteBooksUseCase
@@ -56,7 +57,9 @@ class HomeViewModel @Inject constructor(
                 getFavouriteBooks()
             }
 
-            is HomeUiEvents.OnBookClicked -> {}
+            is HomeUiEvents.OnBookClicked -> {
+                selectBook(event.book)
+            }
 
             is HomeUiEvents.GetAllBooks -> {
                 getAllBooks()
@@ -223,6 +226,20 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                 }
+        }
+    }
+
+    private fun selectBook(book: Book) {
+        _favouriteBooksUiState.update {
+            it.copy(
+                selectedBook = book
+            )
+        }
+
+        _favouriteBooksUiState.update {
+            it.copy(
+                selectedBook = null
+            )
         }
     }
 }
