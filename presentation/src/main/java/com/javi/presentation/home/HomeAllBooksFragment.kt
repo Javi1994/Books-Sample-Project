@@ -67,6 +67,7 @@ class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books) {
 
         if (uiState.selectedBook != null) {
             requireContext().startActivity(BookDetailActivity::class.java)
+            homeViewModel.bookWasSelected()
         }
     }
 

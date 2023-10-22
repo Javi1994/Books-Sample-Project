@@ -235,7 +235,9 @@ class HomeViewModel @Inject constructor(
                 selectedBook = book
             )
         }
+    }
 
+    fun bookWasSelected() {
         _favouriteBooksUiState.update {
             it.copy(
                 selectedBook = null
