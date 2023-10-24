@@ -16,8 +16,6 @@ import com.javi.presentation.Util.startActivity
 import com.javi.presentation.book_detail.BookDetailActivity
 import com.javi.presentation.databinding.FragmentHomeAllBooksBinding
 import com.javi.presentation.home.adapter.BooksAdapter
-import com.javi.presentation.home.viewmodel.AllBooksUiState
-import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

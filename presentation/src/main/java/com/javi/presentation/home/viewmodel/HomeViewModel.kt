@@ -10,6 +10,10 @@ import com.javi.domain.use_case.book.GetFavouriteBooksUseCase
 import com.javi.domain.use_case.login.LogoutUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
 import com.javi.domain.use_case.user.GetUserUseCase
+import com.javi.presentation.home.AllBooksUiState
+import com.javi.presentation.home.FavouriteBooksUiState
+import com.javi.presentation.home.HomeUiEvents
+import com.javi.presentation.home.UserSettingsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

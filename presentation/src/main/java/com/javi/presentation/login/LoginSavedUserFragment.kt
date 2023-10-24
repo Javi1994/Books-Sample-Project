@@ -14,8 +14,6 @@ import com.javi.presentation.R
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.databinding.FragmentLoginSavedUserBinding
 import com.javi.presentation.home.HomeActivity
-import com.javi.presentation.login.viewmodel.LoginUiEvent
-import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -54,6 +52,10 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user) {
             loginViewModel.onEvent(LoginUiEvent.LoginWithPassword)
         }
 
+        binding.btnLogout.onClickListener {
+            loginViewModel.onEvent(LoginUiEvent.Logout)
+        }
+
         binding.inputPassword.addTextChangedListener {
             loginViewModel.onEvent(LoginUiEvent.UpdatePassword(it.toString()))
         }
@@ -64,8 +66,13 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user) {
             requireContext().startActivity(HomeActivity::class.java)
         }
 
+        uiState.passwordError?.let {
+            binding.inputPassword.error = getString(it)
+        }
+
         binding.btnLogin.isEnabled(uiState.canEnableLoginButtonFromPassword)
-        binding.btnLogin.isLoading(uiState.isLoading)
+        binding.btnLogin.isLoading(uiState.isLoadingLogin)
+        binding.btnLogout.isLoading(uiState.isLoadingLogout)
 
         binding.txtWelcomeBack.text =
             resources.getString(R.string.login_welcome_back, uiState.userFromPreferences?.username)

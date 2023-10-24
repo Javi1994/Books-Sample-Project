@@ -9,8 +9,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.javi.domain.model.BookDetail
 import com.javi.presentation.R
 import com.javi.presentation.Util.setVisible
-import com.javi.presentation.book_detail.viewmodel.BookDetailUiEvents
-import com.javi.presentation.book_detail.viewmodel.BookDetailUiState
 import com.javi.presentation.book_detail.viewmodel.BookDetailViewModel
 import com.javi.presentation.databinding.ActivityBookDetailBinding
 import dagger.hilt.android.AndroidEntryPoint

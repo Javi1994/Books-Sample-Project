@@ -14,8 +14,6 @@ import com.javi.presentation.R
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.databinding.FragmentLoginNewUserBinding
 import com.javi.presentation.home.HomeActivity
-import com.javi.presentation.login.viewmodel.LoginUiEvent
-import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -69,8 +67,16 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
             requireActivity().finish()
         }
 
+        uiState.usernameError?.let {
+            binding.inputUsername.error = getString(it)
+        }
+
+        uiState.passwordError?.let {
+            binding.inputPassword.error = getString(it)
+        }
+
         binding.btnLogin.isEnabled(uiState.canEnableLoginButton)
-        binding.btnLogin.isLoading(uiState.isLoading)
+        binding.btnLogin.isLoading(uiState.isLoadingLogin)
     }
 
     override fun onDestroyView() {

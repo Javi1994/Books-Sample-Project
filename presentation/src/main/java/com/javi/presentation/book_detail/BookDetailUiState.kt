@@ -1,4 +1,4 @@
-package com.javi.presentation.book_detail.viewmodel
+package com.javi.presentation.book_detail
 
 import com.javi.domain.model.BookDetail
 

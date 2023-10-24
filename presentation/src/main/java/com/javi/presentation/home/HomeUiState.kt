@@ -1,4 +1,4 @@
-package com.javi.presentation.home.viewmodel
+package com.javi.presentation.home
 
 import com.javi.domain.model.Book
 import com.javi.domain.model.User

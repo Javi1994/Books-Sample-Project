@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
 import com.javi.domain.use_case.book.GetBookDetailUseCase
+import com.javi.presentation.book_detail.BookDetailUiEvents
+import com.javi.presentation.book_detail.BookDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -3,9 +3,14 @@ package com.javi.presentation.login.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
+import com.javi.common.ValidatePassword
+import com.javi.common.ValidateUsername
 import com.javi.domain.model.User
 import com.javi.domain.use_case.login.LoginUseCase
+import com.javi.domain.use_case.login.LogoutUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
+import com.javi.presentation.login.LoginUiEvent
+import com.javi.presentation.login.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val getUserFromPreferencesUseCase: GetUserFromPreferencesUseCase
+    private val getUserFromPreferencesUseCase: GetUserFromPreferencesUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -45,20 +51,36 @@ class LoginViewModel @Inject constructor(
             }
 
             is LoginUiEvent.UpdateUsername -> {
-                _uiState.update {
-                    it.copy(username = event.username)
-                }
+                updateUsername(event)
             }
 
             is LoginUiEvent.UpdatePassword -> {
-                _uiState.update {
-                    it.copy(password = event.password)
-                }
+                updatePassword(event)
             }
 
             is LoginUiEvent.Logout -> {
-
+                logout()
             }
+        }
+    }
+
+    private fun updateUsername(event: LoginUiEvent.UpdateUsername) {
+        val validationResult = ValidateUsername.execute(event.username).errorMessage
+        _uiState.update {
+            it.copy(
+                username = event.username,
+                usernameError = validationResult
+            )
+        }
+    }
+
+    private fun updatePassword(event: LoginUiEvent.UpdatePassword) {
+        val validationResult = ValidatePassword.execute(event.password).errorMessage
+        _uiState.update {
+            it.copy(
+                password = event.password,
+                passwordError = validationResult
+            )
         }
     }
 
@@ -88,7 +110,23 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun logout() {
-
+        viewModelScope.launch {
+            logoutUseCase
+                .invoke()
+                .collect { result ->
+                    _uiState.update {
+                        it.copy(
+                            userFromPreferences = null,
+                            isLoadingLogout = result.isLoading,
+                            requestError = result.hasError,
+                            username = "",
+                            usernameError = null,
+                            password = "",
+                            passwordError = null
+                        )
+                    }
+                }
+        }
     }
 
     private fun updateUiState(result: Resource<User>) {
@@ -98,8 +136,8 @@ class LoginViewModel @Inject constructor(
                     _uiState.update {
                         it.copy(
                             userFromLogin = user,
-                            isLoading = result.isLoading,
-                            error = result.hasError
+                            isLoadingLogin = result.isLoading,
+                            requestError = result.hasError
                         )
                     }
                 }
@@ -108,8 +146,8 @@ class LoginViewModel @Inject constructor(
             is Resource.Loading -> {
                 _uiState.update {
                     it.copy(
-                        isLoading = result.isLoading,
-                        error = result.hasError
+                        isLoadingLogin = result.isLoading,
+                        requestError = result.hasError
                     )
                 }
             }
@@ -117,8 +155,8 @@ class LoginViewModel @Inject constructor(
             is Resource.Error -> {
                 _uiState.update {
                     it.copy(
-                        isLoading = result.isLoading,
-                        error = result.hasError
+                        isLoadingLogin = result.isLoading,
+                        requestError = result.hasError
                     )
                 }
             }

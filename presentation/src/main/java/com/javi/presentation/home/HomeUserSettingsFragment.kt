@@ -14,9 +14,7 @@ import com.javi.presentation.R
 import com.javi.presentation.Util.setVisible
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.databinding.FragmentHomeUserSettingsBinding
-import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
-import com.javi.presentation.home.viewmodel.UserSettingsUiState
 import com.javi.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
