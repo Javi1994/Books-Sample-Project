@@ -68,6 +68,12 @@ fun DependencyHandler.gradlePlugins() {
     classpath(Dependencies.BuildScriptPlugin.hiltGradlePlugin)
 }
 
+fun DependencyHandler.gradlePluginsImplementation() {
+    implementation(Dependencies.BuildScriptPlugin.kotlinGradlePlugin)
+    implementation(Dependencies.BuildScriptPlugin.gradlePlugin)
+    implementation(Dependencies.BuildScriptPlugin.hiltGradlePlugin)
+}
+
 fun DependencyHandler.coreKtx() {
     implementation(Dependencies.CoreDependencies.coreKtx)
 }
