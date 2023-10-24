@@ -23,8 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val getUserFromPreferencesUseCase: GetUserFromPreferencesUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val getUserFromPreferencesUseCase: GetUserFromPreferencesUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -55,10 +54,6 @@ class LoginViewModel @Inject constructor(
 
             is LoginUiEvent.UpdatePassword -> {
                 updatePassword(event)
-            }
-
-            is LoginUiEvent.Logout -> {
-                logout()
             }
         }
     }
@@ -104,26 +99,6 @@ class LoginViewModel @Inject constructor(
                     password = uiState.value.password
                 ).collect { result ->
                     updateUiState(result)
-                }
-        }
-    }
-
-    private fun logout() {
-        viewModelScope.launch {
-            logoutUseCase
-                .invoke()
-                .collect { result ->
-                    _uiState.update {
-                        it.copy(
-                            userFromPreferences = null,
-                            isLoadingLogout = result.isLoading,
-                            requestError = result.hasError,
-                            username = "",
-                            usernameError = null,
-                            password = "",
-                            passwordError = null
-                        )
-                    }
                 }
         }
     }

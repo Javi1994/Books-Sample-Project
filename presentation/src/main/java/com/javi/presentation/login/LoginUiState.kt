@@ -26,7 +26,6 @@ data class LoginUiState(
 }
 
 sealed class LoginUiEvent {
-    object Logout : LoginUiEvent()
     object LoginWithUsername : LoginUiEvent()
     object LoginWithPassword : LoginUiEvent()
     data class UpdateUsername(val username: String) : LoginUiEvent()

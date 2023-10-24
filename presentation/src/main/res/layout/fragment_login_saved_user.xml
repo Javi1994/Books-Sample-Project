@@ -33,14 +33,4 @@
         android:layout_marginTop="40dp"
         app:btn_value="@string/login_do_login_btn"
         app:set_loading="false" />
-
-    <com.javi.presentation.components.LoadingButton
-        android:id="@+id/btn_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:set_enabled="true"
-        app:btn_value="@string/login_do_logout_btn"
-        app:set_loading="false" />
-
 </LinearLayout>

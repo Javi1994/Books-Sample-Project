@@ -52,10 +52,6 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user) {
             loginViewModel.onEvent(LoginUiEvent.LoginWithPassword)
         }
 
-        binding.btnLogout.onClickListener {
-            loginViewModel.onEvent(LoginUiEvent.Logout)
-        }
-
         binding.inputPassword.addTextChangedListener {
             loginViewModel.onEvent(LoginUiEvent.UpdatePassword(it.toString()))
         }
@@ -72,7 +68,6 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user) {
 
         binding.btnLogin.isEnabled(uiState.canEnableLoginButtonFromPassword)
         binding.btnLogin.isLoading(uiState.isLoadingLogin)
-        binding.btnLogout.isLoading(uiState.isLoadingLogout)
 
         binding.txtWelcomeBack.text =
             resources.getString(R.string.login_welcome_back, uiState.userFromPreferences?.username)
