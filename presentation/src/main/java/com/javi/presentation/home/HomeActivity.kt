@@ -19,6 +19,8 @@ class HomeActivity : AppCompatActivity(), HomeBottomNavigation {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setToolbarTitle(getString(R.string.home_toolbar_title))
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -35,5 +37,9 @@ class HomeActivity : AppCompatActivity(), HomeBottomNavigation {
 
     override fun OnUserSettingsClick() {
         binding.navHostFragment.findNavController().navigate(R.id.home_all_users)
+    }
+
+    private fun setToolbarTitle(title: String) {
+        supportActionBar?.title = title
     }
 }

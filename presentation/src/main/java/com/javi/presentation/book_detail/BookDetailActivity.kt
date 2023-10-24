@@ -23,6 +23,8 @@ class BookDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setToolbarTitle(getString(R.string.book_detail_toolbar_title))
+
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -57,5 +59,9 @@ class BookDetailActivity : AppCompatActivity() {
             this.bookDetailPages.text =
                 resources.getString(R.string.book_pages, bookDetail.pages.toString())
         }
+    }
+
+    private fun setToolbarTitle(title: String) {
+        supportActionBar?.title = title
     }
 }

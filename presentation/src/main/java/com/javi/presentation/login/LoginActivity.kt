@@ -22,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setToolbarTitle(getString(R.string.login_toolbar_title))
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -41,5 +42,9 @@ class LoginActivity : AppCompatActivity() {
                     }
             }
         }
+    }
+
+    private fun setToolbarTitle(title: String) {
+        supportActionBar?.title = title
     }
 }

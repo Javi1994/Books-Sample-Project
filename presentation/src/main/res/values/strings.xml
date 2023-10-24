@@ -1,10 +1,12 @@
 <resources>
+    <string name="login_toolbar_title">Login</string>
     <string name="login_user_hint">Username</string>
     <string name="login_password_hint">Password</string>
     <string name="login_do_login_btn">Login</string>
     <string name="login_do_logout_btn">Logout</string>
     <string name="login_welcome_back">Welcome back %s</string>
 
+    <string name="book_detail_toolbar_title">Book detail</string>
     <string name="book_read_time">Estimated lecture time of %s minutes</string>
     <string name="book_pages">%s pages</string>
 
@@ -12,5 +14,6 @@
     <string name="bottom_nav_all_users">Users</string>
     <string name="bottom_nav_all_books">Books</string>
 
+    <string name="home_toolbar_title">Home</string>
     <string name="home_user_detail_logout">Logout</string>
 </resources>
