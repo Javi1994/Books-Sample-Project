@@ -25,6 +25,7 @@
             android:gravity="center"
             android:padding="16dp"
             android:text="@string/bottom_nav_favourites"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             tools:text="Favourites" />
 
@@ -37,6 +38,7 @@
             android:gravity="center"
             android:padding="16dp"
             android:text="@string/bottom_nav_all_books"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             tools:text="Books" />
 
@@ -49,6 +51,7 @@
             android:gravity="center"
             android:padding="16dp"
             android:text="@string/bottom_nav_all_users"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             tools:text="Users" />
     </LinearLayout>
