@@ -66,6 +66,7 @@ class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_boo
 
         if (uiState.selectedBook != null) {
             requireContext().startActivity(BookDetailActivity::class.java)
+            homeViewModel.bookWasSelected()
         }
 
         if (uiState.hasBooks) {

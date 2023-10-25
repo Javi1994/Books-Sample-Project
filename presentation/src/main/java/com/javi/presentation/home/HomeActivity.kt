@@ -2,11 +2,11 @@ package com.javi.presentation.home
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import com.javi.presentation.BaseActivity
 import com.javi.presentation.R
 import com.javi.presentation.components.HomeBottomNavigation
 import com.javi.presentation.databinding.ActivityHomeBinding
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity(), HomeBottomNavigation {
+class HomeActivity : BaseActivity(), HomeBottomNavigation {
 
     private lateinit var binding: ActivityHomeBinding
 
@@ -24,7 +24,6 @@ class HomeActivity : AppCompatActivity(), HomeBottomNavigation {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setToolbarTitle(getString(R.string.home_toolbar_title))
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -64,7 +63,5 @@ class HomeActivity : AppCompatActivity(), HomeBottomNavigation {
         binding.navHostFragment.findNavController().navigate(R.id.home_all_users)
     }
 
-    private fun setToolbarTitle(title: String) {
-        supportActionBar?.title = title
-    }
+    override fun toolbarTitle(): String = getString(R.string.home_toolbar_title)
 }

@@ -2,11 +2,11 @@ package com.javi.presentation.book_detail
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.javi.domain.model.BookDetail
+import com.javi.presentation.BaseActivity
 import com.javi.presentation.ErrorHandler
 import com.javi.presentation.ErrorHandlerImpl
 import com.javi.presentation.R
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BookDetailActivity : AppCompatActivity(),
+class BookDetailActivity : BaseActivity(),
     ErrorHandler by ErrorHandlerImpl() {
 
     private lateinit var binding: ActivityBookDetailBinding
@@ -28,7 +28,6 @@ class BookDetailActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setToolbarTitle(getString(R.string.book_detail_toolbar_title))
 
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -70,7 +69,5 @@ class BookDetailActivity : AppCompatActivity(),
         }
     }
 
-    private fun setToolbarTitle(title: String) {
-        supportActionBar?.title = title
-    }
+    override fun toolbarTitle(): String = getString(R.string.book_detail_toolbar_title)
 }
