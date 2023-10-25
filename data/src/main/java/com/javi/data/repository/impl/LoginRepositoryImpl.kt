@@ -13,15 +13,15 @@ class LoginRepositoryImpl @Inject constructor(
     private val loginDataSource: LoginDataSource
 ) : LoginRepository {
 
-    override fun login(username: String, password: String): Flow<Resource<UserDto>> {
+    override suspend fun login(username: String, password: String): Flow<Resource<UserDto>> {
         return loginDataSource.login(username, password)
     }
 
-    override fun loginWithToken(token: String): Flow<Resource<UserDto>> {
+    override suspend fun loginWithToken(token: String): Flow<Resource<UserDto>> {
         return loginDataSource.loginWithToken(token)
     }
 
-    override fun logout(): Flow<Resource<Unit>> {
+    override suspend fun logout(): Flow<Resource<Unit>> {
         return loginDataSource.logout()
     }
 }

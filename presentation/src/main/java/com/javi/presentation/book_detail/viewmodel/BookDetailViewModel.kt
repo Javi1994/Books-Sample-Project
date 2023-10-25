@@ -40,7 +40,7 @@ class BookDetailViewModel @Inject constructor(
                                     it.copy(
                                         bookDetail = books,
                                         isLoading = result.isLoading,
-                                        error = result.hasError
+                                        error = result.error
                                     )
                                 }
                             }
@@ -50,7 +50,7 @@ class BookDetailViewModel @Inject constructor(
                             _uiState.update {
                                 it.copy(
                                     isLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
@@ -59,7 +59,7 @@ class BookDetailViewModel @Inject constructor(
                             _uiState.update {
                                 it.copy(
                                     isLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }

@@ -4,7 +4,7 @@ import com.javi.data.datasource.remote.UserApi
 import com.javi.data.dto.UserDto
 
 class UserApiMock : UserApi {
-    override fun getUser(): UserDto {
+    override suspend fun getUser(): UserDto {
         return UserDto(
             "Javi1994",
             "sflkADlaÑGgre",

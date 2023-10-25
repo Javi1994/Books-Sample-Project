@@ -19,7 +19,7 @@ class LoginDataSourceImpl @Inject constructor(
     private val userPreferences: UserPreferences,
     private val bookDatabase: BookDao
 ) : LoginDataSource {
-    override fun login(username: String, password: String): Flow<Resource<UserDto>> {
+    override suspend fun login(username: String, password: String): Flow<Resource<UserDto>> {
         return flow {
             emit(Resource.Loading(true))
             try {
@@ -33,16 +33,16 @@ class LoginDataSourceImpl @Inject constructor(
 
             } catch (e: IOException) {
                 e.printStackTrace()
-                emit(Resource.Error("Couldn't load data"))
+                emit(Resource.Error(e))
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                emit(Resource.Error("Undefined error"))
+                emit(Resource.Error(e))
             }
         }
     }
 
-    override fun loginWithToken(token: String): Flow<Resource<UserDto>> {
+    override suspend fun loginWithToken(token: String): Flow<Resource<UserDto>> {
         return flow {
             emit(Resource.Loading(true))
             try {
@@ -54,16 +54,13 @@ class LoginDataSourceImpl @Inject constructor(
 
             } catch (e: IOException) {
                 e.printStackTrace()
-                emit(Resource.Error("Couldn't load data"))
+                emit(Resource.Error(e))
 
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(Resource.Error("Undefined error"))
             }
         }
     }
 
-    override fun logout(): Flow<Resource<Unit>> {
+    override suspend fun logout(): Flow<Resource<Unit>> {
         return flow {
             emit(Resource.Loading(true))
             try {
@@ -79,11 +76,7 @@ class LoginDataSourceImpl @Inject constructor(
 
             } catch (e: IOException) {
                 e.printStackTrace()
-                emit(Resource.Error("Couldn't load data"))
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(Resource.Error("Undefined error"))
+                emit(Resource.Error(e))
             }
         }
     }

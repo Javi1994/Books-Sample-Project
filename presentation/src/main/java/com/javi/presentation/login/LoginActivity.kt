@@ -2,11 +2,11 @@ package com.javi.presentation.login
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import com.javi.presentation.BaseActivity
 import com.javi.presentation.R
 import com.javi.presentation.databinding.ActivityLoginBinding
 import com.javi.presentation.login.viewmodel.LoginViewModel
@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
@@ -29,9 +29,9 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel
-                    .uiState
+                    .userFromPreferences
                     .collect {
-                        if (it.hasUserDataFromPreferences) {
+                        if (it != null) {
                             binding.navHostFragment.findNavController()
                                 .navigate(R.id.login_saved_user_fragment)
                         } else {
@@ -42,4 +42,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun toolbarTitle(): String = getString(R.string.login_toolbar_title)
 }

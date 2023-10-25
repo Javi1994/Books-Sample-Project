@@ -4,7 +4,7 @@ import com.javi.data.dto.BookDetailDto
 import com.javi.data.dto.BookDto
 
 interface BookApi {
-    fun getFavouriteBooks(username: String): List<BookDto>
-    fun getAllBooks(): List<BookDto>
-    fun getBookDetail(id: String): BookDetailDto
+    suspend fun getFavouriteBooks(username: String): List<BookDto>
+    suspend fun getAllBooks(): List<BookDto>
+    suspend fun getBookDetail(id: String): BookDetailDto
 }

@@ -31,8 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:enabled="true"
         app:btn_value="@string/login_do_login_btn"
         app:set_loading="false" />
-
 </LinearLayout>

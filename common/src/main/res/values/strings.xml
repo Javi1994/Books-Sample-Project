@@ -1,0 +1,8 @@
+<resources>
+    <string name="username_empty">Username can\'t be empty</string>
+    <string name="username_few_characters">Username must have more than three characters</string>
+
+    <string name="password_empty">Password can\'t be empty</string>
+    <string name="password_few_characters">Password must have more than three characters</string>
+    <string name="password_no_digit_or_letter">Password must have at least one digit and one letter</string>
+</resources>

@@ -29,7 +29,7 @@ class UserPreferences @Inject constructor(
             }
     }
 
-    fun getUser(): Flow<UserDto?> {
+    suspend fun getUser(): Flow<UserDto?> {
         return dataStore.data.map { preferences ->
             val hasData = hasData().firstOrNull()
             if (hasData == true) {

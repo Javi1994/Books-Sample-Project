@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.javi.presentation.ErrorHandler
+import com.javi.presentation.ErrorHandlerImpl
 import com.javi.presentation.R
 import com.javi.presentation.Util.setVisible
 import com.javi.presentation.Util.startActivity
@@ -23,14 +25,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books) {
+class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books),
+    ErrorHandler by ErrorHandlerImpl() {
 
     private var _binding: FragmentHomeAllBooksBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var bookAdapter: BooksAdapter
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +71,10 @@ class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books) {
         if (uiState.selectedBook != null) {
             requireContext().startActivity(BookDetailActivity::class.java)
             homeViewModel.bookWasSelected()
+        }
+
+        uiState.error?.let {
+            onError(it, binding.root)
         }
     }
 

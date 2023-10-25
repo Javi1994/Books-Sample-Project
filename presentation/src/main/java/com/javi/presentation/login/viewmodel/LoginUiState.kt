@@ -4,25 +4,26 @@ import com.javi.domain.model.User
 
 data class LoginUiState(
     val username: String = "",
+    val usernameError: Int? = null,
     val password: String = "",
+    val passwordError: Int? = null,
     val userFromPreferences: User? = null,
     val userFromLogin: User? = null,
-    val isLoading: Boolean = false,
-    val error: Boolean = false
+    val isLoadingLogin: Boolean = false,
+    val isLoadingLogout: Boolean = false,
+    val requestError: Exception? = null
 ) {
-    val hasUserDataFromPreferences: Boolean
-        get() = userFromPreferences != null
     val canEnableLoginButton: Boolean
-        get() = password.isNotEmpty() && username.isNotEmpty()
+        get() = usernameError == null && username.isNotEmpty()
+                && passwordError == null && password.isNotEmpty()
     val canEnableLoginButtonFromPassword: Boolean
-        get() = password.isNotEmpty() &&
+        get() = passwordError == null && password.isNotEmpty() &&
                 userFromPreferences?.username?.isNotEmpty() ?: false
     val loginSuccess: Boolean
-        get() = userFromLogin != null && !isLoading && !error
+        get() = userFromLogin != null && !isLoadingLogin && requestError == null
 }
 
 sealed class LoginUiEvent {
-    object Logout : LoginUiEvent()
     object LoginWithUsername : LoginUiEvent()
     object LoginWithPassword : LoginUiEvent()
     data class UpdateUsername(val username: String) : LoginUiEvent()

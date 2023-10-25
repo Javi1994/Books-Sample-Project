@@ -1,34 +1,24 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
+    id("dagger.hilt.android.plugin")
     kotlin("kapt")
 }
 
 android {
-    namespace = "com.javi.booksampleproject"
-    compileSdk = 34
+    namespace = ProjectConfig.appId
+    compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
-        applicationId = "com.javi.booksampleproject"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        applicationId = ProjectConfig.appId
+        minSdk = ProjectConfig.minSdk
+        targetSdk = ProjectConfig.targetSkd
+        versionCode = ProjectConfig.versionCode
+        versionName = ProjectConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
-        }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
 
@@ -46,14 +36,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 dependencies {

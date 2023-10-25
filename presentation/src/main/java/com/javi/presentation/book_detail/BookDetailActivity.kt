@@ -2,11 +2,13 @@ package com.javi.presentation.book_detail
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.javi.domain.model.BookDetail
+import com.javi.presentation.BaseActivity
+import com.javi.presentation.ErrorHandler
+import com.javi.presentation.ErrorHandlerImpl
 import com.javi.presentation.R
 import com.javi.presentation.Util.setVisible
 import com.javi.presentation.book_detail.viewmodel.BookDetailUiEvents
@@ -17,7 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BookDetailActivity : AppCompatActivity() {
+class BookDetailActivity : BaseActivity(),
+    ErrorHandler by ErrorHandlerImpl() {
 
     private lateinit var binding: ActivityBookDetailBinding
 
@@ -25,6 +28,7 @@ class BookDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -47,6 +51,10 @@ class BookDetailActivity : AppCompatActivity() {
         uiState.bookDetail?.let {
             setBookDetailData(it)
         }
+
+        uiState.error?.let {
+            onError(it, binding.root)
+        }
     }
 
     private fun setBookDetailData(bookDetail: BookDetail) {
@@ -60,4 +68,6 @@ class BookDetailActivity : AppCompatActivity() {
                 resources.getString(R.string.book_pages, bookDetail.pages.toString())
         }
     }
+
+    override fun toolbarTitle(): String = getString(R.string.book_detail_toolbar_title)
 }

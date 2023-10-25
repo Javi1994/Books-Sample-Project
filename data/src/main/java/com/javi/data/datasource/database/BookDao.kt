@@ -10,14 +10,14 @@ import com.javi.data.dto.BookDto
 interface BookDao {
 
     @Query("SELECT * FROM bookdto")
-    fun getAllBooks(): List<BookDto>
+    suspend fun getAllBooks(): List<BookDto>
 
     @Insert
-    fun insertAll(books: List<BookDto>)
+    suspend fun insertAll(books: List<BookDto>)
 
     @Delete
-    fun delete(book: BookDto)
+    suspend fun delete(book: BookDto)
 
     @Query("DELETE FROM bookdto")
-    fun deleteAll()
+    suspend fun deleteAll()
 }

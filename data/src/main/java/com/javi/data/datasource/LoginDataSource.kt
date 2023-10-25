@@ -5,7 +5,7 @@ import com.javi.data.dto.UserDto
 import kotlinx.coroutines.flow.Flow
 
 interface LoginDataSource {
-    fun login(username: String, password: String): Flow<Resource<UserDto>>
-    fun loginWithToken(token: String): Flow<Resource<UserDto>>
-    fun logout(): Flow<Resource<Unit>>
+    suspend fun login(username: String, password: String): Flow<Resource<UserDto>>
+    suspend fun loginWithToken(token: String): Flow<Resource<UserDto>>
+    suspend fun logout(): Flow<Resource<Unit>>
 }

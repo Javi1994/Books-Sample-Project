@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class UserRepositoryImpl @Inject constructor(
     private val userDataSource: UserDataSource,
 ) : UserRepository {
-    override fun getUser(): Flow<Resource<UserDto>> {
+    override suspend fun getUser(): Flow<Resource<UserDto>> {
         return userDataSource.getUser()
     }
 }

@@ -16,7 +16,7 @@ class UserDataSourceImpl @Inject constructor(
     private val userApi: UserApi,
     private val userPreferences: UserPreferences
 ) : UserDataSource {
-    override fun getUser(): Flow<Resource<UserDto>> {
+    override suspend fun getUser(): Flow<Resource<UserDto>> {
         return flow {
             emit(Resource.Loading(true))
 
@@ -29,11 +29,7 @@ class UserDataSourceImpl @Inject constructor(
 
             } catch (e: IOException) {
                 e.printStackTrace()
-                emit(Resource.Error("Couldn't load data"))
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(Resource.Error("Undefined error"))
+                emit(Resource.Error(e))
             }
         }
     }

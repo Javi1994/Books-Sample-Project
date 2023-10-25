@@ -3,7 +3,7 @@ package com.javi.data.datasource.remote
 import com.javi.data.dto.UserDto
 
 interface LoginApi {
-    fun doLogin(username: String, password: String): UserDto
-    fun doLoginWithToken(token: String): UserDto
-    fun doLogout()
+    suspend fun doLogin(username: String, password: String): UserDto
+    suspend fun doLoginWithToken(token: String): UserDto
+    suspend fun doLogout()
 }
