@@ -10,16 +10,21 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.javi.presentation.ErrorHandler
+import com.javi.presentation.ErrorHandlerImpl
 import com.javi.presentation.R
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.databinding.FragmentLoginNewUserBinding
 import com.javi.presentation.home.HomeActivity
+import com.javi.presentation.login.viewmodel.LoginUiEvent
+import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
+class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user),
+    ErrorHandler by ErrorHandlerImpl() {
 
     private var _binding: FragmentLoginNewUserBinding? = null
     private val binding get() = _binding!!
@@ -67,6 +72,8 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
             requireActivity().finish()
         }
 
+        // If viewmodel username is not empty and inputUsername is empty it means that
+        // the activity is coming through process death so we restore the previous value
         if (uiState.username.isNotEmpty() && binding.inputUsername.text.toString().isNullOrEmpty()) {
             binding.inputUsername.setText(uiState.username)
         }
@@ -83,6 +90,10 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
 
         binding.btnLogin.isEnabled(uiState.canEnableLoginButton)
         binding.btnLogin.isLoading(uiState.isLoadingLogin)
+
+        uiState.requestError?.let {
+            onError(it, binding.root)
+        }
     }
 
     override fun onDestroyView() {

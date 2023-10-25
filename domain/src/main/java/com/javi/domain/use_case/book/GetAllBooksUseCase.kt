@@ -22,7 +22,7 @@ class GetAllBooksUseCase @Inject constructor(
                     })
                 }
                 is Resource.Loading -> { Resource.Loading(isLoading = it.isLoading)}
-                is Resource.Error -> { Resource.Error(message = it.message?: "")}
+                is Resource.Error -> { Resource.Error(error = it.error)}
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.javi.presentation.login
+package com.javi.presentation.login.viewmodel
 
 import com.javi.domain.model.User
 
@@ -11,7 +11,7 @@ data class LoginUiState(
     val userFromLogin: User? = null,
     val isLoadingLogin: Boolean = false,
     val isLoadingLogout: Boolean = false,
-    val requestError: Boolean = false
+    val requestError: Exception? = null
 ) {
     val canEnableLoginButton: Boolean
         get() = usernameError == null && username.isNotEmpty()
@@ -20,7 +20,7 @@ data class LoginUiState(
         get() = passwordError == null && password.isNotEmpty() &&
                 userFromPreferences?.username?.isNotEmpty() ?: false
     val loginSuccess: Boolean
-        get() = userFromLogin != null && !isLoadingLogin && !requestError
+        get() = userFromLogin != null && !isLoadingLogin && requestError == null
 }
 
 sealed class LoginUiEvent {

@@ -28,11 +28,11 @@ class BookDataSourceImpl @Inject constructor(
 
             } catch (e: IOException) {
                 e.printStackTrace()
-                emit(Resource.Error("Couldn't load data"))
+                emit(Resource.Error(e))
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                emit(Resource.Error("Undefined error"))
+                emit(Resource.Error(e))
             }
         }
     }
@@ -61,11 +61,11 @@ class BookDataSourceImpl @Inject constructor(
 
             } catch (e: IOException) {
                 e.printStackTrace()
-                emit(Resource.Error("Couldn't load data"))
+                emit(Resource.Error(e))
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                emit(Resource.Error("Undefined error"))
+                emit(Resource.Error(e))
             }
         }
     }
@@ -80,11 +80,11 @@ class BookDataSourceImpl @Inject constructor(
 
             } catch (e: IOException) {
                 e.printStackTrace()
-                emit(Resource.Error("Couldn't load data"))
+                emit(Resource.Error(e))
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                emit(Resource.Error("Undefined error"))
+                emit(Resource.Error(e))
             }
         }
     }

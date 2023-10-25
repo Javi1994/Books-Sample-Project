@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.javi.presentation.R
 import com.javi.presentation.components.HomeBottomNavigation
 import com.javi.presentation.databinding.ActivityHomeBinding
+import com.javi.presentation.home.viewmodel.HomeUiState
 import com.javi.presentation.home.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

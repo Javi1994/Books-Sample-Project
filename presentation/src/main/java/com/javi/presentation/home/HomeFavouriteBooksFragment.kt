@@ -10,18 +10,23 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.javi.presentation.ErrorHandler
+import com.javi.presentation.ErrorHandlerImpl
 import com.javi.presentation.R
 import com.javi.presentation.Util.setVisible
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.book_detail.BookDetailActivity
 import com.javi.presentation.databinding.FragmentHomeFavouriteBooksBinding
 import com.javi.presentation.home.adapter.BooksAdapter
+import com.javi.presentation.home.viewmodel.FavouriteBooksUiState
+import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_books) {
+class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_books),
+    ErrorHandler by ErrorHandlerImpl() {
 
     private var _binding: FragmentHomeFavouriteBooksBinding? = null
     private val binding get() = _binding!!
@@ -65,6 +70,10 @@ class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_boo
 
         if (uiState.hasBooks) {
             bookAdapter.setData(uiState.books)
+        }
+
+        uiState.error?.let {
+            onError(it, binding.root)
         }
     }
 

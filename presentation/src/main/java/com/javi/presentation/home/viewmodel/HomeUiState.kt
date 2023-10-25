@@ -1,4 +1,4 @@
-package com.javi.presentation.home
+package com.javi.presentation.home.viewmodel
 
 import com.javi.domain.model.Book
 import com.javi.domain.model.User
@@ -13,7 +13,7 @@ data class FavouriteBooksUiState(
     val books: List<Book> = listOf(),
     val selectedBook: Book? = null,
     val isLoading: Boolean = false,
-    val error: Boolean = false
+    val error: Exception? = null
 ) {
     val hasBooks: Boolean
         get() = books.isNotEmpty()
@@ -23,7 +23,7 @@ data class AllBooksUiState(
     val books: List<Book> = listOf(),
     val selectedBook: Book? = null,
     val isLoading: Boolean = false,
-    val error: Boolean = false
+    val error: Exception? = null
 ) {
     val hasBooks: Boolean
         get() = books.isNotEmpty()
@@ -32,7 +32,7 @@ data class AllBooksUiState(
 data class UserSettingsUiState(
     val user: User? = null,
     val isLoading: Boolean = false,
-    val error: Boolean = false,
+    val error: Exception? = null,
     val logoutSuccess: Boolean = false,
     val isLogoutLoading: Boolean = false
 )

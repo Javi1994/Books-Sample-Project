@@ -7,15 +7,20 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.javi.domain.model.BookDetail
+import com.javi.presentation.ErrorHandler
+import com.javi.presentation.ErrorHandlerImpl
 import com.javi.presentation.R
 import com.javi.presentation.Util.setVisible
+import com.javi.presentation.book_detail.viewmodel.BookDetailUiEvents
+import com.javi.presentation.book_detail.viewmodel.BookDetailUiState
 import com.javi.presentation.book_detail.viewmodel.BookDetailViewModel
 import com.javi.presentation.databinding.ActivityBookDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BookDetailActivity : AppCompatActivity() {
+class BookDetailActivity : AppCompatActivity(),
+    ErrorHandler by ErrorHandlerImpl() {
 
     private lateinit var binding: ActivityBookDetailBinding
 
@@ -46,6 +51,10 @@ class BookDetailActivity : AppCompatActivity() {
 
         uiState.bookDetail?.let {
             setBookDetailData(it)
+        }
+
+        uiState.error?.let {
+            onError(it, binding.root)
         }
     }
 

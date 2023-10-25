@@ -18,7 +18,7 @@ class GetUserUseCase @Inject constructor(
             when(it) {
                 is Resource.Success -> { Resource.Success(data = it.data?.toUser())}
                 is Resource.Loading -> { Resource.Loading(isLoading = it.isLoading)}
-                is Resource.Error -> { Resource.Error(message = it.message?: "")}
+                is Resource.Error -> { Resource.Error(error = it.error)}
             }
         }
     }

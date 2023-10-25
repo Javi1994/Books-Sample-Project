@@ -10,17 +10,22 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.javi.domain.model.User
+import com.javi.presentation.ErrorHandler
+import com.javi.presentation.ErrorHandlerImpl
 import com.javi.presentation.R
 import com.javi.presentation.Util.setVisible
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.databinding.FragmentHomeUserSettingsBinding
+import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
+import com.javi.presentation.home.viewmodel.UserSettingsUiState
 import com.javi.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings) {
+class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings),
+    ErrorHandler by ErrorHandlerImpl() {
 
     private var _binding: FragmentHomeUserSettingsBinding? = null
     private val binding get() = _binding!!
@@ -62,6 +67,10 @@ class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings) 
 
         uiState.user?.let {
             setUserData(it)
+        }
+
+        uiState.error?.let {
+            onError(it, binding.root)
         }
     }
 

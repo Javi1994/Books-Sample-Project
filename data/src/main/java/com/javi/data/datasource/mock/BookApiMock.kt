@@ -3,6 +3,7 @@ package com.javi.data.datasource.mock
 import com.javi.data.datasource.remote.BookApi
 import com.javi.data.dto.BookDetailDto
 import com.javi.data.dto.BookDto
+import kotlinx.coroutines.delay
 
 class BookApiMock : BookApi {
 
@@ -13,11 +14,13 @@ class BookApiMock : BookApi {
     private val book5 = BookDto(title = "Scar and the Lily", author = "Jameson Vohu Manah")
     private val book6 = BookDto(title = "The crystal in the North", author = "Tanvi Juuso")
 
-    override fun getFavouriteBooks(username: String): List<BookDto> {
+    override suspend fun getFavouriteBooks(username: String): List<BookDto> {
+        delay(2000)
+        throw NullPointerException("There was an error on the server")
         return listOf(book1, book2, book3, book4, book5, book6)
     }
 
-    override fun getAllBooks(): List<BookDto> {
+    override suspend fun getAllBooks(): List<BookDto> {
         return listOf(
             book1,
             book4,
@@ -64,7 +67,7 @@ class BookApiMock : BookApi {
         )
     }
 
-    override fun getBookDetail(id: String): BookDetailDto {
+    override suspend fun getBookDetail(id: String): BookDetailDto {
         return BookDetailDto(
                     "1",
                     "Mocked Book",

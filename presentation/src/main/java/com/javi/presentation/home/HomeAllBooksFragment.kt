@@ -10,18 +10,23 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.javi.presentation.ErrorHandler
+import com.javi.presentation.ErrorHandlerImpl
 import com.javi.presentation.R
 import com.javi.presentation.Util.setVisible
 import com.javi.presentation.Util.startActivity
 import com.javi.presentation.book_detail.BookDetailActivity
 import com.javi.presentation.databinding.FragmentHomeAllBooksBinding
 import com.javi.presentation.home.adapter.BooksAdapter
+import com.javi.presentation.home.viewmodel.AllBooksUiState
+import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books) {
+class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books),
+    ErrorHandler by ErrorHandlerImpl() {
 
     private var _binding: FragmentHomeAllBooksBinding? = null
     private val binding get() = _binding!!
@@ -66,6 +71,10 @@ class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books) {
         if (uiState.selectedBook != null) {
             requireContext().startActivity(BookDetailActivity::class.java)
             homeViewModel.bookWasSelected()
+        }
+
+        uiState.error?.let {
+            onError(it, binding.root)
         }
     }
 

@@ -8,8 +8,6 @@ import com.javi.common.ValidateUsername
 import com.javi.domain.model.User
 import com.javi.domain.use_case.login.LoginUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
-import com.javi.presentation.login.LoginUiEvent
-import com.javi.presentation.login.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -114,7 +112,7 @@ class LoginViewModel @Inject constructor(
                         it.copy(
                             userFromLogin = user,
                             isLoadingLogin = result.isLoading,
-                            requestError = result.hasError
+                            requestError = result.error
                         )
                     }
                 }
@@ -124,7 +122,7 @@ class LoginViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isLoadingLogin = result.isLoading,
-                        requestError = result.hasError
+                        requestError = result.error
                     )
                 }
             }
@@ -133,7 +131,7 @@ class LoginViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isLoadingLogin = result.isLoading,
-                        requestError = result.hasError
+                        requestError = result.error
                     )
                 }
             }

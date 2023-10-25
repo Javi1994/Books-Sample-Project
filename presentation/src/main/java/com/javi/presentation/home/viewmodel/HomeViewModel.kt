@@ -10,11 +10,6 @@ import com.javi.domain.use_case.book.GetFavouriteBooksUseCase
 import com.javi.domain.use_case.login.LogoutUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
 import com.javi.domain.use_case.user.GetUserUseCase
-import com.javi.presentation.home.AllBooksUiState
-import com.javi.presentation.home.FavouriteBooksUiState
-import com.javi.presentation.home.HomeUiEvents
-import com.javi.presentation.home.HomeUiState
-import com.javi.presentation.home.UserSettingsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -117,7 +112,7 @@ class HomeViewModel @Inject constructor(
                                     it.copy(
                                         books = books,
                                         isLoading = result.isLoading,
-                                        error = result.hasError
+                                        error = result.error
                                     )
                                 }
                             }
@@ -127,7 +122,7 @@ class HomeViewModel @Inject constructor(
                             _favouriteBooksUiState.update {
                                 it.copy(
                                     isLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
@@ -136,7 +131,7 @@ class HomeViewModel @Inject constructor(
                             _favouriteBooksUiState.update {
                                 it.copy(
                                     isLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
@@ -158,7 +153,7 @@ class HomeViewModel @Inject constructor(
                                     it.copy(
                                         books = books,
                                         isLoading = result.isLoading,
-                                        error = result.hasError
+                                        error = result.error
                                     )
                                 }
                             }
@@ -168,7 +163,7 @@ class HomeViewModel @Inject constructor(
                             _allBooksUiState.update {
                                 it.copy(
                                     isLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
@@ -177,7 +172,7 @@ class HomeViewModel @Inject constructor(
                             _allBooksUiState.update {
                                 it.copy(
                                     isLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
@@ -199,7 +194,7 @@ class HomeViewModel @Inject constructor(
                                     it.copy(
                                         user = user,
                                         isLoading = result.isLoading,
-                                        error = result.hasError
+                                        error = result.error
                                     )
                                 }
                             }
@@ -209,7 +204,7 @@ class HomeViewModel @Inject constructor(
                             _userSettingsUiState.update {
                                 it.copy(
                                     isLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
@@ -218,7 +213,7 @@ class HomeViewModel @Inject constructor(
                             _userSettingsUiState.update {
                                 it.copy(
                                     isLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
@@ -237,7 +232,7 @@ class HomeViewModel @Inject constructor(
                                 it.copy(
                                     logoutSuccess = true,
                                     isLogoutLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
@@ -246,7 +241,7 @@ class HomeViewModel @Inject constructor(
                             _userSettingsUiState.update {
                                 it.copy(
                                     isLogoutLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
@@ -255,7 +250,7 @@ class HomeViewModel @Inject constructor(
                             _userSettingsUiState.update {
                                 it.copy(
                                     isLogoutLoading = result.isLoading,
-                                    error = result.hasError
+                                    error = result.error
                                 )
                             }
                         }
