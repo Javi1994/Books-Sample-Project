@@ -6,7 +6,7 @@ import com.javi.data.dto.BookDto
 import kotlinx.coroutines.flow.Flow
 
 interface BookRepository {
-    fun getFavouriteBooks(username: String): Flow<Resource<List<BookDto>>>
-    fun getAllBooks(): Flow<Resource<List<BookDto>>>
-    fun getBookDetail(id: String): Flow<Resource<BookDetailDto>>
+    suspend fun getFavouriteBooks(username: String): Flow<Resource<List<BookDto>>>
+    suspend fun getAllBooks(): Flow<Resource<List<BookDto>>>
+    suspend fun getBookDetail(id: String): Flow<Resource<BookDetailDto>>
 }

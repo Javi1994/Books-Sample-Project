@@ -14,15 +14,15 @@ class BookRepositoryImpl @Inject constructor(
     private val bookDataSource: BookDataSource
 ) : BookRepository {
 
-    override fun getFavouriteBooks(username: String): Flow<Resource<List<BookDto>>> {
+    override suspend fun getFavouriteBooks(username: String): Flow<Resource<List<BookDto>>> {
         return bookDataSource.getFavouriteBooks(username)
     }
 
-    override fun getAllBooks(): Flow<Resource<List<BookDto>>> {
+    override suspend fun getAllBooks(): Flow<Resource<List<BookDto>>> {
         return bookDataSource.getAllBooks()
     }
 
-    override fun getBookDetail(id: String): Flow<Resource<BookDetailDto>> {
+    override suspend fun getBookDetail(id: String): Flow<Resource<BookDetailDto>> {
         return bookDataSource.getBookDetail(id)
     }
 }

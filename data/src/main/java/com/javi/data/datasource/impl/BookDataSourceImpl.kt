@@ -18,7 +18,7 @@ class BookDataSourceImpl @Inject constructor(
     private val bookApi: BookApi,
     private val bookDao: BookDao
 ) : BookDataSource {
-    override fun getFavouriteBooks(username: String): Flow<Resource<List<BookDto>>> {
+    override suspend fun getFavouriteBooks(username: String): Flow<Resource<List<BookDto>>> {
         return flow {
             emit(Resource.Loading(true))
             try {
@@ -33,7 +33,7 @@ class BookDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun getAllBooks(): Flow<Resource<List<BookDto>>> {
+    override suspend fun getAllBooks(): Flow<Resource<List<BookDto>>> {
         return flow {
             emit(Resource.Loading(true))
             try {
@@ -62,7 +62,7 @@ class BookDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun getBookDetail(id: String): Flow<Resource<BookDetailDto>> {
+    override suspend fun getBookDetail(id: String): Flow<Resource<BookDetailDto>> {
         return flow {
             emit(Resource.Loading(true))
             try {

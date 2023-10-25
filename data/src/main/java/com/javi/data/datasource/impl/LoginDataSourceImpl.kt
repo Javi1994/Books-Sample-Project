@@ -19,7 +19,7 @@ class LoginDataSourceImpl @Inject constructor(
     private val userPreferences: UserPreferences,
     private val bookDatabase: BookDao
 ) : LoginDataSource {
-    override fun login(username: String, password: String): Flow<Resource<UserDto>> {
+    override suspend fun login(username: String, password: String): Flow<Resource<UserDto>> {
         return flow {
             emit(Resource.Loading(true))
             try {
@@ -42,7 +42,7 @@ class LoginDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun loginWithToken(token: String): Flow<Resource<UserDto>> {
+    override suspend fun loginWithToken(token: String): Flow<Resource<UserDto>> {
         return flow {
             emit(Resource.Loading(true))
             try {
@@ -60,7 +60,7 @@ class LoginDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun logout(): Flow<Resource<Unit>> {
+    override suspend fun logout(): Flow<Resource<Unit>> {
         return flow {
             emit(Resource.Loading(true))
             try {
