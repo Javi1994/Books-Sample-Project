@@ -43,7 +43,7 @@
             tools:text="Books" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/btn_all_users"
+            android:id="@+id/btn_user_settings"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

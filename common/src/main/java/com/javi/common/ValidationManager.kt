@@ -23,8 +23,6 @@ object ValidateUsername {
 }
 
 object ValidatePassword {
-
-
     fun execute(password: String): ValidationResult {
         if (password.isBlank()) {
             return ValidationResult(

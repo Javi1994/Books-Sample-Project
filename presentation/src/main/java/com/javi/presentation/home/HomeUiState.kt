@@ -3,6 +3,12 @@ package com.javi.presentation.home
 import com.javi.domain.model.Book
 import com.javi.domain.model.User
 
+data class HomeUiState(
+    val favouritesSelected: Boolean = false,
+    val allBooksSelected: Boolean = false,
+    val userSettingsSelected: Boolean = false
+)
+
 data class FavouriteBooksUiState(
     val books: List<Book> = listOf(),
     val selectedBook: Book? = null,

@@ -13,6 +13,7 @@ import com.javi.domain.use_case.user.GetUserUseCase
 import com.javi.presentation.home.AllBooksUiState
 import com.javi.presentation.home.FavouriteBooksUiState
 import com.javi.presentation.home.HomeUiEvents
+import com.javi.presentation.home.HomeUiState
 import com.javi.presentation.home.UserSettingsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,6 +33,10 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var _user: User? = null
+
+    private val _homeUiState = MutableStateFlow(HomeUiState())
+    val homeUiState: StateFlow<HomeUiState> =
+        _homeUiState.asStateFlow()
 
     private val _favouriteBooksUiState = MutableStateFlow(FavouriteBooksUiState())
     val favouriteBooksUiState: StateFlow<FavouriteBooksUiState> =
@@ -58,6 +63,13 @@ class HomeViewModel @Inject constructor(
         when (event) {
             is HomeUiEvents.GetFavouriteBooks -> {
                 getFavouriteBooks()
+                _homeUiState.update {
+                    it.copy(
+                        favouritesSelected = true,
+                        allBooksSelected = false,
+                        userSettingsSelected = false
+                    )
+                }
             }
 
             is HomeUiEvents.OnBookClicked -> {
@@ -66,10 +78,24 @@ class HomeViewModel @Inject constructor(
 
             is HomeUiEvents.GetAllBooks -> {
                 getAllBooks()
+                _homeUiState.update {
+                    it.copy(
+                        favouritesSelected = false,
+                        allBooksSelected = true,
+                        userSettingsSelected = false
+                    )
+                }
             }
 
             is HomeUiEvents.GetUserSettings -> {
                 getUserSettings()
+                _homeUiState.update {
+                    it.copy(
+                        favouritesSelected = false,
+                        allBooksSelected = false,
+                        userSettingsSelected = true
+                    )
+                }
             }
 
             is HomeUiEvents.Logout -> {
@@ -79,6 +105,8 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getFavouriteBooks() {
+        if (favouriteBooksUiState.value.hasBooks) { return }
+
         viewModelScope.launch {
             getFavouriteBooksUseCase.invoke(_user?.username ?: "")
                 .collect { result ->
@@ -118,6 +146,8 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getAllBooks() {
+        if (allBooksUiState.value.hasBooks) { return }
+
         viewModelScope.launch {
             getAllBooksUseCase.invoke()
                 .collect { result ->
@@ -157,6 +187,8 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getUserSettings() {
+        if (userSettingsUiState.value.user != null) { return }
+
         viewModelScope.launch {
             getUserUseCase.invoke()
                 .collect { result ->

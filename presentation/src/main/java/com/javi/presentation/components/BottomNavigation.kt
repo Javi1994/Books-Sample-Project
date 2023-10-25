@@ -20,24 +20,18 @@ class BottomNavigation(context: Context, attrs: AttributeSet) : LinearLayout(con
     fun setListeners(homeBottomNavigation: HomeBottomNavigation) {
         with(binding) {
 
-            //Default select since the activity will show the first fragment at start
-            btnFavouriteBooks.setSelected()
-
             btnFavouriteBooks.setOnClickListener {
                 if (!btnFavouriteBooks.isSelected) {
-                    btnFavouriteBooks.setSelected()
                     homeBottomNavigation.onFavouritesClick()
                 }
             }
             btnAllBooks.setOnClickListener {
                 if (!btnAllBooks.isSelected) {
-                    btnAllBooks.setSelected()
                     homeBottomNavigation.onAllBooksClick()
                 }
             }
-            btnAllUsers.setOnClickListener {
-                if (!btnAllUsers.isSelected) {
-                    btnAllUsers.setSelected()
+            btnUserSettings.setOnClickListener {
+                if (!btnUserSettings.isSelected) {
                     homeBottomNavigation.OnUserSettingsClick()
                 }
             }
@@ -52,12 +46,24 @@ class BottomNavigation(context: Context, attrs: AttributeSet) : LinearLayout(con
             btnAllBooks.isSelected = false
             deselect(btnAllBooks)
 
-            btnAllUsers.isSelected = false
-            deselect(btnAllUsers)
+            btnUserSettings.isSelected = false
+            deselect(btnUserSettings)
         }
 
         this.isSelected = true
         select(this)
+    }
+
+    fun selectFavouriteBooks() {
+        binding.btnFavouriteBooks.setSelected()
+    }
+
+    fun selectAllBooks() {
+        binding.btnAllBooks.setSelected()
+    }
+
+    fun selectUserSettings() {
+        binding.btnUserSettings.setSelected()
     }
 
     private fun select(textView: AppCompatTextView) {
