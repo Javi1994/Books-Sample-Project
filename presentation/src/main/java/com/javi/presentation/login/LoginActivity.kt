@@ -30,9 +30,9 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel
-                    .uiState
+                    .userFromPreferences
                     .collect {
-                        if (it.hasUserDataFromPreferences) {
+                        if (it != null) {
                             binding.navHostFragment.findNavController()
                                 .navigate(R.id.login_saved_user_fragment)
                         } else {

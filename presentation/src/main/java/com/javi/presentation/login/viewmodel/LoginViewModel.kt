@@ -7,7 +7,6 @@ import com.javi.common.ValidatePassword
 import com.javi.common.ValidateUsername
 import com.javi.domain.model.User
 import com.javi.domain.use_case.login.LoginUseCase
-import com.javi.domain.use_case.login.LogoutUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
 import com.javi.presentation.login.LoginUiEvent
 import com.javi.presentation.login.LoginUiState
@@ -29,9 +28,13 @@ class LoginViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
+    private val _userFromPreferences = MutableStateFlow<User?>(null)
+    val userFromPreferences: StateFlow<User?> = _userFromPreferences.asStateFlow()
+
     init {
         viewModelScope.launch {
             val user = getUserFromPreferencesUseCase.invoke().first()
+            _userFromPreferences.update { user }
             _uiState.update {
                 it.copy(userFromPreferences = user)
             }

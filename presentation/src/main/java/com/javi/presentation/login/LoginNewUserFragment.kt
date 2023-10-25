@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -24,7 +24,7 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
     private var _binding: FragmentLoginNewUserBinding? = null
     private val binding get() = _binding!!
 
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,10 +67,16 @@ class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user) {
             requireActivity().finish()
         }
 
+        if (uiState.username.isNotEmpty() && binding.inputUsername.text.toString().isNullOrEmpty()) {
+            binding.inputUsername.setText(uiState.username)
+        }
         uiState.usernameError?.let {
             binding.inputUsername.error = getString(it)
         }
 
+        if (uiState.password.isNotEmpty() && binding.inputPassword.text.toString().isNullOrEmpty()) {
+            binding.inputPassword.setText(uiState.password)
+        }
         uiState.passwordError?.let {
             binding.inputPassword.error = getString(it)
         }
