@@ -56,9 +56,6 @@ class LoginDataSourceImpl @Inject constructor(
                 e.printStackTrace()
                 emit(Resource.Error(e))
 
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(Resource.Error(e))
             }
         }
     }
@@ -78,10 +75,6 @@ class LoginDataSourceImpl @Inject constructor(
                 emit(Resource.Success(Unit))
 
             } catch (e: IOException) {
-                e.printStackTrace()
-                emit(Resource.Error(e))
-
-            } catch (e: Exception) {
                 e.printStackTrace()
                 emit(Resource.Error(e))
             }

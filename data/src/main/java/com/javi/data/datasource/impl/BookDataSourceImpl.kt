@@ -29,10 +29,6 @@ class BookDataSourceImpl @Inject constructor(
             } catch (e: IOException) {
                 e.printStackTrace()
                 emit(Resource.Error(e))
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(Resource.Error(e))
             }
         }
     }
@@ -62,10 +58,6 @@ class BookDataSourceImpl @Inject constructor(
             } catch (e: IOException) {
                 e.printStackTrace()
                 emit(Resource.Error(e))
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(Resource.Error(e))
             }
         }
     }
@@ -79,10 +71,6 @@ class BookDataSourceImpl @Inject constructor(
                 emit(Resource.Success(bookDetailResult))
 
             } catch (e: IOException) {
-                e.printStackTrace()
-                emit(Resource.Error(e))
-
-            } catch (e: Exception) {
                 e.printStackTrace()
                 emit(Resource.Error(e))
             }

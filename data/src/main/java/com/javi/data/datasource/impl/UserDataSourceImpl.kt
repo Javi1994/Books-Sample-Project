@@ -30,10 +30,6 @@ class UserDataSourceImpl @Inject constructor(
             } catch (e: IOException) {
                 e.printStackTrace()
                 emit(Resource.Error(e))
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(Resource.Error(e))
             }
         }
     }

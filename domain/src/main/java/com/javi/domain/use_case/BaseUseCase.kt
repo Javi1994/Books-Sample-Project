@@ -1,4 +1,6 @@
 package com.javi.domain.use_case
 
-//TODO: Add dispatcher parameter
-open class BaseUseCase
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+
+open class BaseUseCase(val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default)

@@ -2,20 +2,19 @@ package com.javi.data.datasource.mock
 
 import com.javi.data.datasource.remote.LoginApi
 import com.javi.data.dto.UserDto
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class LoginApiMock : LoginApi {
-    override fun doLogin(username: String, password: String): UserDto {
+    override suspend fun doLogin(username: String, password: String): UserDto {
+        //delay(2000)
+        //throw IOException("There was an error on the server")
         return UserDto("Javi", "sflkADlaÑGgre")
     }
 
-    override fun doLoginWithToken(token: String): UserDto {
+    override suspend fun doLoginWithToken(token: String): UserDto {
         return UserDto("Javi", "sflkADlaÑGgre")
     }
 
-    override fun doLogout() {
+    override suspend fun doLogout() {
 
     }
 }
