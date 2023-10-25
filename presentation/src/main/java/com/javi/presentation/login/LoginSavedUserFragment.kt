@@ -65,6 +65,7 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user),
     private fun renderUi(uiState: LoginUiState) {
         if (uiState.loginSuccess) {
             requireContext().startActivity(HomeActivity::class.java)
+            requireActivity().finish()
         }
 
         // If viewmodel password is not empty and inputPassword is empty it means that
