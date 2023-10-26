@@ -7,7 +7,6 @@ private object Dependencies {
         const val gradlePlugin = "com.android.tools.build:gradle:${Versions.gradlePlugin}"
         const val kotlinGradlePlugin =
             "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinGradlePlugin}"
-        const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
     }
 
     object CoreDependencies {
@@ -29,9 +28,8 @@ private object Dependencies {
             "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     }
 
-    object HiltDependencies {
-        const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hilt}"
-        const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+    object KoinDependencies {
+        const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
     }
 
     object NavigationDependencies {
@@ -65,13 +63,11 @@ private object Dependencies {
 fun DependencyHandler.gradlePlugins() {
     classpath(Dependencies.BuildScriptPlugin.kotlinGradlePlugin)
     classpath(Dependencies.BuildScriptPlugin.gradlePlugin)
-    classpath(Dependencies.BuildScriptPlugin.hiltGradlePlugin)
 }
 
 fun DependencyHandler.gradlePluginsImplementation() {
     implementation(Dependencies.BuildScriptPlugin.kotlinGradlePlugin)
     implementation(Dependencies.BuildScriptPlugin.gradlePlugin)
-    implementation(Dependencies.BuildScriptPlugin.hiltGradlePlugin)
 }
 
 fun DependencyHandler.coreKtx() {
@@ -91,9 +87,8 @@ fun DependencyHandler.lifecycle() {
 }
 
 
-fun DependencyHandler.hilt() {
-    implementation(Dependencies.HiltDependencies.hiltAndroid)
-    kapt(Dependencies.HiltDependencies.hiltCompiler)
+fun DependencyHandler.koin() {
+    implementation(Dependencies.KoinDependencies.koinAndroid)
 }
 
 fun DependencyHandler.navigation() {

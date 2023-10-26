@@ -3,30 +3,19 @@ package com.javi.data.di
 import com.javi.data.datasource.mock.BookApiMock
 import com.javi.data.datasource.mock.LoginApiMock
 import com.javi.data.datasource.mock.UserApiMock
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.javi.data.datasource.remote.BookApi
+import com.javi.data.datasource.remote.LoginApi
+import com.javi.data.datasource.remote.UserApi
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object NetworkModule {
-    @Provides
-    @Singleton
-    fun provideMockBookApi(): BookApiMock {
-        return BookApiMock()
+val networkModule = module {
+    single<BookApi> {
+        BookApiMock()
     }
-
-    @Provides
-    @Singleton
-    fun provideMockLoginApi(): LoginApiMock {
-        return LoginApiMock()
+    single<LoginApi> {
+        LoginApiMock()
     }
-
-    @Provides
-    @Singleton
-    fun provideMockUserApi(): UserApiMock {
-        return UserApiMock()
+    single<UserApi> {
+        UserApiMock()
     }
 }

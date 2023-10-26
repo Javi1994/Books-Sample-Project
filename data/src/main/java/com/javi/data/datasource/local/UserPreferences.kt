@@ -9,9 +9,8 @@ import com.javi.data.dto.UserDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class UserPreferences @Inject constructor(
+class UserPreferences constructor(
     private val dataStore: DataStore<Preferences>
 ) {
     suspend fun saveUser(user: UserDto) {

@@ -8,9 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class GetUserFromPreferencesUseCase @Inject constructor(
+class GetUserFromPreferencesUseCase constructor(
     private val userPreferences: UserPreferences,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {

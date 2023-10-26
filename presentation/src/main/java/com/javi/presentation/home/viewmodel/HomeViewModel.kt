@@ -10,16 +10,13 @@ import com.javi.domain.use_case.book.GetFavouriteBooksUseCase
 import com.javi.domain.use_case.login.LogoutUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
 import com.javi.domain.use_case.user.GetUserUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel constructor(
     private val getUserFromPreferencesUseCase: GetUserFromPreferencesUseCase,
     private val getFavouriteBooksUseCase: GetFavouriteBooksUseCase,
     private val getAllBooksUseCase: GetAllBooksUseCase,

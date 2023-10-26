@@ -1,7 +1,6 @@
 package com.javi.presentation.home
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -12,15 +11,14 @@ import com.javi.presentation.components.HomeBottomNavigation
 import com.javi.presentation.databinding.ActivityHomeBinding
 import com.javi.presentation.home.viewmodel.HomeUiState
 import com.javi.presentation.home.viewmodel.HomeViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class HomeActivity : BaseActivity(), HomeBottomNavigation {
 
     private lateinit var binding: ActivityHomeBinding
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

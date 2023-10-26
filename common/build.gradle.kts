@@ -10,7 +10,7 @@ android {
 }
 
 dependencies {
-    hilt()
+    koin()
 
     coroutines()
 }

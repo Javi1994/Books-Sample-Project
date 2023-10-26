@@ -5,11 +5,8 @@ import com.javi.data.datasource.LoginDataSource
 import com.javi.data.dto.UserDto
 import com.javi.data.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class LoginRepositoryImpl @Inject constructor(
+class LoginRepositoryImpl constructor(
     private val loginDataSource: LoginDataSource
 ) : LoginRepository {
 

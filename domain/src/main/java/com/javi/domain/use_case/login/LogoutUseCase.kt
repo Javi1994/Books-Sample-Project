@@ -6,9 +6,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class LogoutUseCase @Inject constructor(
+class LogoutUseCase constructor(
     private val loginRepository: LoginRepository,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {

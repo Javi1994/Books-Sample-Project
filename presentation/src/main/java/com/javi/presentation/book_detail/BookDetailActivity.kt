@@ -1,7 +1,6 @@
 package com.javi.presentation.book_detail
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,16 +14,15 @@ import com.javi.presentation.book_detail.viewmodel.BookDetailUiEvents
 import com.javi.presentation.book_detail.viewmodel.BookDetailUiState
 import com.javi.presentation.book_detail.viewmodel.BookDetailViewModel
 import com.javi.presentation.databinding.ActivityBookDetailBinding
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class BookDetailActivity : BaseActivity(),
     ErrorHandler by ErrorHandlerImpl() {
 
     private lateinit var binding: ActivityBookDetailBinding
 
-    private val bookDetailViewModel: BookDetailViewModel by viewModels()
+    private val bookDetailViewModel: BookDetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

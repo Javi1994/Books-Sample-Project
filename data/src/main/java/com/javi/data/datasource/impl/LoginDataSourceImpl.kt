@@ -12,9 +12,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import javax.inject.Inject
 
-class LoginDataSourceImpl @Inject constructor(
+class LoginDataSourceImpl constructor(
     private val loginApi: LoginApi,
     private val userPreferences: UserPreferences,
     private val bookDatabase: BookDao

@@ -18,7 +18,7 @@ dependencies {
     coreUi()
     lifecycle()
 
-    hilt()
+    koin()
     navigation()
 
     test()
