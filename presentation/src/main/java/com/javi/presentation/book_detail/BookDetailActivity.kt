@@ -15,10 +15,8 @@ import com.javi.presentation.book_detail.viewmodel.BookDetailUiEvents
 import com.javi.presentation.book_detail.viewmodel.BookDetailUiState
 import com.javi.presentation.book_detail.viewmodel.BookDetailViewModel
 import com.javi.presentation.databinding.ActivityBookDetailBinding
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
 class BookDetailActivity : BaseActivity(),
     ErrorHandler by ErrorHandlerImpl() {
 

@@ -11,8 +11,10 @@ object Versions {
     const val dataStore = "1.0.0"
     const val room = "2.6.0"
 
+    //Koin
+    const val koin = "3.5.0"
+
     //Gradle Plugins
-    const val hilt = "2.48.1"
     const val kotlinGradlePlugin = "1.8.10"
     const val gradlePlugin = "8.1.2"
 

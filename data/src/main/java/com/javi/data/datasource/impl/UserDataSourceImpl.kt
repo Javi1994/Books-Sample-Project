@@ -10,9 +10,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
-import javax.inject.Inject
 
-class UserDataSourceImpl @Inject constructor(
+class UserDataSourceImpl constructor(
     private val userApi: UserApi,
     private val userPreferences: UserPreferences
 ) : UserDataSource {

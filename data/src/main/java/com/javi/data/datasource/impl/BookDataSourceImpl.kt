@@ -12,9 +12,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import javax.inject.Inject
 
-class BookDataSourceImpl @Inject constructor(
+class BookDataSourceImpl constructor(
     private val bookApi: BookApi,
     private val bookDao: BookDao
 ) : BookDataSource {

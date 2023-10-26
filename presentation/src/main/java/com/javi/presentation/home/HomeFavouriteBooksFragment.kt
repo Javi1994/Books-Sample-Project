@@ -21,10 +21,8 @@ import com.javi.presentation.home.adapter.BooksAdapter
 import com.javi.presentation.home.viewmodel.FavouriteBooksUiState
 import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
 class HomeFavouriteBooksFragment : Fragment(R.layout.fragment_home_favourite_books),
     ErrorHandler by ErrorHandlerImpl() {
 

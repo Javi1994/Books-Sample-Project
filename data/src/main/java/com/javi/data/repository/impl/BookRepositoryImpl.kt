@@ -6,11 +6,8 @@ import com.javi.data.dto.BookDetailDto
 import com.javi.data.dto.BookDto
 import com.javi.data.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class BookRepositoryImpl @Inject constructor(
+class BookRepositoryImpl constructor(
     private val bookDataSource: BookDataSource
 ) : BookRepository {
 

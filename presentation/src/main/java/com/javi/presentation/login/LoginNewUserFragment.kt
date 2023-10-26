@@ -19,10 +19,8 @@ import com.javi.presentation.home.HomeActivity
 import com.javi.presentation.login.viewmodel.LoginUiEvent
 import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
 class LoginNewUserFragment : Fragment(R.layout.fragment_login_new_user),
     ErrorHandler by ErrorHandlerImpl() {
 

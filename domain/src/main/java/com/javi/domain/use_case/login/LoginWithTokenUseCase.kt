@@ -9,9 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class LoginWithTokenUseCase @Inject constructor(
+class LoginWithTokenUseCase constructor(
     private val loginRepository: LoginRepository,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {

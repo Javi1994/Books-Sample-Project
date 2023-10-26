@@ -10,10 +10,8 @@ import com.javi.presentation.BaseActivity
 import com.javi.presentation.R
 import com.javi.presentation.databinding.ActivityLoginBinding
 import com.javi.presentation.login.viewmodel.LoginViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
 class LoginActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLoginBinding

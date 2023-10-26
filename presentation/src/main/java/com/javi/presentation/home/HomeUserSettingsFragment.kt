@@ -20,10 +20,8 @@ import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
 import com.javi.presentation.home.viewmodel.UserSettingsUiState
 import com.javi.presentation.login.LoginActivity
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
 class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings),
     ErrorHandler by ErrorHandlerImpl() {
 

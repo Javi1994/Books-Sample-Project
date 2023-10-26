@@ -21,10 +21,8 @@ import com.javi.presentation.home.adapter.BooksAdapter
 import com.javi.presentation.home.viewmodel.AllBooksUiState
 import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
 class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books),
     ErrorHandler by ErrorHandlerImpl() {
 

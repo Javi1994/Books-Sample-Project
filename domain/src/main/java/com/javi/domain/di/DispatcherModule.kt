@@ -1,17 +1,9 @@
 package com.javi.domain.di
 
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import org.koin.dsl.module
 
-@InstallIn(SingletonComponent::class)
-@Module
-object DatabaseModule {
-    @Provides
-    fun provideDefaultDispatcher(): CoroutineDispatcher {
-        return Dispatchers.Default
-    }
+
+val dispatcherModule = module {
+    single { Dispatchers.Default }
 }
