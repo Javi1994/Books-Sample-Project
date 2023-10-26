@@ -1,6 +1,7 @@
 package com.javi.data.di
 
 import androidx.room.Room
+import com.javi.data.Constants.DATABASE_NAME
 import com.javi.data.datasource.database.AppDatabase
 import com.javi.data.datasource.database.BookDao
 import org.koin.android.ext.koin.androidApplication
@@ -11,7 +12,7 @@ val databaseModule = module {
         Room.databaseBuilder(
             androidApplication(),
             AppDatabase::class.java,
-            "SampleBookProject"
+            DATABASE_NAME
         ).build()
     }
 
