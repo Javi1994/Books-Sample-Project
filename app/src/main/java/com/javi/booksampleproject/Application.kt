@@ -11,6 +11,7 @@ import com.javi.domain.di.dispatcherModule
 import com.javi.domain.di.loginUseCaseModule
 import com.javi.domain.di.preferencesUseCaseModule
 import com.javi.domain.di.usersUseCaseModule
+import com.javi.presentation.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -33,7 +34,8 @@ class Application : Application() {
                     booksUseCaseModule,
                     loginUseCaseModule,
                     preferencesUseCaseModule,
-                    usersUseCaseModule
+                    usersUseCaseModule,
+                    appModule
                 )
             )
         }

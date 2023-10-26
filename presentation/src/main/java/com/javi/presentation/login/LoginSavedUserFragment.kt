@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -20,6 +19,7 @@ import com.javi.presentation.login.viewmodel.LoginUiEvent
 import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user),
     ErrorHandler by ErrorHandlerImpl() {
@@ -27,7 +27,7 @@ class LoginSavedUserFragment : Fragment(R.layout.fragment_login_saved_user),
     private var _binding: FragmentLoginSavedUserBinding? = null
     private val binding get() = _binding!!
 
-    private val loginViewModel: LoginViewModel by activityViewModels()
+    private val loginViewModel: LoginViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

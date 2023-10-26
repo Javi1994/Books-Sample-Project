@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.javi.data.Constants.USER_PREFERENCES
+import com.javi.data.datasource.local.UserPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -22,5 +23,9 @@ val preferencesModule = module {
             migrations = listOf(SharedPreferencesMigration(androidContext(), USER_PREFERENCES)),
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
             produceFile = { androidContext().preferencesDataStoreFile(USER_PREFERENCES) })
+    }
+
+    single {
+        UserPreferences(get())
     }
 }

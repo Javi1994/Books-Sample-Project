@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -22,6 +21,7 @@ import com.javi.presentation.home.viewmodel.AllBooksUiState
 import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books),
     ErrorHandler by ErrorHandlerImpl() {
@@ -31,7 +31,7 @@ class HomeAllBooksFragment : Fragment(R.layout.fragment_home_all_books),
 
     private lateinit var bookAdapter: BooksAdapter
 
-    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val homeViewModel: HomeViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

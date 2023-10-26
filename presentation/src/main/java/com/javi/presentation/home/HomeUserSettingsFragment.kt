@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -21,6 +20,7 @@ import com.javi.presentation.home.viewmodel.HomeViewModel
 import com.javi.presentation.home.viewmodel.UserSettingsUiState
 import com.javi.presentation.login.LoginActivity
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings),
     ErrorHandler by ErrorHandlerImpl() {
@@ -28,7 +28,7 @@ class HomeUserSettingsFragment : Fragment(R.layout.fragment_home_user_settings),
     private var _binding: FragmentHomeUserSettingsBinding? = null
     private val binding get() = _binding!!
 
-    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val homeViewModel: HomeViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
