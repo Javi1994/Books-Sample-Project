@@ -10,7 +10,5 @@ android {
 }
 
 dependencies {
-    koin()
-
     coroutines()
 }
