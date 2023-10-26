@@ -9,6 +9,10 @@ import com.javi.data.datasource.impl.UserDataSourceImpl
 import org.koin.dsl.module
 
 val dataSourceModule = module {
+    includes(databaseModule)
+    includes(preferencesModule)
+    includes(networkModule)
+
     single<UserDataSource> {
         UserDataSourceImpl(get(), get())
     }

@@ -9,6 +9,8 @@ import com.javi.data.repository.impl.UserRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
+    includes(dataSourceModule)
+
     single<BookRepository> {
         BookRepositoryImpl(get())
     }
