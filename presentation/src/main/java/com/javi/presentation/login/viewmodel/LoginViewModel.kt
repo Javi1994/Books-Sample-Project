@@ -1,5 +1,8 @@
 package com.javi.presentation.login.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
@@ -8,11 +11,7 @@ import com.javi.common.ValidateUsername
 import com.javi.domain.model.User
 import com.javi.domain.use_case.login.LoginUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginViewModel constructor(
@@ -20,19 +19,12 @@ class LoginViewModel constructor(
     private val getUserFromPreferencesUseCase: GetUserFromPreferencesUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(LoginUiState())
-    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
-
-    private val _userFromPreferences = MutableStateFlow<User?>(null)
-    val userFromPreferences: StateFlow<User?> = _userFromPreferences.asStateFlow()
+    var state by mutableStateOf(LoginUiState())
 
     init {
         viewModelScope.launch {
             val user = getUserFromPreferencesUseCase.invoke().first()
-            _userFromPreferences.update { user }
-            _uiState.update {
-                it.copy(userFromPreferences = user)
-            }
+            state = state.copy(userFromPreferences = user)
         }
     }
 
@@ -58,30 +50,26 @@ class LoginViewModel constructor(
 
     private fun updateUsername(event: LoginUiEvent.UpdateUsername) {
         val validationResult = ValidateUsername.execute(event.username).errorMessage
-        _uiState.update {
-            it.copy(
-                username = event.username,
-                usernameError = validationResult
-            )
-        }
+        state = state.copy(
+            username = event.username,
+            usernameError = validationResult
+        )
     }
 
     private fun updatePassword(event: LoginUiEvent.UpdatePassword) {
         val validationResult = ValidatePassword.execute(event.password).errorMessage
-        _uiState.update {
-            it.copy(
-                password = event.password,
-                passwordError = validationResult
-            )
-        }
+        state = state.copy(
+            password = event.password,
+            passwordError = validationResult
+        )
     }
 
     private fun login() {
         viewModelScope.launch {
             loginUseCase
                 .invoke(
-                    username = uiState.value.username,
-                    password = uiState.value.password
+                    username = state.username,
+                    password = state.password
                 )
                 .collect { result ->
                     updateUiState(result)
@@ -93,8 +81,8 @@ class LoginViewModel constructor(
         viewModelScope.launch {
             loginUseCase
                 .invoke(
-                    username = uiState.value.userFromPreferences?.username ?: "",
-                    password = uiState.value.password
+                    username = state.userFromPreferences?.username ?: "",
+                    password = state.password
                 ).collect { result ->
                     updateUiState(result)
                 }
@@ -105,32 +93,26 @@ class LoginViewModel constructor(
         when (result) {
             is Resource.Success -> {
                 result.data?.let { user ->
-                    _uiState.update {
-                        it.copy(
-                            userFromLogin = user,
-                            isLoadingLogin = result.isLoading,
-                            requestError = result.error
-                        )
-                    }
+                    state = state.copy(
+                        userFromLogin = user,
+                        isLoadingLogin = result.isLoading,
+                        requestError = result.error
+                    )
                 }
             }
 
             is Resource.Loading -> {
-                _uiState.update {
-                    it.copy(
-                        isLoadingLogin = result.isLoading,
-                        requestError = result.error
-                    )
-                }
+                state = state.copy(
+                    isLoadingLogin = result.isLoading,
+                    requestError = result.error
+                )
             }
 
             is Resource.Error -> {
-                _uiState.update {
-                    it.copy(
-                        isLoadingLogin = result.isLoading,
-                        requestError = result.error
-                    )
-                }
+                state = state.copy(
+                    isLoadingLogin = result.isLoading,
+                    requestError = result.error
+                )
             }
         }
     }
