@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.javi.presentation.R
 import com.javi.presentation.components.CustomButton
 import com.javi.presentation.components.CustomTextField
+import com.javi.presentation.destinations.HomeScreenDestination
 import com.javi.presentation.login.viewmodel.LoginUiEvent
 import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
@@ -28,11 +29,15 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Destination(start = false)
-fun loginSavedUserScreen(
+@Destination
+fun LoginSavedUserScreen(
     navigator: DestinationsNavigator,
     viewModel: LoginViewModel = koinViewModel()
 ) {
+    if (viewModel.state.loginSuccess) {
+        navigator.navigate(HomeScreenDestination)
+    }
+
     LoginSavedUserLayout(
         state = viewModel.state,
         onUpdatePassword = {
@@ -85,7 +90,7 @@ private fun LoginSavedUserLayout(
 
 @Preview
 @Composable
-private fun LoginNewUserLayoutPreview() {
+private fun LoginNewUserScreenPreview() {
     LoginSavedUserLayout(
         state = LoginUiState(userFromPreferences = "Javi"), {}, {})
 }
