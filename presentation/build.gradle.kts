@@ -20,6 +20,8 @@ dependencies {
     coreKtx()
     lifecycle()
 
+    implementation("io.insert-koin:koin-androidx-compose:3.5.0")
+
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
