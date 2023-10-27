@@ -24,7 +24,7 @@ class LoginViewModel constructor(
     init {
         viewModelScope.launch {
             val user = getUserFromPreferencesUseCase.invoke().first()
-            state = state.copy(userFromPreferences = user)
+            state = state.copy(userFromPreferences = user?.username)
         }
     }
 
@@ -81,7 +81,7 @@ class LoginViewModel constructor(
         viewModelScope.launch {
             loginUseCase
                 .invoke(
-                    username = state.userFromPreferences?.username ?: "",
+                    username = state.userFromPreferences?: "",
                     password = state.password
                 ).collect { result ->
                     updateUiState(result)

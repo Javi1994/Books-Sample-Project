@@ -6,12 +6,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.javi.presentation.R
 import com.javi.presentation.components.CustomButton
 import com.javi.presentation.components.CustomTextField
@@ -22,32 +26,29 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Destination(start = true)
-fun LoginNewUserScreen(
+@Destination(start = false)
+fun loginSavedUserScreen(
     navigator: DestinationsNavigator,
     viewModel: LoginViewModel = koinViewModel()
 ) {
-    LoginNewUserLayout(
+    LoginSavedUserLayout(
         state = viewModel.state,
-        onUpdateUsername = {
-            viewModel.onEvent(LoginUiEvent.UpdateUsername(it))
-        },
         onUpdatePassword = {
             viewModel.onEvent(LoginUiEvent.UpdatePassword(it))
         },
-        onLogin = {
-            viewModel.onEvent(LoginUiEvent.LoginWithUsername)
+        onLoginWithPassword = {
+            viewModel.onEvent(LoginUiEvent.LoginWithPassword)
         }
     )
 }
 
 @Composable
-private fun LoginNewUserLayout(
+private fun LoginSavedUserLayout(
     state: LoginUiState,
-    onUpdateUsername: (String) -> Unit,
     onUpdatePassword: (String) -> Unit,
-    onLogin: () -> Unit
+    onLoginWithPassword: () -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -56,13 +57,15 @@ private fun LoginNewUserLayout(
             .fillMaxSize()
             .padding(80.dp)
     ) {
-        CustomTextField(
-            value = state.username,
-            errorResource = state.usernameError
-        ) {
-            onUpdateUsername(it)
-        }
-        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(
+                id = R.string.login_welcome_back,
+                state.userFromPreferences ?: ""
+            ),
+            textAlign = TextAlign.Center,
+            fontSize = 32.sp
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         CustomTextField(
             value = state.password,
             errorResource = state.passwordError
@@ -72,16 +75,17 @@ private fun LoginNewUserLayout(
         Spacer(modifier = Modifier.height(16.dp))
         CustomButton(
             value = stringResource(R.string.login_do_login_btn),
-            isEnabled = state.canEnableLoginButton,
+            isEnabled = state.canEnableLoginButtonFromPassword,
             isLoading = state.isLoadingLogin
         ) {
-            onLogin()
+            onLoginWithPassword()
         }
     }
 }
 
 @Preview
 @Composable
-private fun LoginNewUserScreenPreview() {
-    LoginNewUserLayout(state = LoginUiState(), {}, {}, {})
+private fun LoginNewUserLayoutPreview() {
+    LoginSavedUserLayout(
+        state = LoginUiState(userFromPreferences = "Javi"), {}, {})
 }

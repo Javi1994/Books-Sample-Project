@@ -7,7 +7,7 @@ data class LoginUiState(
     val usernameError: Int? = null,
     val password: String = "",
     val passwordError: Int? = null,
-    val userFromPreferences: User? = null,
+    val userFromPreferences: String? = null,
     val userFromLogin: User? = null,
     val isLoadingLogin: Boolean = false,
     val isLoadingLogout: Boolean = false,
@@ -18,7 +18,7 @@ data class LoginUiState(
                 && passwordError == null && password.isNotEmpty()
     val canEnableLoginButtonFromPassword: Boolean
         get() = passwordError == null && password.isNotEmpty() &&
-                userFromPreferences?.username?.isNotEmpty() ?: false
+                userFromPreferences?.isNotEmpty() ?: false
     val loginSuccess: Boolean
         get() = userFromLogin != null && !isLoadingLogin && requestError == null
 }
