@@ -6,8 +6,16 @@ import com.javi.domain.model.User
 data class HomeUiState(
     val favouritesSelected: Boolean = false,
     val allBooksSelected: Boolean = false,
-    val userSettingsSelected: Boolean = false
-)
+    val userSettingsSelected: Boolean = false,
+    val favouriteBooks: List<Book> = listOf(),
+    val allBooks: List<Book> = listOf(),
+    val user: User? = null,
+    val isLoading: Boolean = false,
+    val error: Exception? = null,
+) {
+    val firstEntry: Boolean
+        get() = !favouritesSelected && !allBooksSelected && !userSettingsSelected
+}
 
 data class FavouriteBooksUiState(
     val books: List<Book> = listOf(),

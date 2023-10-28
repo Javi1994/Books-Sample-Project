@@ -1,10 +1,12 @@
 package com.javi.presentation.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.javi.presentation.components.BottomNav
 import com.javi.presentation.home.viewmodel.HomeUiEvents
@@ -20,6 +22,9 @@ fun HomeScreen(
     navigator: DestinationsNavigator,
     viewModel: HomeViewModel = koinViewModel()
 ) {
+    if (viewModel.state.firstEntry) {
+        viewModel.onEvent(HomeUiEvents.GetFavouriteBooks)
+    }
     HomeLayout(
         state = viewModel.state,
         onFavouriteClick = {
@@ -42,8 +47,30 @@ fun HomeLayout(
     onUserClick: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
+
+        if (state.allBooksSelected) {
+            AllBooksLayout(
+                books = state.allBooks,
+                isLoading = state.isLoading,
+            )
+        } else if (state.userSettingsSelected) {
+            state.user?.let {
+                UserSettingsLayout(
+                    user = it,
+                    isLoading = state.isLoading
+                )
+            }
+        } else {
+            FavouriteBooksLayout(
+                books = state.favouriteBooks,
+                isLoading = state.isLoading
+            )
+        }
+
         BottomNav(
-            modifier = Modifier.align(Alignment.BottomStart),
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .background(Color.White),
             favouritesSelected = state.favouritesSelected,
             allBooksSelected = state.allBooksSelected,
             userSettingsSelected = state.userSettingsSelected,
