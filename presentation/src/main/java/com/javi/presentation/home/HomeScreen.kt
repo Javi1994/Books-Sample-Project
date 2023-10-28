@@ -23,11 +23,12 @@ fun HomeScreen(
     navigator: DestinationsNavigator,
     viewModel: HomeViewModel = koinViewModel()
 ) {
-    if (viewModel.state.firstEntry) {
-        viewModel.onEvent(HomeUiEvents.GetFavouriteBooks)
-    }
+
     if (viewModel.state.logoutSuccess) {
         navigator.navigate(LoginScreenDestination)
+    }
+    if (viewModel.state.firstEntry) {
+        viewModel.onEvent(HomeUiEvents.GetFavouriteBooks)
     }
 
     HomeLayout(

@@ -16,6 +16,7 @@ fun LoginScreen(
     navigator: DestinationsNavigator,
     viewModel: LoginViewModel = koinViewModel()
 ) {
+
     if (viewModel.state.loginSuccess) {
         navigator.navigate(HomeScreenDestination)
     }

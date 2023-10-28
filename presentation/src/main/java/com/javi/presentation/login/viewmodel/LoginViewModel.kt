@@ -81,7 +81,7 @@ class LoginViewModel constructor(
         viewModelScope.launch {
             loginUseCase
                 .invoke(
-                    username = state.userFromPreferences?: "",
+                    username = state.userFromPreferences ?: "",
                     password = state.password
                 ).collect { result ->
                     updateUiState(result)
@@ -92,28 +92,21 @@ class LoginViewModel constructor(
     private fun updateUiState(result: Resource<User>) {
         when (result) {
             is Resource.Success -> {
-                result.data?.let { user ->
+                result.data?.let {
                     state = state.copy(
-                        userFromLogin = user,
+                        loginSuccess = true,
                         isLoadingLogin = result.isLoading,
-                        requestError = result.error
+                        error = result.error
                     )
                 }
             }
 
             is Resource.Loading -> {
                 state = state.copy(
-                    isLoadingLogin = result.isLoading,
-                    requestError = result.error
+                    isLoadingLogin = true
                 )
             }
-
-            is Resource.Error -> {
-                state = state.copy(
-                    isLoadingLogin = result.isLoading,
-                    requestError = result.error
-                )
-            }
+            is Resource.Error -> {}
         }
     }
 }
