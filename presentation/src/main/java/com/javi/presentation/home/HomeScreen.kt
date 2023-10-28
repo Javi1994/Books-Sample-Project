@@ -35,6 +35,9 @@ fun HomeScreen(
         },
         onUserClick = {
             viewModel.onEvent(HomeUiEvents.GetUserSettings)
+        },
+        onLogoutClick = {
+            viewModel.onEvent(HomeUiEvents.Logout)
         }
     )
 }
@@ -45,6 +48,7 @@ fun HomeLayout(
     onFavouriteClick: () -> Unit,
     onBooksClick: () -> Unit,
     onUserClick: () -> Unit,
+    onLogoutClick: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -54,12 +58,14 @@ fun HomeLayout(
                 isLoading = state.isLoading,
             )
         } else if (state.userSettingsSelected) {
-            state.user?.let {
-                UserSettingsLayout(
-                    user = it,
-                    isLoading = state.isLoading
-                )
-            }
+            UserSettingsLayout(
+                user = state.user,
+                isLoading = state.isLoading,
+                isLogoutLoading = state.isLogoutLoading,
+                onLogoutClick = {
+                    onLogoutClick()
+                }
+            )
         } else {
             FavouriteBooksLayout(
                 books = state.favouriteBooks,
@@ -86,6 +92,6 @@ fun HomeLayout(
 fun HomeScreenPreview() {
     HomeLayout(
         HomeUiState(),
-        {}, {}, {}
+        {}, {}, {}, {}
     )
 }

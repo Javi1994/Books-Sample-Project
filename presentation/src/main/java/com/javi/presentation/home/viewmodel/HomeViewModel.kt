@@ -22,14 +22,14 @@ class HomeViewModel constructor(
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
-    private var _user: User? = null
+    private var _userFromPreferences: User? = null
     var state by mutableStateOf(HomeUiState())
 
     init {
         viewModelScope.launch {
             getUserFromPreferencesUseCase.invoke()
                 .collect { user ->
-                    _user = user
+                    _userFromPreferences = user
                 }
         }
     }
@@ -68,14 +68,18 @@ class HomeViewModel constructor(
             }
 
             is HomeUiEvents.Logout -> {
-
+                logout()
             }
         }
     }
 
     private fun getFavouriteBooks() {
+        if (state.favouriteBooks.isNotEmpty()) {
+            return
+        }
+
         viewModelScope.launch {
-            getFavouriteBooksUseCase.invoke(_user?.username ?: "")
+            getFavouriteBooksUseCase.invoke(_userFromPreferences?.username ?: "")
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
@@ -100,6 +104,10 @@ class HomeViewModel constructor(
     }
 
     private fun getAllBooks() {
+        if (state.allBooks.isNotEmpty()) {
+            return
+        }
+
         viewModelScope.launch {
             getAllBooksUseCase.invoke()
                 .collect { result ->
@@ -126,6 +134,10 @@ class HomeViewModel constructor(
     }
 
     private fun getUserSettings() {
+        if (state.user != null) {
+            return
+        }
+
         viewModelScope.launch {
             getUserUseCase.invoke()
                 .collect { result ->
@@ -142,6 +154,32 @@ class HomeViewModel constructor(
                         is Resource.Loading -> {
                             state = state.copy(
                                 isLoading = true
+                            )
+                        }
+
+                        is Resource.Error -> {}
+                    }
+                }
+        }
+    }
+
+    private fun logout() {
+        viewModelScope.launch {
+            logoutUseCase.invoke()
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            result.data?.let { user ->
+                                state = state.copy(
+                                    logoutSuccess = true,
+                                    isLogoutLoading = false,
+                                )
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            state = state.copy(
+                                isLogoutLoading = true,
                             )
                         }
 

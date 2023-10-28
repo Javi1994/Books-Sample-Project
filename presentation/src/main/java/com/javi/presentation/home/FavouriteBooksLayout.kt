@@ -13,7 +13,10 @@ import com.javi.domain.model.Book
 import com.javi.presentation.components.BookList
 
 @Composable
-fun FavouriteBooksLayout(books: List<Book>, isLoading: Boolean = false) {
+fun FavouriteBooksLayout(
+    books: List<Book>,
+    isLoading: Boolean = false
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
