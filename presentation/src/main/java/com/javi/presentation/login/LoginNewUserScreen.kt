@@ -25,7 +25,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-@Destination(start = true)
+@Destination(start = false)
 fun LoginNewUserScreen(
     navigator: DestinationsNavigator,
     viewModel: LoginViewModel = koinViewModel()

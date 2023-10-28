@@ -1,5 +1,8 @@
 package com.javi.presentation.home.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
@@ -26,9 +29,7 @@ class HomeViewModel constructor(
 
     private var _user: User? = null
 
-    private val _homeUiState = MutableStateFlow(HomeUiState())
-    val homeUiState: StateFlow<HomeUiState> =
-        _homeUiState.asStateFlow()
+    var state by mutableStateOf(HomeUiState())
 
     private val _favouriteBooksUiState = MutableStateFlow(FavouriteBooksUiState())
     val favouriteBooksUiState: StateFlow<FavouriteBooksUiState> =
@@ -55,13 +56,11 @@ class HomeViewModel constructor(
         when (event) {
             is HomeUiEvents.GetFavouriteBooks -> {
                 getFavouriteBooks()
-                _homeUiState.update {
-                    it.copy(
-                        favouritesSelected = true,
-                        allBooksSelected = false,
-                        userSettingsSelected = false
-                    )
-                }
+                state = state.copy(
+                    favouritesSelected = true,
+                    allBooksSelected = false,
+                    userSettingsSelected = false
+                )
             }
 
             is HomeUiEvents.OnBookClicked -> {
@@ -70,24 +69,20 @@ class HomeViewModel constructor(
 
             is HomeUiEvents.GetAllBooks -> {
                 getAllBooks()
-                _homeUiState.update {
-                    it.copy(
-                        favouritesSelected = false,
-                        allBooksSelected = true,
-                        userSettingsSelected = false
-                    )
-                }
+                state = state.copy(
+                    favouritesSelected = false,
+                    allBooksSelected = true,
+                    userSettingsSelected = false
+                )
             }
 
             is HomeUiEvents.GetUserSettings -> {
                 getUserSettings()
-                _homeUiState.update {
-                    it.copy(
-                        favouritesSelected = false,
-                        allBooksSelected = false,
-                        userSettingsSelected = true
-                    )
-                }
+                state = state.copy(
+                    favouritesSelected = false,
+                    allBooksSelected = false,
+                    userSettingsSelected = true
+                )
             }
 
             is HomeUiEvents.Logout -> {
@@ -97,7 +92,9 @@ class HomeViewModel constructor(
     }
 
     private fun getFavouriteBooks() {
-        if (favouriteBooksUiState.value.hasBooks) { return }
+        if (favouriteBooksUiState.value.hasBooks) {
+            return
+        }
 
         viewModelScope.launch {
             getFavouriteBooksUseCase.invoke(_user?.username ?: "")
@@ -138,7 +135,9 @@ class HomeViewModel constructor(
     }
 
     private fun getAllBooks() {
-        if (allBooksUiState.value.hasBooks) { return }
+        if (allBooksUiState.value.hasBooks) {
+            return
+        }
 
         viewModelScope.launch {
             getAllBooksUseCase.invoke()
@@ -179,7 +178,9 @@ class HomeViewModel constructor(
     }
 
     private fun getUserSettings() {
-        if (userSettingsUiState.value.user != null) { return }
+        if (userSettingsUiState.value.user != null) {
+            return
+        }
 
         viewModelScope.launch {
             getUserUseCase.invoke()
@@ -265,19 +266,6 @@ class HomeViewModel constructor(
         _allBooksUiState.update {
             it.copy(
                 selectedBook = book
-            )
-        }
-    }
-
-    fun bookWasSelected() {
-        _favouriteBooksUiState.update {
-            it.copy(
-                selectedBook = null
-            )
-        }
-        _allBooksUiState.update {
-            it.copy(
-                selectedBook = null
             )
         }
     }

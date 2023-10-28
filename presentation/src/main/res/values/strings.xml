@@ -11,7 +11,7 @@
     <string name="book_pages">%s pages</string>
 
     <string name="bottom_nav_favourites">Favourites</string>
-    <string name="bottom_nav_all_users">Users</string>
+    <string name="bottom_nav_user_settings">User</string>
     <string name="bottom_nav_all_books">Books</string>
 
     <string name="home_toolbar_title">Home</string>
