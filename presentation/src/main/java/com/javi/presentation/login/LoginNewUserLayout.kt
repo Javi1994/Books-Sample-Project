@@ -15,49 +15,14 @@ import androidx.compose.ui.unit.dp
 import com.javi.presentation.R
 import com.javi.presentation.components.CustomButton
 import com.javi.presentation.components.CustomTextField
-import com.javi.presentation.destinations.HomeScreenDestination
-import com.javi.presentation.destinations.LoginSavedUserScreenDestination
-import com.javi.presentation.login.viewmodel.LoginUiEvent
 import com.javi.presentation.login.viewmodel.LoginUiState
-import com.javi.presentation.login.viewmodel.LoginViewModel
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
-@Destination(start = false)
-fun LoginNewUserScreen(
-    navigator: DestinationsNavigator,
-    viewModel: LoginViewModel = koinViewModel()
-) {
-    if (viewModel.state.loginSuccess) {
-        navigator.navigate(HomeScreenDestination)
-    }
-
-    if (!viewModel.state.userFromPreferences.isNullOrEmpty()) {
-        navigator.navigate(LoginSavedUserScreenDestination)
-    }
-
-    LoginNewUserLayout(
-        state = viewModel.state,
-        onUpdateUsername = {
-            viewModel.onEvent(LoginUiEvent.UpdateUsername(it))
-        },
-        onUpdatePassword = {
-            viewModel.onEvent(LoginUiEvent.UpdatePassword(it))
-        },
-        onLogin = {
-            viewModel.onEvent(LoginUiEvent.LoginWithUsername)
-        }
-    )
-}
-
-@Composable
-private fun LoginNewUserLayout(
+fun LoginNewUserLayout(
     state: LoginUiState,
     onUpdateUsername: (String) -> Unit,
     onUpdatePassword: (String) -> Unit,
-    onLogin: () -> Unit
+    onLoginWithUsername: () -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -85,7 +50,7 @@ private fun LoginNewUserLayout(
             isEnabled = state.canEnableLoginButton,
             isLoading = state.isLoadingLogin
         ) {
-            onLogin()
+            onLoginWithUsername()
         }
     }
 }

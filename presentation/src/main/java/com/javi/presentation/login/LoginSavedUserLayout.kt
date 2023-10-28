@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,38 +18,10 @@ import androidx.compose.ui.unit.sp
 import com.javi.presentation.R
 import com.javi.presentation.components.CustomButton
 import com.javi.presentation.components.CustomTextField
-import com.javi.presentation.destinations.HomeScreenDestination
-import com.javi.presentation.login.viewmodel.LoginUiEvent
 import com.javi.presentation.login.viewmodel.LoginUiState
-import com.javi.presentation.login.viewmodel.LoginViewModel
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import org.koin.androidx.compose.koinViewModel
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-@Destination
-fun LoginSavedUserScreen(
-    navigator: DestinationsNavigator,
-    viewModel: LoginViewModel = koinViewModel()
-) {
-    if (viewModel.state.loginSuccess) {
-        navigator.navigate(HomeScreenDestination)
-    }
-
-    LoginSavedUserLayout(
-        state = viewModel.state,
-        onUpdatePassword = {
-            viewModel.onEvent(LoginUiEvent.UpdatePassword(it))
-        },
-        onLoginWithPassword = {
-            viewModel.onEvent(LoginUiEvent.LoginWithPassword)
-        }
-    )
-}
 
 @Composable
-private fun LoginSavedUserLayout(
+fun LoginSavedUserLayout(
     state: LoginUiState,
     onUpdatePassword: (String) -> Unit,
     onLoginWithPassword: () -> Unit
