@@ -15,7 +15,8 @@ import com.javi.presentation.components.BookList
 @Composable
 fun AllBooksLayout(
     books: List<Book>,
-    isLoading: Boolean = false
+    isLoading: Boolean = false,
+    onBookSelected: (Book) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -23,7 +24,7 @@ fun AllBooksLayout(
             .padding(0.dp, 0.dp, 0.dp, 65.dp)
     ) {
         if (!isLoading) {
-            BookList(books = books)
+            BookList(books = books, onBookSelected)
         } else {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
@@ -43,6 +44,8 @@ private fun AllBooksLayoutPreview() {
             Book(),
             Book(),
             Book(),
-        ), true
+        ),
+        true,
+        onBookSelected = {}
     )
 }

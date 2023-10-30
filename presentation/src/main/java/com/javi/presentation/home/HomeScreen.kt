@@ -8,7 +8,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.javi.domain.model.Book
 import com.javi.presentation.components.BottomNav
+import com.javi.presentation.destinations.BookDetailScreenDestination
 import com.javi.presentation.destinations.LoginScreenDestination
 import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeUiState
@@ -27,6 +29,10 @@ fun HomeScreen(
     if (viewModel.state.logoutSuccess) {
         navigator.navigate(LoginScreenDestination)
     }
+    if (viewModel.state.selectedBook != null) {
+        viewModel.onEvent(HomeUiEvents.NavigateToBookDetail)
+        navigator.navigate(BookDetailScreenDestination)
+    }
     if (viewModel.state.firstEntry) {
         viewModel.onEvent(HomeUiEvents.GetFavouriteBooks)
     }
@@ -44,6 +50,9 @@ fun HomeScreen(
         },
         onLogoutClick = {
             viewModel.onEvent(HomeUiEvents.Logout)
+        },
+        onBookSelected = {
+            viewModel.onEvent(HomeUiEvents.OnBookClicked(it))
         }
     )
 }
@@ -55,6 +64,7 @@ fun HomeLayout(
     onBooksClick: () -> Unit,
     onUserClick: () -> Unit,
     onLogoutClick: () -> Unit,
+    onBookSelected: (Book) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -62,6 +72,7 @@ fun HomeLayout(
             AllBooksLayout(
                 books = state.allBooks,
                 isLoading = state.isLoading,
+                onBookSelected = onBookSelected
             )
         } else if (state.userSettingsSelected) {
             UserSettingsLayout(
@@ -75,7 +86,8 @@ fun HomeLayout(
         } else {
             FavouriteBooksLayout(
                 books = state.favouriteBooks,
-                isLoading = state.isLoading
+                isLoading = state.isLoading,
+                onBookSelected = onBookSelected
             )
         }
 
@@ -98,6 +110,7 @@ fun HomeLayout(
 fun HomeScreenPreview() {
     HomeLayout(
         HomeUiState(),
-        {}, {}, {}, {}
+        {}, {}, {}, {},
+        onBookSelected = {}
     )
 }

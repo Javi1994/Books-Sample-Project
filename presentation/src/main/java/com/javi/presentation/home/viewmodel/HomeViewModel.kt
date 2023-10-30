@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
+import com.javi.domain.model.Book
 import com.javi.domain.model.User
 import com.javi.domain.use_case.book.GetAllBooksUseCase
 import com.javi.domain.use_case.book.GetFavouriteBooksUseCase
@@ -46,7 +47,10 @@ class HomeViewModel constructor(
             }
 
             is HomeUiEvents.OnBookClicked -> {
-
+                selectBook(event.book)
+            }
+            is HomeUiEvents.NavigateToBookDetail -> {
+                bookWasSelected()
             }
 
             is HomeUiEvents.GetAllBooks -> {
@@ -187,5 +191,17 @@ class HomeViewModel constructor(
                     }
                 }
         }
+    }
+
+    private fun selectBook(book: Book) {
+        state = state.copy(
+            selectedBook = book
+        )
+    }
+
+    private fun bookWasSelected() {
+        state = state.copy(
+            selectedBook = null
+        )
     }
 }

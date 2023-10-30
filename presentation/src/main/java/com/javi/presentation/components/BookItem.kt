@@ -2,6 +2,7 @@ package com.javi.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,8 +16,8 @@ import androidx.compose.ui.unit.sp
 import com.javi.domain.model.Book
 
 @Composable
-fun BookItem(book: Book) {
-    Column {
+fun BookItem(book: Book, modifier: Modifier = Modifier) {
+    Column(modifier.fillMaxWidth()) {
         Text(
             text = book.title,
             fontSize = 24.sp,
