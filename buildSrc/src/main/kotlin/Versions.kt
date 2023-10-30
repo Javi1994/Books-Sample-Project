@@ -2,14 +2,21 @@ object Versions {
     //Core
     const val android = "1.6.1"
     const val coreKtx = "1.12.0"
-    const val material = "1.10.0"
-    const val constraintLayout = "2.1.4"
 
     const val lifecycle = "2.6.2"
-    const val navigation = "2.7.4"
     const val coroutines = "1.6.4"
     const val dataStore = "1.0.0"
     const val room = "2.6.0"
+
+    //Compose
+    const val compose = "1.4.3"
+    const val composeBom = "2023.03.00"
+    const val composeMaterial = "1.1.2"
+    const val composeActivity = "1.8.0"
+    const val previewTooling = "1.5.4"
+
+    //Destinations
+    const val composeDestinations = "1.8.42-beta"
 
     //Koin
     const val koin = "3.5.0"
