@@ -1,6 +1,7 @@
 plugins {
     `android-library`
     `kotlin-android`
+    id("com.google.devtools.ksp") version Versions.ksp
 }
 
 apply<MainGradlePluginModule>()
@@ -9,19 +10,21 @@ android {
     namespace = "com.javi.presentation"
 
     buildFeatures {
-        viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.compose
     }
 }
 
 dependencies {
     coreKtx()
-    coreUi()
     lifecycle()
 
     koin()
-    navigation()
 
-    test()
+    compose()
+    composeDestinations()
 
     domainModule()
     commonModule()

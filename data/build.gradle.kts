@@ -1,6 +1,7 @@
 plugins {
     `android-library`
     `kotlin-android`
+    `kotlin-kapt`
 }
 
 apply<MainGradlePluginModule>()

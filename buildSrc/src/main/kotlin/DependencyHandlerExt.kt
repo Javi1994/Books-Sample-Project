@@ -29,6 +29,10 @@ fun DependencyHandler.kapt(dependency: String) {
     add("kapt", dependency)
 }
 
+fun DependencyHandler.ksp(dependency: String) {
+    add("ksp", dependency)
+}
+
 fun DependencyHandler.testImplementation(dependency: String) {
     add("testImplementation", dependency)
 }
