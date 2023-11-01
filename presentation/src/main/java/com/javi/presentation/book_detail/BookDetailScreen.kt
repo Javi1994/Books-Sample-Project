@@ -1,6 +1,5 @@
 package com.javi.presentation.book_detail
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,12 +9,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -29,6 +26,8 @@ import com.javi.domain.model.BookDetail
 import com.javi.presentation.R
 import com.javi.presentation.book_detail.viewmodel.BookDetailUiState
 import com.javi.presentation.book_detail.viewmodel.BookDetailViewModel
+import com.javi.presentation.components.CustomErrorItem
+import com.javi.presentation.components.CustomLoaderItem
 import com.javi.presentation.components.TopNavBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -63,9 +62,9 @@ fun BookDetailLayout(
         },
     ) { innerPadding ->
         if (state.isLoading) {
-            BookDetailLoadingLayout(modifier = Modifier.padding(innerPadding))
+            CustomLoaderItem(modifier = Modifier.padding(innerPadding))
         } else if (state.error != null) {
-            BookDetailErrorLayout(modifier = Modifier.padding(innerPadding))
+            CustomErrorItem(modifier = Modifier.padding(innerPadding))
         } else {
             BookDetailData(
                 modifier = Modifier.padding(innerPadding),
@@ -73,20 +72,6 @@ fun BookDetailLayout(
             )
         }
     }
-}
-
-@Composable
-fun BookDetailLoadingLayout(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize()) {
-        CircularProgressIndicator(
-            modifier = Modifier.align(Alignment.Center)
-        )
-    }
-}
-
-@Composable
-fun BookDetailErrorLayout(modifier: Modifier = Modifier) {
-
 }
 
 @Composable
