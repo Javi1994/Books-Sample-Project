@@ -15,6 +15,9 @@ object Versions {
     const val composeActivity = "1.8.0"
     const val previewTooling = "1.5.2"
 
+    //Ksp
+    const val ksp = "1.8.10-1.0.9"
+
     //Destinations
     const val composeDestinations = "1.8.42-beta"
 
