@@ -115,6 +115,7 @@ fun HomeLayout(
             )
         }
 
+        //TODO: Check if there is a better way to handle no back navigation in this screen
         BackHandler {}
     }
 }
