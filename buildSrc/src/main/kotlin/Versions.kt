@@ -13,7 +13,7 @@ object Versions {
     const val composeBom = "2023.03.00"
     const val composeMaterial = "1.1.2"
     const val composeActivity = "1.8.0"
-    const val previewTooling = "1.5.4"
+    const val previewTooling = "1.5.2"
 
     //Destinations
     const val composeDestinations = "1.8.42-beta"

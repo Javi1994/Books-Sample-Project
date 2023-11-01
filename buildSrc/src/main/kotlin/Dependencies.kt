@@ -25,12 +25,13 @@ private object Dependencies {
         const val composeBom = "androidx.compose:compose-bom:${Versions.composeBom}"
         const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
         const val composeGraphics = "androidx.compose.ui:ui-graphics:${Versions.compose}"
-        const val composeTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.previewTooling}"
         const val composeMaterial = "androidx.compose.material3:material3:${Versions.composeMaterial}"
+
+        const val composeTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.previewTooling}"
+        const val toolingDebug = "androidx.compose.ui:ui-tooling:${Versions.previewTooling}"
 
         const val composeTestBom = "androidx.compose:compose-bom:${Versions.composeBom}"
         const val composeJUnit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
-        const val toolingDebug = "androidx.compose.ui:ui-tooling:${Versions.compose}"
         const val composeTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
     }
 
@@ -87,7 +88,6 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.Compose.composeBom)
     implementation(Dependencies.Compose.composeUi)
     implementation(Dependencies.Compose.composeGraphics)
-    implementation(Dependencies.Compose.composeTooling)
     implementation(Dependencies.Compose.composeMaterial)
 
     androidTestImplementation(Dependencies.Compose.composeTestBom)
