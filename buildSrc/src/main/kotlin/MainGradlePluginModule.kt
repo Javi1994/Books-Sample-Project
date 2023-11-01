@@ -14,7 +14,6 @@ class MainGradlePluginModule : Plugin<Project> {
         project.apply {
             plugin("android-library")
             plugin("kotlin-android")
-            plugin("kotlin-kapt")
         }
     }
 
