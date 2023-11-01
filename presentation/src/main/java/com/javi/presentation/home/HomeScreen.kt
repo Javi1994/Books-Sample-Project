@@ -2,7 +2,6 @@ package com.javi.presentation.home
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -59,7 +58,6 @@ fun HomeScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeLayout(
     state: HomeUiState,
@@ -71,7 +69,10 @@ fun HomeLayout(
 ) {
     Scaffold(
         topBar = {
-            TopNavBar(stringResource(id = R.string.home_toolbar_title))
+            TopNavBar(
+                title = stringResource(id = R.string.home_toolbar_title),
+                onBack = {}
+            )
         },
         bottomBar = {
             BottomNav(
