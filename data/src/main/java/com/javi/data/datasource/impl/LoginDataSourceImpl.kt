@@ -6,7 +6,7 @@ import com.javi.data.datasource.database.BookDao
 import com.javi.data.datasource.local.UserPreferences
 import com.javi.data.datasource.remote.LoginApi
 import com.javi.data.dto.UserDto
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,7 +16,8 @@ import java.io.IOException
 class LoginDataSourceImpl constructor(
     private val loginApi: LoginApi,
     private val userPreferences: UserPreferences,
-    private val bookDatabase: BookDao
+    private val bookDatabase: BookDao,
+    private val ioDispatcher: CoroutineDispatcher
 ) : LoginDataSource {
     override suspend fun login(username: String, password: String): Flow<Resource<UserDto>> {
         return flow {
@@ -31,10 +32,6 @@ class LoginDataSourceImpl constructor(
                 )
 
             } catch (e: IOException) {
-                e.printStackTrace()
-                emit(Resource.Error(e))
-
-            } catch (e: Exception) {
                 e.printStackTrace()
                 emit(Resource.Error(e))
             }
@@ -68,7 +65,7 @@ class LoginDataSourceImpl constructor(
 
                 userPreferences.clearPreferences()
 
-                withContext(Dispatchers.IO) {
+                withContext(ioDispatcher) {
                     bookDatabase.deleteAll()
                 }
                 emit(Resource.Success(Unit))

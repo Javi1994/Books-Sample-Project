@@ -12,16 +12,17 @@ val dataSourceModule = module {
     includes(databaseModule)
     includes(preferencesModule)
     includes(networkModule)
+    includes(dispatcherModule)
 
     single<UserDataSource> {
         UserDataSourceImpl(get(), get())
     }
 
     single<BookDataSource> {
-        BookDataSourceImpl(get(), get())
+        BookDataSourceImpl(get(), get(), get())
     }
 
     single<LoginDataSource> {
-        LoginDataSourceImpl(get(), get(), get())
+        LoginDataSourceImpl(get(), get(), get(), get())
     }
 }

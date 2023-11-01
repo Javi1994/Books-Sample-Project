@@ -6,7 +6,7 @@ import com.javi.data.datasource.database.BookDao
 import com.javi.data.datasource.remote.BookApi
 import com.javi.data.dto.BookDetailDto
 import com.javi.data.dto.BookDto
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,7 +15,8 @@ import java.io.IOException
 
 class BookDataSourceImpl constructor(
     private val bookApi: BookApi,
-    private val bookDao: BookDao
+    private val bookDao: BookDao,
+    private val ioDispatcher: CoroutineDispatcher
 ) : BookDataSource {
     override suspend fun getFavouriteBooks(username: String): Flow<Resource<List<BookDto>>> {
         return flow {
@@ -37,7 +38,7 @@ class BookDataSourceImpl constructor(
             emit(Resource.Loading(true))
             try {
                 var bookFromDatabase: List<BookDto>
-                withContext(Dispatchers.IO) {
+                withContext(ioDispatcher) {
                     bookFromDatabase = bookDao.getAllBooks()
                 }
 
@@ -46,7 +47,7 @@ class BookDataSourceImpl constructor(
                     delay(15000)
                     emit(Resource.Success(allBooksResult))
 
-                    withContext(Dispatchers.IO) {
+                    withContext(ioDispatcher) {
                         bookDao.insertAll(allBooksResult)
                     }
 
