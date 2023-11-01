@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -81,7 +82,7 @@ private fun SelectableText(
         Text(
             text = value,
             fontWeight = FontWeight.Bold,
-            color = Color.Green,
+            color = MaterialTheme.colorScheme.primary,
             textAlign = TextAlign.Center,
             fontSize = 24.sp,
             modifier = modifier
