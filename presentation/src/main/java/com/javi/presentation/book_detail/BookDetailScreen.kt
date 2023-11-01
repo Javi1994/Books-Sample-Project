@@ -42,9 +42,8 @@ fun BookDetailScreen(
 ) {
     BookDetailLayout(
         state = viewModel.state,
-        onBack = {
-            navigator.popBackStack()
-        })
+        onBack = { navigator.popBackStack() }
+    )
 }
 
 @Composable
@@ -63,68 +62,87 @@ fun BookDetailLayout(
             )
         },
     ) { innerPadding ->
-        Box(
-            modifier = Modifier
+        if (state.isLoading) {
+            BookDetailLoadingLayout(modifier = Modifier.padding(innerPadding))
+        } else if (state.error != null) {
+            BookDetailErrorLayout(modifier = Modifier.padding(innerPadding))
+        } else {
+            BookDetailData(
+                modifier = Modifier.padding(innerPadding),
+                state = state
+            )
+        }
+    }
+}
+
+@Composable
+fun BookDetailLoadingLayout(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize()) {
+        CircularProgressIndicator(
+            modifier = Modifier.align(Alignment.Center)
+        )
+    }
+}
+
+@Composable
+fun BookDetailErrorLayout(modifier: Modifier = Modifier) {
+
+}
+
+@Composable
+fun BookDetailData(
+    modifier: Modifier = Modifier,
+    state: BookDetailUiState,
+) {
+    state.bookDetail?.let { bookDetail ->
+        Column(
+            modifier = modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            if (!state.isLoading) {
-                state.bookDetail?.let { bookDetail ->
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp)
-                            .verticalScroll(rememberScrollState())
-                    ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(
-                                text = bookDetail.title,
-                                fontSize = 24.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.Black,
-                                modifier = Modifier.weight(1f)
-                            )
-                            Text(
-                                text = bookDetail.author,
-                                textAlign = TextAlign.End,
-                                fontSize = 18.sp,
-                                fontStyle = FontStyle.Italic,
-                                color = Color.LightGray,
-                                modifier = Modifier.weight(1f)
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            text = bookDetail.description,
-                            fontSize = 18.sp,
-                            color = Color.Gray,
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Divider()
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            fontSize = 20.sp,
-                            color = Color.Black,
-                            text = stringResource(
-                                id = R.string.book_read_time,
-                                bookDetail.readTime
-                            ),
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            fontSize = 20.sp,
-                            color = Color.Gray,
-                            text = stringResource(id = R.string.book_pages, bookDetail.pages),
-                        )
-                    }
-                }
-            } else {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = bookDetail.title,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = bookDetail.author,
+                    textAlign = TextAlign.End,
+                    fontSize = 18.sp,
+                    fontStyle = FontStyle.Italic,
+                    color = Color.LightGray,
+                    modifier = Modifier.weight(1f)
                 )
             }
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = bookDetail.description,
+                fontSize = 18.sp,
+                color = Color.Gray,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Divider()
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                fontSize = 20.sp,
+                color = Color.Black,
+                text = stringResource(
+                    id = R.string.book_read_time,
+                    bookDetail.readTime
+                ),
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                fontSize = 20.sp,
+                color = Color.Gray,
+                text = stringResource(id = R.string.book_pages, bookDetail.pages),
+            )
         }
     }
 }
@@ -133,7 +151,7 @@ fun BookDetailLayout(
 @Composable
 fun BookDetailScreenPreview() {
     BookDetailLayout(
-        BookDetailUiState(
+        state = BookDetailUiState(
             bookDetail = BookDetail(
                 "Default title",
                 "Default description", 350,
