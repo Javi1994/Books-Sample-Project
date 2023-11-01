@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.javi.domain.model.User
 import com.javi.presentation.R
 import com.javi.presentation.components.CustomButton
+import com.javi.presentation.components.CustomLoaderItem
 
 @Composable
 fun UserSettingsLayout(
@@ -30,43 +30,56 @@ fun UserSettingsLayout(
     onLogoutClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        if (!isLoading) {
-            user?.let {
-                Column {
-                    Text(
-                        text = it.username,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = it.email,
-                        fontSize = 18.sp,
-                        fontStyle = FontStyle.Italic,
-                        color = Color.LightGray
-                    )
-                }
-                CustomButton(
-                    value = stringResource(id = R.string.home_user_detail_logout),
-                    isEnabled = true,
-                    isLoading = isLogoutLoading,
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(80.dp),
-                ) {
-                    onLogoutClick()
-                }
+    if (isLoading) {
+        CustomLoaderItem(modifier = modifier)
+    } else {
+        UserSettingsData(
+            user = user,
+            isLogoutLoading = isLogoutLoading,
+            onLogoutClick = { onLogoutClick() },
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+fun UserSettingsData(
+    user: User?,
+    isLogoutLoading: Boolean,
+    onLogoutClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    user?.let {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Column {
+                Text(
+                    text = it.username,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = it.email,
+                    fontSize = 18.sp,
+                    fontStyle = FontStyle.Italic,
+                    color = Color.LightGray
+                )
             }
-        } else {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
-            )
+            CustomButton(
+                value = stringResource(id = R.string.home_user_detail_logout),
+                isEnabled = true,
+                isLoading = isLogoutLoading,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(80.dp),
+            ) {
+                onLogoutClick()
+            }
         }
     }
 }
@@ -75,5 +88,8 @@ fun UserSettingsLayout(
 @Preview
 @Composable
 private fun UserSettingsLayoutPreview() {
-    UserSettingsLayout(User(), onLogoutClick = {})
+    UserSettingsLayout(
+        user = User(),
+        onLogoutClick = {},
+    )
 }
