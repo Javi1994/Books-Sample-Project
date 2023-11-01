@@ -90,12 +90,14 @@ fun HomeLayout(
             AllBooksLayout(
                 books = state.allBooks,
                 isLoading = state.isLoading,
+                error = state.error,
                 onBookSelected = onBookSelected,
                 modifier = Modifier.padding(innerPadding)
             )
         } else if (state.userSettingsSelected) {
             UserSettingsLayout(
                 user = state.user,
+                error = state.error,
                 isLoading = state.isLoading,
                 isLogoutLoading = state.isLogoutLoading,
                 onLogoutClick = {
@@ -106,6 +108,7 @@ fun HomeLayout(
         } else {
             FavouriteBooksLayout(
                 books = emptyList(),
+                error = state.error,
                 isLoading = state.isLoading,
                 onBookSelected = onBookSelected,
                 modifier = Modifier.padding(innerPadding)
