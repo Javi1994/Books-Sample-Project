@@ -27,12 +27,13 @@ fun UserSettingsLayout(
     user: User?,
     isLoading: Boolean = false,
     isLogoutLoading: Boolean = false,
-    onLogoutClick: () -> Unit
+    onLogoutClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .padding(16.dp, 16.dp, 16.dp, 65.dp)
+            .padding(16.dp)
     ) {
         if (!isLoading) {
             user?.let {
@@ -74,5 +75,5 @@ fun UserSettingsLayout(
 @Preview
 @Composable
 private fun UserSettingsLayoutPreview() {
-    UserSettingsLayout(User()) {}
+    UserSettingsLayout(User(), onLogoutClick = {})
 }

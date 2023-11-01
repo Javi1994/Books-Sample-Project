@@ -17,11 +17,12 @@ fun FavouriteBooksLayout(
     books: List<Book>,
     isLoading: Boolean = false,
     onBookSelected: (Book) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .padding(0.dp, 0.dp, 0.dp, 65.dp)
+            .padding(16.dp)
     ) {
         if (!isLoading) {
             BookList(books = books, onBookSelected)

@@ -1,15 +1,17 @@
 package com.javi.presentation.home
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.javi.domain.model.Book
+import com.javi.presentation.R
 import com.javi.presentation.components.BottomNav
+import com.javi.presentation.components.TopNavBar
 import com.javi.presentation.destinations.BookDetailScreenDestination
 import com.javi.presentation.destinations.LoginScreenDestination
 import com.javi.presentation.home.viewmodel.HomeUiEvents
@@ -57,6 +59,7 @@ fun HomeScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeLayout(
     state: HomeUiState,
@@ -66,13 +69,28 @@ fun HomeLayout(
     onLogoutClick: () -> Unit,
     onBookSelected: (Book) -> Unit,
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Scaffold(
+        topBar = {
+            TopNavBar(stringResource(id = R.string.home_toolbar_title))
+        },
+        bottomBar = {
+            BottomNav(
+                favouritesSelected = state.favouritesSelected,
+                allBooksSelected = state.allBooksSelected,
+                userSettingsSelected = state.userSettingsSelected,
+                onFavouriteClick = onFavouriteClick,
+                onBooksClick = onBooksClick,
+                onUserClick = onUserClick
+            )
+        },
+    ) { innerPadding ->
 
         if (state.allBooksSelected) {
             AllBooksLayout(
                 books = state.allBooks,
                 isLoading = state.isLoading,
-                onBookSelected = onBookSelected
+                onBookSelected = onBookSelected,
+                modifier = Modifier.padding(innerPadding)
             )
         } else if (state.userSettingsSelected) {
             UserSettingsLayout(
@@ -81,27 +99,19 @@ fun HomeLayout(
                 isLogoutLoading = state.isLogoutLoading,
                 onLogoutClick = {
                     onLogoutClick()
-                }
+                },
+                modifier = Modifier.padding(innerPadding)
             )
         } else {
             FavouriteBooksLayout(
                 books = state.favouriteBooks,
                 isLoading = state.isLoading,
-                onBookSelected = onBookSelected
+                onBookSelected = onBookSelected,
+                modifier = Modifier.padding(innerPadding)
             )
         }
 
-        BottomNav(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .background(Color.White),
-            favouritesSelected = state.favouritesSelected,
-            allBooksSelected = state.allBooksSelected,
-            userSettingsSelected = state.userSettingsSelected,
-            onFavouriteClick = onFavouriteClick,
-            onBooksClick = onBooksClick,
-            onUserClick = onUserClick
-        )
+        BackHandler {}
     }
 }
 
