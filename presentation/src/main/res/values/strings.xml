@@ -16,4 +16,6 @@
 
     <string name="home_toolbar_title">Home</string>
     <string name="home_user_detail_logout">Logout</string>
+
+    <string name="books_empty_data">No books available</string>
 </resources>

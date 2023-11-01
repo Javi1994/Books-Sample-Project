@@ -105,7 +105,7 @@ fun HomeLayout(
             )
         } else {
             FavouriteBooksLayout(
-                books = state.favouriteBooks,
+                books = emptyList(),
                 isLoading = state.isLoading,
                 onBookSelected = onBookSelected,
                 modifier = Modifier.padding(innerPadding)

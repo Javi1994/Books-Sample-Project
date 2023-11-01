@@ -20,18 +20,22 @@ import androidx.compose.ui.unit.sp
 import com.javi.domain.model.User
 import com.javi.presentation.R
 import com.javi.presentation.components.CustomButton
+import com.javi.presentation.components.CustomErrorItem
 import com.javi.presentation.components.CustomLoaderItem
 
 @Composable
 fun UserSettingsLayout(
     user: User?,
     isLoading: Boolean = false,
+    error: Exception? = null,
     isLogoutLoading: Boolean = false,
     onLogoutClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (isLoading) {
         CustomLoaderItem(modifier = modifier)
+    } else if (error != null) {
+        CustomErrorItem(modifier = modifier)
     } else {
         UserSettingsData(
             user = user,
@@ -43,7 +47,7 @@ fun UserSettingsLayout(
 }
 
 @Composable
-fun UserSettingsData(
+private fun UserSettingsData(
     user: User?,
     isLogoutLoading: Boolean,
     onLogoutClick: () -> Unit,

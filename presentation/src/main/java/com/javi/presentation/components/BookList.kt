@@ -15,9 +15,11 @@ fun BookList(
 ) {
     LazyColumn {
         items(books) {
-            BookItem(book = it, modifier = Modifier.clickable {
-                onBookSelected(it)
-            })
+            BookItem(
+                book = it,
+                modifier = Modifier.clickable {
+                    onBookSelected(it)
+                })
         }
     }
 }
