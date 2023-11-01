@@ -5,14 +5,13 @@ import com.javi.data.repository.LoginRepository
 import com.javi.domain.mapping.toUser
 import com.javi.domain.model.User
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class LoginUseCase constructor(
     private val loginRepository: LoginRepository,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val defaultDispatcher: CoroutineDispatcher
 ) {
 
     suspend operator fun invoke(username: String, password: String): Flow<Resource<User>> =

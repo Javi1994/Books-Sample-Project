@@ -5,14 +5,13 @@ import com.javi.data.repository.UserRepository
 import com.javi.domain.mapping.toUser
 import com.javi.domain.model.User
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class GetUserUseCase constructor(
     private val userRepository: UserRepository,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val defaultDispatcher: CoroutineDispatcher
 ) {
 
     suspend operator fun invoke(): Flow<Resource<User>> = withContext(defaultDispatcher) {

@@ -5,14 +5,13 @@ import com.javi.data.repository.BookRepository
 import com.javi.domain.mapping.toBook
 import com.javi.domain.model.Book
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class GetAllBooksUseCase constructor(
     private val bookRepository: BookRepository,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val defaultDispatcher: CoroutineDispatcher
 ) {
 
     suspend operator fun invoke(): Flow<Resource<List<Book>>> = withContext(defaultDispatcher) {
