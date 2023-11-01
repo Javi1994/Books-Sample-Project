@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="LoadingButton">
-        <attr name="btn_value" format="string" />
-        <attr name="set_loading" format="boolean" />
-        <attr name="set_enabled" format="boolean" />
-    </declare-styleable>
-</resources>

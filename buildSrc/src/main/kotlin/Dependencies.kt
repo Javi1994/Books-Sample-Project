@@ -20,22 +20,31 @@ private object Dependencies {
             "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     }
 
-    object CoreAndroidUiDependencies {
-        const val appCompat = "androidx.appcompat:appcompat:${Versions.android}"
-        const val fragment = "androidx.fragment:fragment-ktx:${Versions.android}"
-        const val material = "com.google.android.material:material:${Versions.material}"
-        const val constraintLayout =
-            "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    object Compose {
+        const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
+        const val composeBom = "androidx.compose:compose-bom:${Versions.composeBom}"
+        const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
+        const val composeGraphics = "androidx.compose.ui:ui-graphics:${Versions.compose}"
+        const val composeMaterial = "androidx.compose.material3:material3:${Versions.composeMaterial}"
+
+        const val composeTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.previewTooling}"
+        const val toolingDebug = "androidx.compose.ui:ui-tooling:${Versions.previewTooling}"
+
+        const val composeTestBom = "androidx.compose:compose-bom:${Versions.composeBom}"
+        const val composeJUnit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
+        const val composeTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
+    }
+
+    object ComposeDestinations {
+        const val destinationsCore =
+            "io.github.raamcosta.compose-destinations:core:${Versions.composeDestinations}"
+        const val destinationsKsp =
+            "io.github.raamcosta.compose-destinations:ksp:${Versions.composeDestinations}"
     }
 
     object KoinDependencies {
         const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
-    }
-
-    object NavigationDependencies {
-        const val navigationFragment =
-            "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
-        const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+        const val koinCompose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
     }
 
     object CoroutinesDependencies {
@@ -74,11 +83,22 @@ fun DependencyHandler.coreKtx() {
     implementation(Dependencies.CoreDependencies.coreKtx)
 }
 
-fun DependencyHandler.coreUi() {
-    implementation(Dependencies.CoreAndroidUiDependencies.appCompat)
-    implementation(Dependencies.CoreAndroidUiDependencies.fragment)
-    implementation(Dependencies.CoreAndroidUiDependencies.material)
-    implementation(Dependencies.CoreAndroidUiDependencies.constraintLayout)
+fun DependencyHandler.compose() {
+    implementation(Dependencies.Compose.composeActivity)
+    implementation(Dependencies.Compose.composeBom)
+    implementation(Dependencies.Compose.composeUi)
+    implementation(Dependencies.Compose.composeGraphics)
+    implementation(Dependencies.Compose.composeMaterial)
+
+    androidTestImplementation(Dependencies.Compose.composeTestBom)
+    androidTestImplementation(Dependencies.Compose.composeJUnit4)
+    debugImplementation(Dependencies.Compose.toolingDebug)
+    debugImplementation(Dependencies.Compose.composeTestManifest)
+}
+
+fun DependencyHandler.composeDestinations() {
+    implementation(Dependencies.ComposeDestinations.destinationsCore)
+    ksp(Dependencies.ComposeDestinations.destinationsKsp)
 }
 
 fun DependencyHandler.lifecycle() {
@@ -86,14 +106,9 @@ fun DependencyHandler.lifecycle() {
     implementation(Dependencies.LifecycleDependencies.viewModelLifecycle)
 }
 
-
 fun DependencyHandler.koin() {
     implementation(Dependencies.KoinDependencies.koinAndroid)
-}
-
-fun DependencyHandler.navigation() {
-    implementation(Dependencies.NavigationDependencies.navigationFragment)
-    implementation(Dependencies.NavigationDependencies.navigationUi)
+    implementation(Dependencies.KoinDependencies.koinCompose)
 }
 
 fun DependencyHandler.coroutines() {

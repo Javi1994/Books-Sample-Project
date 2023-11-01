@@ -8,7 +8,3 @@ data class BookDetailUiState(
     val isLoading: Boolean = false,
     val error: Exception? = null
 )
-
-sealed class BookDetailUiEvents {
-    object GetBookDetail : BookDetailUiEvents()
-}

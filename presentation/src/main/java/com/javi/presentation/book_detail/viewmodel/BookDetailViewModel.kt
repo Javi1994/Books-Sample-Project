@@ -1,65 +1,43 @@
 package com.javi.presentation.book_detail.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
 import com.javi.domain.use_case.book.GetBookDetailUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class BookDetailViewModel constructor(
     private val getBookDetail: GetBookDetailUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(BookDetailUiState())
-    val uiState: StateFlow<BookDetailUiState> =
-        _uiState.asStateFlow()
+    var state by mutableStateOf(BookDetailUiState())
 
-    fun onEvent(event: BookDetailUiEvents) {
-        when (event) {
-            is BookDetailUiEvents.GetBookDetail -> {
-                getBookDetail()
-            }
-        }
+    init {
+        getBookDetail()
     }
 
     private fun getBookDetail() {
         viewModelScope.launch {
-            getBookDetail.invoke(uiState.value.bookDetailId ?: "")
+            getBookDetail.invoke(state.bookDetailId ?: "")
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
                             result.data?.let { books ->
-                                _uiState.update {
-                                    it.copy(
-                                        bookDetail = books,
-                                        isLoading = result.isLoading,
-                                        error = result.error
-                                    )
-                                }
+                                state = state.copy(
+                                    bookDetail = books,
+                                    isLoading = false,
+                                )
                             }
                         }
-
                         is Resource.Loading -> {
-                            _uiState.update {
-                                it.copy(
-                                    isLoading = result.isLoading,
-                                    error = result.error
-                                )
-                            }
+                            state = state.copy(
+                                isLoading = true,
+                            )
                         }
-
-                        is Resource.Error -> {
-                            _uiState.update {
-                                it.copy(
-                                    isLoading = result.isLoading,
-                                    error = result.error
-                                )
-                            }
-                        }
+                        is Resource.Error -> {}
                     }
                 }
         }
