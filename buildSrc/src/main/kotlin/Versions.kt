@@ -30,6 +30,6 @@ object Versions {
 
     //Test
     const val junit = "4.13.2"
-    const val truth = "1.1.3"
+    const val truth = "1.1.4"
     const val mockk = "1.10.5"
 }

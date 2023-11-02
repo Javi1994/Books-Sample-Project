@@ -12,6 +12,8 @@ android {
 dependencies {
     koin()
 
+    unitTest()
+
     dataModule()
     commonModule()
 }

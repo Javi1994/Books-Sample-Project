@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import org.koin.core.component.getScopeName
 
 class GetAllBooksUseCase constructor(
     private val bookRepository: BookRepository,
@@ -15,6 +16,8 @@ class GetAllBooksUseCase constructor(
 ) {
 
     suspend operator fun invoke(): Flow<Resource<List<Book>>> = withContext(defaultDispatcher) {
+        val bookRepository1 = bookRepository
+        bookRepository1.getScopeName()
         return@withContext bookRepository.getAllBooks().map {
             when (it) {
                 is Resource.Success -> {

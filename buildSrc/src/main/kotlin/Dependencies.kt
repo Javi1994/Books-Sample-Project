@@ -129,9 +129,7 @@ fun DependencyHandler.room() {
 }
 
 fun DependencyHandler.unitTest() {
-    implementation(Dependencies.TestDependencies.androidTestCore)
     testImplementation(Dependencies.TestDependencies.jUnit)
-    testImplementation(Dependencies.TestDependencies.androidArchTestCore)
     testImplementation(Dependencies.TestDependencies.coroutinesTest)
     testImplementation(Dependencies.TestDependencies.truth)
     testImplementation(Dependencies.TestDependencies.mockk)
@@ -139,9 +137,7 @@ fun DependencyHandler.unitTest() {
 }
 
 fun DependencyHandler.androidTest() {
-    androidTestImplementation(Dependencies.TestDependencies.androidTestCore)
     androidTestImplementation(Dependencies.TestDependencies.jUnit)
-    androidTestImplementation(Dependencies.TestDependencies.androidArchTestCore)
     androidTestImplementation(Dependencies.TestDependencies.coroutinesTest)
     androidTestImplementation(Dependencies.TestDependencies.truth)
     androidTestImplementation(Dependencies.TestDependencies.mockk)

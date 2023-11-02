@@ -15,5 +15,7 @@ dependencies {
     dataStore()
     room()
 
+    unitTest()
+
     commonModule()
 }
