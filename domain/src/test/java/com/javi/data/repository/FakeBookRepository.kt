@@ -25,7 +25,11 @@ class FakeBookRepository : BookRepository {
             } else if (shouldReturnLoading) {
                 emit(Resource.Loading())
             } else {
-                emit(Resource.Success(favouriteBooks))
+                if (allBooks.isNotEmpty()) {
+                    emit(Resource.Success(favouriteBooks))
+                } else {
+                    emit(Resource.Error(NullPointerException("No Books")))
+                }
             }
         }
     }
@@ -37,7 +41,11 @@ class FakeBookRepository : BookRepository {
             } else if (shouldReturnLoading) {
                 emit(Resource.Loading())
             } else {
-                emit(Resource.Success(allBooks))
+                if (allBooks.isNotEmpty()) {
+                    emit(Resource.Success(allBooks))
+                } else {
+                    emit(Resource.Error(NullPointerException("No Books")))
+                }
             }
         }
     }

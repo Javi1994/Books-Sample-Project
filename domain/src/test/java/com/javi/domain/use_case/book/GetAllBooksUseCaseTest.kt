@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import java.io.IOException
 
 class GetAllBooksUseCaseTest {
 
@@ -40,6 +41,7 @@ class GetAllBooksUseCaseTest {
             getAllBooksUseCase().collect {
                 assertThat(it).isInstanceOf(Resource.Error::class.java)
                 assertThat(it.error).isNotNull()
+                assertThat(it.error).isInstanceOf(IOException::class.java)
             }
         }
     }
