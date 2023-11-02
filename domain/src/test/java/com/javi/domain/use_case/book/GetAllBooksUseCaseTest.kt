@@ -13,17 +13,17 @@ import java.io.IOException
 class GetAllBooksUseCaseTest {
 
     private lateinit var getAllBooksUseCase: GetAllBooksUseCase
-    private lateinit var fakeBooksRepository: FakeBookRepository
+    private lateinit var fakeBookRepository: FakeBookRepository
 
     @Before
     fun setUp() {
-        fakeBooksRepository = FakeBookRepository()
+        fakeBookRepository = FakeBookRepository()
         getAllBooksUseCase = GetAllBooksUseCase(FakeBookRepository(), Dispatchers.Unconfined)
     }
 
     @Test
     fun `Success response, returns valid success resource`() {
-        fakeBooksRepository.setAllBooksData(FakeBookData.validBooks)
+        fakeBookRepository.setAllBooksData(FakeBookData.validBooks)
 
         runBlocking {
             getAllBooksUseCase().collect {
@@ -34,8 +34,21 @@ class GetAllBooksUseCaseTest {
     }
 
     @Test
+    fun `Success response with empty data, returns empty data error resource with nullpointer`() {
+        fakeBookRepository.setAllBooksData(FakeBookData.emptyBooks)
+
+        runBlocking {
+            getAllBooksUseCase().collect {
+                assertThat(it).isInstanceOf(Resource.Error::class.java)
+                assertThat(it.error).isNotNull()
+                assertThat(it.error).isInstanceOf(NullPointerException::class.java)
+            }
+        }
+    }
+
+    @Test
     fun `Error response, returns valid error resource`() {
-        fakeBooksRepository.shouldReturnError()
+        fakeBookRepository.shouldReturnError()
 
         runBlocking {
             getAllBooksUseCase().collect {
@@ -48,7 +61,7 @@ class GetAllBooksUseCaseTest {
 
     @Test
     fun `Loading response, returns valid loading resource`() {
-        fakeBooksRepository.shouldReturnLoading()
+        fakeBookRepository.shouldReturnLoading()
 
         runBlocking {
             getAllBooksUseCase().collect {
