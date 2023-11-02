@@ -1,3 +1,4 @@
+import com.android.tools.profgen.getClassDescriptorFromBinaryName
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
 
@@ -25,14 +26,12 @@ private object Dependencies {
         const val composeBom = "androidx.compose:compose-bom:${Versions.composeBom}"
         const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
         const val composeGraphics = "androidx.compose.ui:ui-graphics:${Versions.compose}"
-        const val composeMaterial = "androidx.compose.material3:material3:${Versions.composeMaterial}"
+        const val composeMaterial =
+            "androidx.compose.material3:material3:${Versions.composeMaterial}"
 
-        const val composeTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.previewTooling}"
+        const val composeTooling =
+            "androidx.compose.ui:ui-tooling-preview:${Versions.previewTooling}"
         const val toolingDebug = "androidx.compose.ui:ui-tooling:${Versions.previewTooling}"
-
-        const val composeTestBom = "androidx.compose:compose-bom:${Versions.composeBom}"
-        const val composeJUnit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
-        const val composeTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
     }
 
     object ComposeDestinations {
@@ -63,9 +62,16 @@ private object Dependencies {
     }
 
     object TestDependencies {
-        const val junit = "junit:junit:${Versions.junit}"
-        const val androidJUnit = "androidx.test.ext:junit:${Versions.androidJUnit}"
-        const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+        const val androidArchTestCore = "androidx.arch.core:core-testing:${Versions.lifecycle}"
+        const val androidTestCore = "androidx.test:core:${Versions.android}"
+
+        const val jUnit = "junit:junit:${Versions.junit}"
+
+        const val coroutinesTest =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
+        const val truth = "com.google.truth:truth:${Versions.truth}"
+        const val mockk = "io.mockk:mockk:${Versions.mockk}"
+        const val composeTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
     }
 }
 
@@ -90,10 +96,7 @@ fun DependencyHandler.compose() {
     implementation(Dependencies.Compose.composeGraphics)
     implementation(Dependencies.Compose.composeMaterial)
 
-    androidTestImplementation(Dependencies.Compose.composeTestBom)
-    androidTestImplementation(Dependencies.Compose.composeJUnit4)
     debugImplementation(Dependencies.Compose.toolingDebug)
-    debugImplementation(Dependencies.Compose.composeTestManifest)
 }
 
 fun DependencyHandler.composeDestinations() {
@@ -125,10 +128,23 @@ fun DependencyHandler.room() {
     implementation(Dependencies.RoomDependencies.roomKtx)
 }
 
-fun DependencyHandler.test() {
-    testImplementation(Dependencies.TestDependencies.junit)
-    androidTestImplementation(Dependencies.TestDependencies.androidJUnit)
-    androidTestImplementation(Dependencies.TestDependencies.espresso)
+fun DependencyHandler.unitTest() {
+    implementation(Dependencies.TestDependencies.androidTestCore)
+    testImplementation(Dependencies.TestDependencies.jUnit)
+    testImplementation(Dependencies.TestDependencies.androidArchTestCore)
+    testImplementation(Dependencies.TestDependencies.coroutinesTest)
+    testImplementation(Dependencies.TestDependencies.truth)
+    testImplementation(Dependencies.TestDependencies.mockk)
+    debugImplementation(Dependencies.TestDependencies.composeTestManifest)
+}
+
+fun DependencyHandler.androidTest() {
+    androidTestImplementation(Dependencies.TestDependencies.androidTestCore)
+    androidTestImplementation(Dependencies.TestDependencies.jUnit)
+    androidTestImplementation(Dependencies.TestDependencies.androidArchTestCore)
+    androidTestImplementation(Dependencies.TestDependencies.coroutinesTest)
+    androidTestImplementation(Dependencies.TestDependencies.truth)
+    androidTestImplementation(Dependencies.TestDependencies.mockk)
 }
 
 fun DependencyHandler.dataModule() {
