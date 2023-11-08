@@ -6,13 +6,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javi.common.Resource
-import com.javi.domain.model.Book
 import com.javi.domain.model.User
 import com.javi.domain.use_case.book.GetAllBooksUseCase
 import com.javi.domain.use_case.book.GetFavouriteBooksUseCase
 import com.javi.domain.use_case.login.LogoutUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
 import com.javi.domain.use_case.user.GetUserUseCase
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel constructor(
@@ -22,6 +23,9 @@ class HomeViewModel constructor(
     private val getUserUseCase: GetUserUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
+
+    private val navigationChannel = Channel<HomeNavigationEvent>()
+    val navigationEventsChannelFlow = navigationChannel.receiveAsFlow()
 
     private var _userFromPreferences: User? = null
     var state by mutableStateOf(HomeUiState())
@@ -47,10 +51,9 @@ class HomeViewModel constructor(
             }
 
             is HomeUiEvents.OnBookClicked -> {
-                selectBook(event.book)
-            }
-            is HomeUiEvents.NavigateToBookDetail -> {
-                bookWasSelected()
+                viewModelScope.launch {
+                    navigationChannel.send(HomeNavigationEvent.NavigateToBookDetail(event.book))
+                }
             }
 
             is HomeUiEvents.GetAllBooks -> {
@@ -173,9 +176,10 @@ class HomeViewModel constructor(
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            result.data?.let { user ->
+                            navigationChannel.send(HomeNavigationEvent.NavigateToLogin)
+
+                            result.data?.let {
                                 state = state.copy(
-                                    logoutSuccess = true,
                                     isLogoutLoading = false,
                                 )
                             }
@@ -191,17 +195,5 @@ class HomeViewModel constructor(
                     }
                 }
         }
-    }
-
-    private fun selectBook(book: Book) {
-        state = state.copy(
-            selectedBook = book
-        )
-    }
-
-    private fun bookWasSelected() {
-        state = state.copy(
-            selectedBook = null
-        )
     }
 }

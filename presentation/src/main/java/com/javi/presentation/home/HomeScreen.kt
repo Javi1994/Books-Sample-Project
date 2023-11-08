@@ -8,11 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.javi.domain.model.Book
+import com.javi.presentation.ObserveAsEvents
 import com.javi.presentation.R
 import com.javi.presentation.components.BottomNav
 import com.javi.presentation.components.TopNavBar
 import com.javi.presentation.destinations.BookDetailScreenDestination
 import com.javi.presentation.destinations.LoginScreenDestination
+import com.javi.presentation.home.viewmodel.HomeNavigationEvent
 import com.javi.presentation.home.viewmodel.HomeUiEvents
 import com.javi.presentation.home.viewmodel.HomeUiState
 import com.javi.presentation.home.viewmodel.HomeViewModel
@@ -26,14 +28,18 @@ fun HomeScreen(
     navigator: DestinationsNavigator,
     viewModel: HomeViewModel = koinViewModel()
 ) {
+    ObserveAsEvents(viewModel.navigationEventsChannelFlow) { event ->
+        when (event) {
+            is HomeNavigationEvent.NavigateToBookDetail -> {
+                navigator.navigate(BookDetailScreenDestination)
+            }
 
-    if (viewModel.state.logoutSuccess) {
-        navigator.navigate(LoginScreenDestination)
+            is HomeNavigationEvent.NavigateToLogin -> {
+                navigator.navigate(LoginScreenDestination)
+            }
+        }
     }
-    if (viewModel.state.selectedBook != null) {
-        viewModel.onEvent(HomeUiEvents.NavigateToBookDetail)
-        navigator.navigate(BookDetailScreenDestination)
-    }
+
     if (viewModel.state.firstEntry) {
         viewModel.onEvent(HomeUiEvents.GetFavouriteBooks)
     }

@@ -2,7 +2,9 @@ package com.javi.presentation.login
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.javi.presentation.ObserveAsEvents
 import com.javi.presentation.destinations.HomeScreenDestination
+import com.javi.presentation.login.viewmodel.LoginNavigationEvent
 import com.javi.presentation.login.viewmodel.LoginUiEvent
 import com.javi.presentation.login.viewmodel.LoginUiState
 import com.javi.presentation.login.viewmodel.LoginViewModel
@@ -17,8 +19,12 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel()
 ) {
 
-    if (viewModel.state.loginSuccess) {
-        navigator.navigate(HomeScreenDestination)
+    ObserveAsEvents(viewModel.navigationEventsChannelFlow) { event ->
+        when (event) {
+            is LoginNavigationEvent.NavigateToHome -> {
+                navigator.navigate(HomeScreenDestination)
+            }
+        }
     }
 
     LoginLayout(

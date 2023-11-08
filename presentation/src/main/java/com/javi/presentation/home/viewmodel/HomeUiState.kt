@@ -10,10 +10,8 @@ data class HomeUiState(
     val favouriteBooks: List<Book> = listOf(),
     val allBooks: List<Book> = listOf(),
     val user: User? = null,
-    val selectedBook: Book? = null,
     val isLoading: Boolean = false,
     val isLogoutLoading: Boolean = false,
-    val logoutSuccess: Boolean = false,
     val error: Exception? = null,
 ) {
     val firstEntry: Boolean
@@ -26,5 +24,9 @@ sealed class HomeUiEvents {
     object GetUserSettings : HomeUiEvents()
     object Logout : HomeUiEvents()
     data class OnBookClicked(val book: Book) : HomeUiEvents()
-    object NavigateToBookDetail : HomeUiEvents()
+}
+
+sealed class HomeNavigationEvent {
+    data class NavigateToBookDetail(val book: Book) : HomeNavigationEvent()
+    object NavigateToLogin : HomeNavigationEvent()
 }
