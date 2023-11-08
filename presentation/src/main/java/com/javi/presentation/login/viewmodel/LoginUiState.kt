@@ -6,7 +6,6 @@ data class LoginUiState(
     val password: String = "",
     val passwordError: Int? = null,
     val userFromPreferences: String? = null,
-    val loginSuccess: Boolean = false,
     val isLoadingLogin: Boolean = false,
     val isLoadingLogout: Boolean = false,
     val error: Exception? = null
@@ -24,4 +23,8 @@ sealed class LoginUiEvent {
     object LoginWithPassword : LoginUiEvent()
     data class UpdateUsername(val username: String) : LoginUiEvent()
     data class UpdatePassword(val password: String) : LoginUiEvent()
+}
+
+sealed class LoginNavigationEvent {
+    object NavigateToHome: LoginNavigationEvent()
 }

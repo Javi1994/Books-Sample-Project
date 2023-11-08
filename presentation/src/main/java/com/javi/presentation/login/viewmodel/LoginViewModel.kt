@@ -11,7 +11,9 @@ import com.javi.common.ValidateUsername
 import com.javi.domain.model.User
 import com.javi.domain.use_case.login.LoginUseCase
 import com.javi.domain.use_case.preferences.GetUserFromPreferencesUseCase
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel constructor(
@@ -19,7 +21,11 @@ class LoginViewModel constructor(
     private val getUserFromPreferencesUseCase: GetUserFromPreferencesUseCase
 ) : ViewModel() {
 
+    private val navigationChannel = Channel<LoginNavigationEvent>()
+    val navigationEventsChannelFlow = navigationChannel.receiveAsFlow()
+
     var state by mutableStateOf(LoginUiState())
+        private set
 
     init {
         viewModelScope.launch {
@@ -89,18 +95,17 @@ class LoginViewModel constructor(
         }
     }
 
-    private fun updateUiState(result: Resource<User>) {
+    private suspend fun updateUiState(result: Resource<User>) {
         when (result) {
             is Resource.Success -> {
                 result.data?.let {
+                    navigationChannel.send(LoginNavigationEvent.NavigateToHome)
+
                     state = state.copy(
-                        loginSuccess = true,
-                        isLoadingLogin = result.isLoading,
-                        error = result.error
+                        isLoadingLogin = false,
                     )
                 }
             }
-
             is Resource.Loading -> {
                 state = state.copy(
                     isLoadingLogin = true
