@@ -11,23 +11,23 @@ import org.junit.Before
 import org.junit.Test
 import java.io.IOException
 
-class GetAllBooksUseCaseTest {
+class GetFavouriteBooksUseCaseTest {
 
-    private lateinit var getAllBooksUseCase: GetAllBooksUseCase
+    private lateinit var getFavouriteBooksUseCase: GetFavouriteBooksUseCase
     private lateinit var fakeBookRepository: FakeBookRepository
 
     @Before
     fun setUp() {
         fakeBookRepository = FakeBookRepository()
-        getAllBooksUseCase = GetAllBooksUseCase(fakeBookRepository, Dispatchers.Unconfined)
+        getFavouriteBooksUseCase = GetFavouriteBooksUseCase(fakeBookRepository, Dispatchers.Unconfined)
     }
 
     @Test
     fun `Success response, returns valid success resource`() {
-        fakeBookRepository.setAllBooksData(FakeBookData.validBooks)
+        fakeBookRepository.setFavouriteBooksData(FakeBookData.validBooks)
 
         runBlocking {
-            getAllBooksUseCase().collect {
+            getFavouriteBooksUseCase("Username").collect {
                 assertThat(it).isInstanceOf(Resource.Success::class.java)
                 assertThat(it.data).isNotNull()
                 assertThat(it.data?.first()).isInstanceOf(Book::class.java)
@@ -37,10 +37,10 @@ class GetAllBooksUseCaseTest {
 
     @Test
     fun `Success response with empty data, returns empty data error resource with nullpointer`() {
-        fakeBookRepository.setAllBooksData(FakeBookData.emptyBooks)
+        fakeBookRepository.setFavouriteBooksData(FakeBookData.emptyBooks)
 
         runBlocking {
-            getAllBooksUseCase().collect {
+            getFavouriteBooksUseCase("Username").collect {
                 assertThat(it).isInstanceOf(Resource.Error::class.java)
                 assertThat(it.error).isNotNull()
                 assertThat(it.error).isInstanceOf(NullPointerException::class.java)
@@ -53,10 +53,10 @@ class GetAllBooksUseCaseTest {
         fakeBookRepository.shouldReturnError()
 
         runBlocking {
-            getAllBooksUseCase().collect {
-                assertThat(it).isInstanceOf(Resource.Error::class.java)
-                assertThat(it.error).isNotNull()
-                assertThat(it.error).isInstanceOf(IOException::class.java)
+            getFavouriteBooksUseCase("Username").collect {
+               assertThat(it).isInstanceOf(Resource.Error::class.java)
+               assertThat(it.error).isNotNull()
+               assertThat(it.error).isInstanceOf(IOException::class.java)
             }
         }
     }
@@ -66,9 +66,9 @@ class GetAllBooksUseCaseTest {
         fakeBookRepository.shouldReturnLoading()
 
         runBlocking {
-            getAllBooksUseCase().collect {
-                assertThat(it).isInstanceOf(Resource.Loading::class.java)
-                assertThat(it.isLoading).isTrue()
+            getFavouriteBooksUseCase("Username").collect {
+               assertThat(it).isInstanceOf(Resource.Loading::class.java)
+               assertThat(it.isLoading).isTrue()
             }
         }
     }

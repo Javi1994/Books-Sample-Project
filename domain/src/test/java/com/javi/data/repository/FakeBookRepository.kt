@@ -25,7 +25,7 @@ class FakeBookRepository : BookRepository {
             } else if (shouldReturnLoading) {
                 emit(Resource.Loading())
             } else {
-                if (allBooks.isNotEmpty()) {
+                if (favouriteBooks.isNotEmpty()) {
                     emit(Resource.Success(favouriteBooks))
                 } else {
                     emit(Resource.Error(NullPointerException("No Books")))
@@ -57,7 +57,11 @@ class FakeBookRepository : BookRepository {
             } else if (shouldReturnLoading) {
                 emit(Resource.Loading())
             } else {
-                emit(Resource.Success(bookDetail))
+                if (bookDetail.id == "Id") {
+                    emit(Resource.Error(NullPointerException("No Book Detail")))
+                } else {
+                    emit(Resource.Success(bookDetail))
+                }
             }
         }
     }
