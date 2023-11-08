@@ -1,5 +1,8 @@
 package com.javi.data.repository
 
-object FakeUserData {
+import com.javi.data.dto.UserDto
 
+object FakeUserData {
+    val validUser = UserDto("Javi", "123431sdad")
+    val emptyUser = UserDto("", "")
 }
