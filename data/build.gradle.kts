@@ -1,7 +1,8 @@
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    `android-library`
-    `kotlin-android`
-    `kotlin-kapt`
+    id(libs.plugins.androidLibrary.get().pluginId)
+    id(libs.plugins.kotlinAndroid.get().pluginId)
+    id(libs.plugins.ksp.get().pluginId)
 }
 
 apply<MainGradlePluginModule>()
@@ -17,7 +18,7 @@ dependencies {
 
     implementation(libs.room.ktx)
     implementation(libs.room.core)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
 
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)

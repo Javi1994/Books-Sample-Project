@@ -9,7 +9,7 @@ object Versions {
     const val room = "2.6.0"
 
     //Compose
-    const val compose = "1.4.3"
+    const val compose = "1.5.3"
     const val composeBom = "2023.03.00"
     const val composeMaterial = "1.1.2"
     const val composeActivity = "1.8.0"
