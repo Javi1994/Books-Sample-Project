@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id(libs.plugins.androidApplication.get().pluginId)
+    id(libs.plugins.kotlinAndroid.get().pluginId)
 }
 
 android {
@@ -37,8 +37,9 @@ android {
 }
 
 dependencies {
-    koin()
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
 
-    presentationModule()
-    commonModule()
+    implementation(project(":common"))
+    implementation(project(":presentation"))
 }
