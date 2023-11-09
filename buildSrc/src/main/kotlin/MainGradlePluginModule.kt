@@ -6,15 +6,7 @@ import org.gradle.api.Project
 class MainGradlePluginModule : Plugin<Project> {
 
     override fun apply(project: Project) {
-        applyPlugins(project)
         setProjectConfig(project)
-    }
-
-    private fun applyPlugins(project: Project) {
-        project.apply {
-            plugin("android-library")
-            plugin("kotlin-android")
-        }
     }
 
     private fun setProjectConfig(project: Project) {

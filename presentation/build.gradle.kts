@@ -1,7 +1,8 @@
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    `android-library`
-    `kotlin-android`
-    id("com.google.devtools.ksp") version Versions.ksp
+    id(libs.plugins.androidLibrary.get().pluginId)
+    id(libs.plugins.kotlinAndroid.get().pluginId)
+    id(libs.plugins.ksp.get().pluginId)
 }
 
 apply<MainGradlePluginModule>()
@@ -13,22 +14,19 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
+        kotlinCompilerExtensionVersion = libs.versions.compose.main.get()
     }
 }
 
 dependencies {
-    coreKtx()
-    lifecycle()
+    implementation(libs.bundles.core)
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.bundles.koin)
+    implementation(libs.bundles.compose)
 
-    koin()
+    implementation(libs.compose.destinations.core)
+    ksp(libs.compose.destinations.ksp)
 
-    compose()
-    composeDestinations()
-
-    unitTest()
-    androidTest()
-
-    domainModule()
-    commonModule()
+    implementation(project(":common"))
+    implementation(project(":domain"))
 }
