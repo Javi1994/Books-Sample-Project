@@ -12,18 +12,12 @@ android {
 }
 
 dependencies {
-    implementation(libs.koin.android)
+    implementation(libs.bundles.koin)
 
     implementation(libs.datastore)
 
-    implementation(libs.room.ktx)
-    implementation(libs.room.core)
+    implementation(libs.bundles.room)
     ksp(libs.room.compiler)
-
-    testImplementation(libs.junit)
-    testImplementation(libs.coroutines.test)
-    testImplementation(libs.truth)
-    testImplementation(libs.mockk)
 
     implementation(project(":common"))
 }

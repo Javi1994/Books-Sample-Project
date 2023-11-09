@@ -14,25 +14,15 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
+        kotlinCompilerExtensionVersion = libs.versions.compose.main.get()
     }
 }
 
 dependencies {
-    implementation(libs.core.ktx)
-
-    implementation(libs.lifecycle.runtime)
-    implementation(libs.lifecycle.viewmodel)
-
-    implementation(libs.koin.android)
-    implementation(libs.koin.compose)
-
-    implementation(libs.compose.activity)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.tooling.preview)
-    implementation(libs.material3)
+    implementation(libs.bundles.core)
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.bundles.koin)
+    implementation(libs.bundles.compose)
 
     implementation(libs.compose.destinations.core)
     ksp(libs.compose.destinations.ksp)

@@ -11,12 +11,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.koin.android)
+    implementation(libs.bundles.koin)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.coroutines.test)
-    testImplementation(libs.truth)
-    testImplementation(libs.mockk)
+    testImplementation(libs.bundles.test)
 
     implementation(project(":common"))
     implementation(project(":data"))
