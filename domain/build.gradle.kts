@@ -10,10 +10,13 @@ android {
 }
 
 dependencies {
-    koin()
+    implementation(libs.koin.android)
 
-    unitTest()
+    testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockk)
 
-    dataModule()
-    commonModule()
+    implementation(project(":common"))
+    implementation(project(":data"))
 }

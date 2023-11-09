@@ -18,17 +18,24 @@ android {
 }
 
 dependencies {
-    coreKtx()
-    lifecycle()
+    implementation(libs.core.ktx)
 
-    koin()
+    implementation(libs.lifecycle.runtime)
+    implementation(libs.lifecycle.viewmodel)
 
-    compose()
-    composeDestinations()
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
 
-    unitTest()
-    androidTest()
+    implementation(libs.compose.activity)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.tooling.preview)
+    implementation(libs.material3)
 
-    domainModule()
-    commonModule()
+    implementation(libs.compose.destinations.core)
+    ksp(libs.compose.destinations.ksp)
+
+    implementation(project(":common"))
+    implementation(project(":domain"))
 }

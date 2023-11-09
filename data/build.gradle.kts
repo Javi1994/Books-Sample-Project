@@ -11,11 +11,18 @@ android {
 }
 
 dependencies {
-    koin()
-    dataStore()
-    room()
+    implementation(libs.koin.android)
 
-    unitTest()
+    implementation(libs.datastore)
 
-    commonModule()
+    implementation(libs.room.ktx)
+    implementation(libs.room.core)
+    kapt(libs.room.compiler)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockk)
+
+    implementation(project(":common"))
 }
